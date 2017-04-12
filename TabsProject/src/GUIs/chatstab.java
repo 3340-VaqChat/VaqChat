@@ -19,11 +19,19 @@ import profiletab.profilestab;
  */
 public class chatstab {
     private TabPane tabPane = new TabPane();
+    private Image img0 = new Image("imgs/note.png");
     private Image img1 = new Image("imgs/open.gif");
     private Image img2 = new Image("imgs/save.gif");
     
     public chatstab(){
         tabPane.setStyle("-fx-background-color: cornsilk;");
+        
+        Tab tab0 = new Tab("Chat");
+        tab0.idProperty().set("Chat");
+        tab0.setClosable(false);
+        tab0.setGraphic(new ImageView(img0));
+        tab0.setStyle("-fx-border-color: navy; -fx-background-color: bisque;");
+        tab0.setContent(null);
         
         Tab tab1 = new Tab("Profiles");
         tab1.idProperty().set("Profiles");
@@ -48,7 +56,7 @@ public class chatstab {
         webEngine.load(getClass().getResource("/aboutHTML/aboutstab.html").toString());
         tab3.setContent(browser);
         
-        tabPane.getTabs().addAll(tab1, tab2, tab3);
+        tabPane.getTabs().addAll(tab0, tab1, tab2, tab3);
     }
 
     /**
