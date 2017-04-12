@@ -33,6 +33,9 @@ import javafx.scene.text.TextAlignment;
 /**
  *
  * @author Michelle Marie Garcia
+ * 
+ * This class creates the content within the Courses tab. Within this class, a
+ * GUI is created along with the necessary classes needed for the GUI to function.
  */
 public class coursestab extends BorderPane {
     ArrayList<Profile> profiles = new ArrayList<>();
@@ -349,6 +352,13 @@ public class coursestab extends BorderPane {
     }
 }    
 
+/**
+ * 
+ * @author Michelle Marie Garcia
+ * 
+ * This class creates Profile objects to hold a complete profile composed of a
+ * person's information, their screen name, and their current courses.
+ */
 class Profile {
     private String screenName;
     private Courses currentCourses;

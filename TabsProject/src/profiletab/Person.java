@@ -1,29 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package profiletab;
 
 /**
  *
- * @author miche
+ * @author Michelle Marie Garcia
+ * 
+ * This class creates a Person object to hold a student's info input by the user.
  */
 public class Person {
     private String lastName;
     private String firstName;
     private String id;
-    private String DOB;
-    private String imageFileName;
     private String email;
-    private String address1;
-    private String address2;
-    private String city;
-    private String state;
-    private String zip;
-    private String homePhone;
-    private String workPhone;
-    private String cellPhone;
     private String webURL;
 
     /**
@@ -45,36 +32,16 @@ public class Person {
      * @param lastName
      * @param firstName
      * @param id
-     * @param DOB
-     * @param imageFileName
      * @param email
-     * @param address1
-     * @param address2
-     * @param city
-     * @param state
-     * @param zip
-     * @param homePhone
-     * @param workPhone
-     * @param cellPhone
      * @param webURL 
      * 
      * A constructor with all inputs given
      */
-    public Person(String lastName, String firstName, String id, String DOB, String imageFileName, String email, String address1, String address2, String city, String state, String zip, String homePhone, String workPhone, String cellPhone, String webURL) {
+    public Person(String lastName, String firstName, String id, String email, String webURL) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.id = id;
-        this.DOB = DOB;
-        this.imageFileName = imageFileName;
         this.email = email;
-        this.address1 = address1;
-        this.address2 = address2;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.homePhone = homePhone;
-        this.workPhone = workPhone;
-        this.cellPhone = cellPhone;
         this.webURL = webURL;
     }
 
@@ -121,34 +88,6 @@ public class Person {
     }
 
     /**
-     * @return the DOB
-     */
-    public String getDOB() {
-        return DOB;
-    }
-
-    /**
-     * @param DOB the DOB to set
-     */
-    public void setDOB(String DOB) {
-        this.DOB = DOB;
-    }
-
-    /**
-     * @return the imageFileName
-     */
-    public String getImageFileName() {
-        return imageFileName;
-    }
-
-    /**
-     * @param imageFileName the imageFileName to set
-     */
-    public void setImageFileName(String imageFileName) {
-        this.imageFileName = imageFileName;
-    }
-
-    /**
      * @return the email
      */
     public String getEmail() {
@@ -160,118 +99,6 @@ public class Person {
      */
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    /**
-     * @return the address1
-     */
-    public String getAddress1() {
-        return address1;
-    }
-
-    /**
-     * @param address1 the address1 to set
-     */
-    public void setAddress1(String address1) {
-        this.address1 = address1;
-    }
-
-    /**
-     * @return the address2
-     */
-    public String getAddress2() {
-        return address2;
-    }
-
-    /**
-     * @param address2 the address2 to set
-     */
-    public void setAddress2(String address2) {
-        this.address2 = address2;
-    }
-
-    /**
-     * @return the city
-     */
-    public String getCity() {
-        return city;
-    }
-
-    /**
-     * @param city the city to set
-     */
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    /**
-     * @return the state
-     */
-    public String getState() {
-        return state;
-    }
-
-    /**
-     * @param state the state to set
-     */
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    /**
-     * @return the zip
-     */
-    public String getZip() {
-        return zip;
-    }
-
-    /**
-     * @param zip the zip to set
-     */
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
-
-    /**
-     * @return the homePhone
-     */
-    public String getHomePhone() {
-        return homePhone;
-    }
-
-    /**
-     * @param homePhone the homePhone to set
-     */
-    public void setHomePhone(String homePhone) {
-        this.homePhone = homePhone;
-    }
-
-    /**
-     * @return the workPhone
-     */
-    public String getWorkPhone() {
-        return workPhone;
-    }
-
-    /**
-     * @param workPhone the workPhone to set
-     */
-    public void setWorkPhone(String workPhone) {
-        this.workPhone = workPhone;
-    }
-
-    /**
-     * @return the cellPhone
-     */
-    public String getCellPhone() {
-        return cellPhone;
-    }
-
-    /**
-     * @param cellPhone the cellPhone to set
-     */
-    public void setCellPhone(String cellPhone) {
-        this.cellPhone = cellPhone;
     }
 
     /**

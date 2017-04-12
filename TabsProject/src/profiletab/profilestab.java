@@ -156,60 +156,10 @@ public class profilestab extends BorderPane {
         idField.setId("id");
         idField.setMaxWidth(Double.MAX_VALUE);
 
-        Label dobLabel = new Label("D.O.B.:");
-        TextField dobField = new TextField();
-        dobField.setId("dob");
-        dobField.setMaxWidth(Double.MAX_VALUE);
-
-        Label imgLabel = new Label("Image Name:");
-        TextField imgField = new TextField();
-        imgField.setId("img");
-        imgField.setMaxWidth(Double.MAX_VALUE);
-
         Label emailLabel = new Label("Enter Email:");
         TextField emailField = new TextField();
         emailField.setId("mail");
         emailField.setMaxWidth(Double.MAX_VALUE);
-
-        Label address1Label = new Label("Address1:");
-        TextField address1Field = new TextField();
-        address1Field.setId("address1");
-        address1Field.setMaxWidth(Double.MAX_VALUE);
-
-        Label address2Label = new Label("Address2:");
-        TextField address2Field = new TextField();
-        address2Field.setId("address2");
-        address2Field.setMaxWidth(Double.MAX_VALUE);
-
-        Label cityLabel = new Label("City:");
-        TextField cityField = new TextField();
-        cityField.setId("city");
-        cityField.setMaxWidth(Double.MAX_VALUE);
-
-        Label stateLabel = new Label("State:");
-        TextField stateField = new TextField();
-        stateField.setId("state");
-        stateField.setMaxWidth(Double.MAX_VALUE);
-
-        Label zipLabel = new Label("Zip Code:");
-        TextField zipField = new TextField();
-        zipField.setId("zip");
-        zipField.setMaxWidth(Double.MAX_VALUE);
-
-        Label homeLabel = new Label("Home Phone:");
-        TextField homeField = new TextField();
-        homeField.setId("home");
-        homeField.setMaxWidth(Double.MAX_VALUE);
-
-        Label workLabel = new Label("Work Phone:");
-        TextField workField = new TextField();
-        workField.setId("work");
-        workField.setMaxWidth(Double.MAX_VALUE);
-
-        Label cellLabel = new Label("Cell Phone:");
-        TextField cellField = new TextField();
-        cellField.setId("cell");
-        cellField.setMaxWidth(Double.MAX_VALUE);
 
         Label urlLabel = new Label("Web URL:");
         TextField urlField = new TextField();
@@ -229,30 +179,10 @@ public class profilestab extends BorderPane {
         profileEntryGrid.add(lnameField, 1, 3);
         profileEntryGrid.add(idLabel, 0, 4);
         profileEntryGrid.add(idField, 1, 4);
-        profileEntryGrid.add(dobLabel, 0, 5);
-        profileEntryGrid.add(dobField, 1, 5);
-        profileEntryGrid.add(imgLabel, 0, 6);
-        profileEntryGrid.add(imgField, 1, 6);
-        profileEntryGrid.add(emailLabel, 0, 7);
-        profileEntryGrid.add(emailField, 1, 7);
-        profileEntryGrid.add(address1Label, 0, 8);
-        profileEntryGrid.add(address1Field, 1, 8);
-        profileEntryGrid.add(address2Label, 0, 9);
-        profileEntryGrid.add(address2Field, 1, 9);
-        profileEntryGrid.add(cityLabel, 0, 10);
-        profileEntryGrid.add(cityField, 1, 10);
-        profileEntryGrid.add(stateLabel, 0, 11);
-        profileEntryGrid.add(stateField, 1, 11);
-        profileEntryGrid.add(zipLabel, 0, 12);
-        profileEntryGrid.add(zipField, 1, 12);
-        profileEntryGrid.add(homeLabel, 0, 13);
-        profileEntryGrid.add(homeField, 1, 13);
-        profileEntryGrid.add(workLabel, 0, 14);
-        profileEntryGrid.add(workField, 1, 14);
-        profileEntryGrid.add(cellLabel, 0, 15);
-        profileEntryGrid.add(cellField, 1, 15);
-        profileEntryGrid.add(urlLabel, 0, 16);
-        profileEntryGrid.add(urlField, 1, 16);
+        profileEntryGrid.add(emailLabel, 0, 5);
+        profileEntryGrid.add(emailField, 1, 5);
+        profileEntryGrid.add(urlLabel, 0, 6);
+        profileEntryGrid.add(urlField, 1, 6);
 
         HBox leftHBox = new HBox();
         leftHBox.getChildren().addAll(profileEntryGrid, separator2);
@@ -343,23 +273,11 @@ public class profilestab extends BorderPane {
         TextField Txfname = (TextField) scene.lookup("#fname");
         TextField Txlname = (TextField) scene.lookup("#lname");
         TextField Txid = (TextField) scene.lookup("#id");
-        TextField Txdob = (TextField) scene.lookup("#dob");
-        TextField Tximg = (TextField) scene.lookup("#img");
         TextField Txmail = (TextField) scene.lookup("#mail");
-        TextField Txaddress1 = (TextField) scene.lookup("#address1");
-        TextField Txaddress2 = (TextField) scene.lookup("#address2");
-        TextField Txcity = (TextField) scene.lookup("#city");
-        TextField Txstate = (TextField) scene.lookup("#state");
-        TextField Txzip = (TextField) scene.lookup("#zip");
-        TextField Txhome = (TextField) scene.lookup("#home");
-        TextField Txwork = (TextField) scene.lookup("#work");
-        TextField Txcell = (TextField) scene.lookup("#cell");
         TextField Txurl = (TextField) scene.lookup("#url");
 
         profile1.setPerson(new Person(Txfname.getText(), Txlname.getText(), Txid.getText(),
-                Txdob.getText(), Tximg.getText(), Txmail.getText(), Txaddress1.getText(),
-                Txaddress2.getText(), Txcity.getText(), Txstate.getText(), Txzip.getText(),
-                Txhome.getText(), Txwork.getText(), Txcell.getText(), Txurl.getText()));
+                Txmail.getText(), Txurl.getText()));
         profile1.setScreenName(Txuname.getText());
 
         profiles.add(profile1);
@@ -371,17 +289,7 @@ public class profilestab extends BorderPane {
         Txfname.setText("");
         Txlname.setText("");
         Txid.setText("");
-        Txdob.setText("");
-        Tximg.setText("");
         Txmail.setText("");
-        Txaddress1.setText("");
-        Txaddress2.setText("");
-        Txcity.setText("");
-        Txstate.setText("");
-        Txzip.setText("");
-        Txhome.setText("");
-        Txwork.setText("");
-        Txcell.setText("");
         Txurl.setText("");
     }
 
@@ -452,13 +360,8 @@ class Profile {
     @Override
     public String toString() {
         return screenName + "'s Profile:\n" + this.getPerson().getFirstName() + " "
-                + this.getPerson().getLastName() + "\n" + this.getPerson().getId() + "\n"
-                + this.getPerson().getDOB() + "\n" + this.getPerson().getImageFileName() 
-                + "\n" + this.getPerson().getEmail() + "\n" + this.getPerson().getAddress1()
-                + "\n" + this.getPerson().getAddress2() + "\n" + this.getPerson().getCity()
-                + "\n" + this.getPerson().getState() + "\n" + this.getPerson().getZip()
-                + "\n" + this.getPerson().getHomePhone() + "\n" + this.getPerson().getWorkPhone()
-                + "\n" + this.getPerson().getCellPhone() + "\n" + this.getPerson().getWebURL();
+                + this.getPerson().getLastName() + "\n" + this.getPerson().getId() 
+                + "\n" + this.getPerson().getEmail() + "\n" + this.getPerson().getWebURL();
     }
 
     /**
