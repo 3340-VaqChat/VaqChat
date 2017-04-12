@@ -1,5 +1,6 @@
 package GUIs;
 
+import coursetab.coursestab;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -45,7 +46,7 @@ public class chatstab {
         tab2.setClosable(false);
         tab2.setGraphic(new ImageView(img2));
         tab2.setStyle("-fx-border-color: navy; -fx-background-color: bisque;");
-        tab2.setContent(null);
+        tab2.setContent(new coursestab());
         
         Tab tab3 = new Tab("About");
         tab3.setClosable(false);

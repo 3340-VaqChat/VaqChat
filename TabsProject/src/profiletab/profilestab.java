@@ -39,7 +39,6 @@ import javafx.scene.text.TextAlignment;
  */
 public class profilestab extends BorderPane {
     ArrayList<Profile> profiles = new ArrayList<>();
-    ArrayList<Courses> courses = new ArrayList<>();
     ListView<Profile> profilesView = new ListView();
 
     /**
@@ -136,8 +135,6 @@ public class profilestab extends BorderPane {
 
         Label studentInfoLabel = new Label("Student Info");
         studentInfoLabel.setStyle("-fx-font-weight: bold;");
-        Label courseInfoLabel = new Label("Course Info");
-        courseInfoLabel.setStyle("-fx-font-weight: bold;");
 
         Label unameLabel = new Label("Username:");
         TextField unameField = new TextField();
@@ -219,51 +216,6 @@ public class profilestab extends BorderPane {
         urlField.setId("url");
         urlField.setMaxWidth(Double.MAX_VALUE);
 
-        Label cidLabel = new Label("Course ID:");
-        TextField cidField = new TextField();
-        cidField.setId("cid");
-        cidField.setMaxWidth(Double.MAX_VALUE);
-
-        Label prefixLabel = new Label("Prefix:");
-        TextField prefixField = new TextField();
-        prefixField.setId("prefix");
-        prefixField.setMaxWidth(Double.MAX_VALUE);
-
-        Label cnumLabel = new Label("Course Number:");
-        TextField cnumField = new TextField();
-        cnumField.setId("cnum");
-        cnumField.setMaxWidth(Double.MAX_VALUE);
-
-        Label sectionLabel = new Label("Section:");
-        TextField sectionField = new TextField();
-        sectionField.setId("section");
-        sectionField.setMaxWidth(Double.MAX_VALUE);
-
-        Label startLabel = new Label("Start Time:");
-        TextField startField = new TextField();
-        startField.setId("start");
-        startField.setMaxWidth(Double.MAX_VALUE);
-
-        Label endLabel = new Label("End Time:");
-        TextField endField = new TextField();
-        endField.setId("end");
-        endField.setMaxWidth(Double.MAX_VALUE);
-
-        Label locationLabel = new Label("Location:");
-        TextField locationField = new TextField();
-        locationField.setId("location");
-        locationField.setMaxWidth(Double.MAX_VALUE);
-
-        Label instLabel = new Label("Instructor:");
-        TextField instField = new TextField();
-        instField.setId("inst");
-        instField.setMaxWidth(Double.MAX_VALUE);
-
-        Label prenumLabel = new Label("Prereq. Number:");
-        TextField prenumField = new TextField();
-        prenumField.setId("prenum");
-        prenumField.setMaxWidth(Double.MAX_VALUE);
-
         Separator separator2 = new Separator();
         separator2.setMinSize(20, 20);
         separator2.setOrientation(Orientation.VERTICAL);
@@ -301,26 +253,6 @@ public class profilestab extends BorderPane {
         profileEntryGrid.add(cellField, 1, 15);
         profileEntryGrid.add(urlLabel, 0, 16);
         profileEntryGrid.add(urlField, 1, 16);
-
-        profileEntryGrid.add(courseInfoLabel, 2, 0);
-        profileEntryGrid.add(cidLabel, 2, 1);
-        profileEntryGrid.add(cidField, 3, 1);
-        profileEntryGrid.add(prefixLabel, 2, 2);
-        profileEntryGrid.add(prefixField, 3, 2);
-        profileEntryGrid.add(cnumLabel, 2, 3);
-        profileEntryGrid.add(cnumField, 3, 3);
-        profileEntryGrid.add(sectionLabel, 2, 4);
-        profileEntryGrid.add(sectionField, 3, 4);
-        profileEntryGrid.add(startLabel, 2, 5);
-        profileEntryGrid.add(startField, 3, 5);
-        profileEntryGrid.add(endLabel, 2, 6);
-        profileEntryGrid.add(endField, 3, 6);
-        profileEntryGrid.add(locationLabel, 2, 7);
-        profileEntryGrid.add(locationField, 3, 7);
-        profileEntryGrid.add(instLabel, 2, 8);
-        profileEntryGrid.add(instField, 3, 8);
-        profileEntryGrid.add(prenumLabel, 2, 9);
-        profileEntryGrid.add(prenumField, 3, 9);
 
         HBox leftHBox = new HBox();
         leftHBox.getChildren().addAll(profileEntryGrid, separator2);
@@ -424,24 +356,11 @@ public class profilestab extends BorderPane {
         TextField Txcell = (TextField) scene.lookup("#cell");
         TextField Txurl = (TextField) scene.lookup("#url");
 
-        TextField Txcid = (TextField) scene.lookup("#cid");
-        TextField Txprefix = (TextField) scene.lookup("#prefix");
-        TextField Txcnum = (TextField) scene.lookup("#cnum");
-        TextField Txsection = (TextField) scene.lookup("#section");
-        TextField Txstart = (TextField) scene.lookup("#start");
-        TextField Txend = (TextField) scene.lookup("#end");
-        TextField Txlocation = (TextField) scene.lookup("#location");
-        TextField Txinst = (TextField) scene.lookup("#inst");
-        TextField Txprenum = (TextField) scene.lookup("#prenum");
-
         profile1.setPerson(new Person(Txfname.getText(), Txlname.getText(), Txid.getText(),
                 Txdob.getText(), Tximg.getText(), Txmail.getText(), Txaddress1.getText(),
                 Txaddress2.getText(), Txcity.getText(), Txstate.getText(), Txzip.getText(),
                 Txhome.getText(), Txwork.getText(), Txcell.getText(), Txurl.getText()));
         profile1.setScreenName(Txuname.getText());
-        profile1.setCurrentCourses(new Courses(Txcid.getText(), Txprefix.getText(),
-                Txcnum.getText(), Txsection.getText(), Txstart.getText(), Txend.getText(),
-                Txlocation.getText(), Txinst.getText(), Txprenum.getText()));
 
         profiles.add(profile1);
 //--------------------------------------------------------------------------------
@@ -464,15 +383,6 @@ public class profilestab extends BorderPane {
         Txwork.setText("");
         Txcell.setText("");
         Txurl.setText("");
-        Txcid.setText("");
-        Txprefix.setText("");
-        Txcnum.setText("");
-        Txsection.setText("");
-        Txstart.setText("");
-        Txend.setText("");
-        Txlocation.setText("");
-        Txinst.setText("");
-        Txprenum.setText("");
     }
 
     /**
@@ -532,485 +442,12 @@ public class profilestab extends BorderPane {
  * 
  * @author Michelle Marie Garcia
  * 
- * This class creates a Courses object to hold a person's courses
- */
-class Courses {
-    private String courseId;
-    private String prefix;
-    private String courseNum;
-    private String section;
-    private String startTime;
-    private String endTime;
-    private String location;
-    private String instructor;
-    private String prereq;
-
-    /**
-     * 
-     * @param courseId
-     * @param prefix
-     * @param courseNum
-     * @param section 
-     * 
-     * This constructor takes only certain fields
-     */
-    public Courses(String courseId, String prefix, String courseNum, String section) {
-        this.courseId = courseId;
-        this.prefix = prefix;
-        this.courseNum = courseNum;
-        this.section = section;
-    }
-
-    /**
-     * 
-     * @param courseId
-     * @param prefix
-     * @param courseNum
-     * @param section
-     * @param startTime
-     * @param endTime
-     * @param location
-     * @param instructor
-     * @param prereq 
-     * 
-     * This constructor takes all input
-     */
-    public Courses(String courseId, String prefix, String courseNum, String section, String startTime, String endTime, String location, String instructor, String prereq) {
-        this.courseId = courseId;
-        this.prefix = prefix;
-        this.courseNum = courseNum;
-        this.section = section;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.location = location;
-        this.instructor = instructor;
-        this.prereq = prereq;
-    }
-    
-    /**
-     * @return the courseId
-     */
-    public String getCourseId() {
-        return courseId;
-    }
-
-    /**
-     * @param courseId the courseId to set
-     */
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
-
-    /**
-     * @return the prefix
-     */
-    public String getPrefix() {
-        return prefix;
-    }
-
-    /**
-     * @param prefix the prefix to set
-     */
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
-    }
-
-    /**
-     * @return the courseNum
-     */
-    public String getCourseNum() {
-        return courseNum;
-    }
-
-    /**
-     * @param courseNum the courseNum to set
-     */
-    public void setCourseNum(String courseNum) {
-        this.courseNum = courseNum;
-    }
-
-    /**
-     * @return the section
-     */
-    public String getSection() {
-        return section;
-    }
-
-    /**
-     * @param section the section to set
-     */
-    public void setSection(String section) {
-        this.section = section;
-    }
-
-    /**
-     * @return the startTime
-     */
-    public String getStartTime() {
-        return startTime;
-    }
-
-    /**
-     * @param startTime the startTime to set
-     */
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
-    /**
-     * @return the endTime
-     */
-    public String getEndTime() {
-        return endTime;
-    }
-
-    /**
-     * @param endTime the endTime to set
-     */
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
-
-    /**
-     * @return the location
-     */
-    public String getLocation() {
-        return location;
-    }
-
-    /**
-     * @param location the location to set
-     */
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    /**
-     * @return the instructor
-     */
-    public String getInstructor() {
-        return instructor;
-    }
-
-    /**
-     * @param instructor the instructor to set
-     */
-    public void setInstructor(String instructor) {
-        this.instructor = instructor;
-    }
-
-    /**
-     * @return the prereq
-     */
-    public String getPrereq() {
-        return prereq;
-    }
-
-    /**
-     * @param prereq the prereq to set
-     */
-    public void setPrereq(String prereq) {
-        this.prereq = prereq;
-    }
-}
-
-/**
- * 
- * @author miche
- * 
- * This class creates a Person object with the input given by the user
- */
-class Person {
-    private String lastName;
-    private String firstName;
-    private String id;
-    private String DOB;
-    private String imageFileName;
-    private String email;
-    private String address1;
-    private String address2;
-    private String city;
-    private String state;
-    private String zip;
-    private String homePhone;
-    private String workPhone;
-    private String cellPhone;
-    private String webURL;
-
-    /**
-     * 
-     * @param lastName
-     * @param firstName
-     * @param id 
-     * 
-     * A constructor with only a few entries
-     */
-    public Person(String lastName, String firstName, String id) {
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.id = id;
-    }
-
-    /**
-     * 
-     * @param lastName
-     * @param firstName
-     * @param id
-     * @param DOB
-     * @param imageFileName
-     * @param email
-     * @param address1
-     * @param address2
-     * @param city
-     * @param state
-     * @param zip
-     * @param homePhone
-     * @param workPhone
-     * @param cellPhone
-     * @param webURL 
-     * 
-     * A constructor with all inputs given
-     */
-    public Person(String lastName, String firstName, String id, String DOB, String imageFileName, String email, String address1, String address2, String city, String state, String zip, String homePhone, String workPhone, String cellPhone, String webURL) {
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.id = id;
-        this.DOB = DOB;
-        this.imageFileName = imageFileName;
-        this.email = email;
-        this.address1 = address1;
-        this.address2 = address2;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.homePhone = homePhone;
-        this.workPhone = workPhone;
-        this.cellPhone = cellPhone;
-        this.webURL = webURL;
-    }
-
-    /**
-     * @return the lastName
-     */
-    public String getLastName() {
-        return lastName;
-    }
-
-    /**
-     * @param lastName the lastName to set
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    /**
-     * @return the firstName
-     */
-    public String getFirstName() {
-        return firstName;
-    }
-
-    /**
-     * @param firstName the firstName to set
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    /**
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the DOB
-     */
-    public String getDOB() {
-        return DOB;
-    }
-
-    /**
-     * @param DOB the DOB to set
-     */
-    public void setDOB(String DOB) {
-        this.DOB = DOB;
-    }
-
-    /**
-     * @return the imageFileName
-     */
-    public String getImageFileName() {
-        return imageFileName;
-    }
-
-    /**
-     * @param imageFileName the imageFileName to set
-     */
-    public void setImageFileName(String imageFileName) {
-        this.imageFileName = imageFileName;
-    }
-
-    /**
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * @return the address1
-     */
-    public String getAddress1() {
-        return address1;
-    }
-
-    /**
-     * @param address1 the address1 to set
-     */
-    public void setAddress1(String address1) {
-        this.address1 = address1;
-    }
-
-    /**
-     * @return the address2
-     */
-    public String getAddress2() {
-        return address2;
-    }
-
-    /**
-     * @param address2 the address2 to set
-     */
-    public void setAddress2(String address2) {
-        this.address2 = address2;
-    }
-
-    /**
-     * @return the city
-     */
-    public String getCity() {
-        return city;
-    }
-
-    /**
-     * @param city the city to set
-     */
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    /**
-     * @return the state
-     */
-    public String getState() {
-        return state;
-    }
-
-    /**
-     * @param state the state to set
-     */
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    /**
-     * @return the zip
-     */
-    public String getZip() {
-        return zip;
-    }
-
-    /**
-     * @param zip the zip to set
-     */
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
-
-    /**
-     * @return the homePhone
-     */
-    public String getHomePhone() {
-        return homePhone;
-    }
-
-    /**
-     * @param homePhone the homePhone to set
-     */
-    public void setHomePhone(String homePhone) {
-        this.homePhone = homePhone;
-    }
-
-    /**
-     * @return the workPhone
-     */
-    public String getWorkPhone() {
-        return workPhone;
-    }
-
-    /**
-     * @param workPhone the workPhone to set
-     */
-    public void setWorkPhone(String workPhone) {
-        this.workPhone = workPhone;
-    }
-
-    /**
-     * @return the cellPhone
-     */
-    public String getCellPhone() {
-        return cellPhone;
-    }
-
-    /**
-     * @param cellPhone the cellPhone to set
-     */
-    public void setCellPhone(String cellPhone) {
-        this.cellPhone = cellPhone;
-    }
-
-    /**
-     * @return the webURL
-     */
-    public String getWebURL() {
-        return webURL;
-    }
-
-    /**
-     * @param webURL the webURL to set
-     */
-    public void setWebURL(String webURL) {
-        this.webURL = webURL;
-    }
-}
-
-/**
- * 
- * @author Michelle Marie Garcia
- * 
  * This class creates Profile objects to hold a complete profile composed of a
  * person's information, their screen name, and their current courses.
  */
 class Profile {
     private Person person;
     private String screenName;
-    private Courses currentCourses;
     
     @Override
     public String toString() {
@@ -1021,11 +458,7 @@ class Profile {
                 + "\n" + this.getPerson().getAddress2() + "\n" + this.getPerson().getCity()
                 + "\n" + this.getPerson().getState() + "\n" + this.getPerson().getZip()
                 + "\n" + this.getPerson().getHomePhone() + "\n" + this.getPerson().getWorkPhone()
-                + "\n" + this.getPerson().getCellPhone() + "\n" + this.getPerson().getWebURL()
-                + "\n" + this.getCurrentCourses().getCourseId() + "\n" + this.getCurrentCourses().getPrefix() 
-                + "\n" + this.getCurrentCourses().getCourseNum() + "\n" + this.getCurrentCourses().getSection()
-                + "\n" + this.getCurrentCourses().getStartTime() + "\n" + this.getCurrentCourses().getEndTime()
-                + "\n" + this.getCurrentCourses().getLocation() + "\n" + this.getCurrentCourses().getPrereq();
+                + "\n" + this.getPerson().getCellPhone() + "\n" + this.getPerson().getWebURL();
     }
 
     /**
@@ -1054,19 +487,5 @@ class Profile {
      */
     public void setScreenName(String screenName) {
         this.screenName = screenName;
-    }
-
-    /**
-     * @return the currentCourses
-     */
-    public Courses getCurrentCourses() {
-        return currentCourses;
-    }
-
-    /**
-     * @param currentCourses the currentCourses to set
-     */
-    public void setCurrentCourses(Courses currentCourses) {
-        this.currentCourses = currentCourses;
     }
 }
