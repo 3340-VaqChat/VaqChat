@@ -365,8 +365,8 @@ class Profile {
     
     @Override
     public String toString() {
-        return screenName + "\n" + this.getCurrentCourses().getCourseId() + "\n" 
-                + this.getCurrentCourses().getPrefix() + "\n" 
+        return screenName + "'s Profile:\n" + this.getCurrentCourses().getCourseId() 
+                + "\n" + this.getCurrentCourses().getPrefix() + "\n" 
                 + this.getCurrentCourses().getCourseNum() + "\n" 
                 + this.getCurrentCourses().getSection() + "\n" 
                 + this.getCurrentCourses().getStartTime() + "\n" 

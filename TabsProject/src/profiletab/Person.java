@@ -21,7 +21,7 @@ public class Person {
      * 
      * A constructor with only a few entries
      */
-    public Person(String lastName, String firstName, String id) {
+    public Person(String firstName, String lastName, String id) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.id = id;
@@ -37,7 +37,7 @@ public class Person {
      * 
      * A constructor with all inputs given
      */
-    public Person(String lastName, String firstName, String id, String email, String webURL) {
+    public Person(String firstName, String lastName, String id, String email, String webURL) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.id = id;

@@ -138,7 +138,7 @@ public class profilestab extends BorderPane {
 
         Label unameLabel = new Label("Username:");
         TextField unameField = new TextField();
-        unameField.setId("uname");
+        unameField.setId("uname0");
         unameField.setMaxWidth(Double.MAX_VALUE);
 
         Label fnameLabel = new Label("First Name:");
@@ -269,7 +269,7 @@ public class profilestab extends BorderPane {
         Profile profile1 = new Profile();
         Scene scene = this.getScene();
 
-        TextField Txuname = (TextField) scene.lookup("#uname");
+        TextField Txuname = (TextField) scene.lookup("#uname0");
         TextField Txfname = (TextField) scene.lookup("#fname");
         TextField Txlname = (TextField) scene.lookup("#lname");
         TextField Txid = (TextField) scene.lookup("#id");
