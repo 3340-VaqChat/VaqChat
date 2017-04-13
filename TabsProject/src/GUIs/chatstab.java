@@ -25,11 +25,19 @@ public class chatstab {
     private Image img0 = new Image("imgs/note.png");
     private Image img1 = new Image("imgs/open.gif");
     private Image img2 = new Image("imgs/save.gif");
+    private Image img3 = new Image("imgs/login.jpg");
     
     public chatstab(){
         tabPane.setStyle("-fx-background-color: cornsilk;");
         
-        Tab tab0 = new Tab("Chat");
+	Tab tab = new Tab("Log-in");
+        tab.idProperty().set("Log-in");
+        tab.setClosable(false);
+        tab.setGraphic(new ImageView(img3));
+        tab.setStyle("-fx-border-color: navy; -fx-background-color: bisque;");
+        tab.setContent(new loginTab());
+        
+	Tab tab0 = new Tab("Chat");
         tab0.idProperty().set("Chat");
         tab0.setClosable(false);
         tab0.setGraphic(new ImageView(img0));
@@ -59,7 +67,7 @@ public class chatstab {
         webEngine.load(getClass().getResource("/aboutHTML/aboutstab.html").toString());
         tab3.setContent(browser);
         
-        tabPane.getTabs().addAll(tab0, tab1, tab2, tab3);
+        tabPane.getTabs().addAll(tab, tab0, tab1, tab2, tab3);
     }
 
     /**
