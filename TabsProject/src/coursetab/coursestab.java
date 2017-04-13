@@ -98,9 +98,18 @@ public class coursestab extends BorderPane {
         deleteProfileButton.setMaxWidth(Double.MAX_VALUE);
         deleteProfileButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
-                // Delete
-            }
+           public void handle(ActionEvent event) {
+				for(int i = profiles.size()-1; i<profiles.size(); i++){
+					
+				profiles.remove(i);
+				
+				coursesView.getItems().clear();
+				coursesView.getItems().addAll(profiles);
+
+				}
+
+				
+			}
         });
 
         HBox buttonHBox = new HBox();
@@ -251,12 +260,12 @@ public class coursestab extends BorderPane {
             coursesView.getItems().addAll(profiles);
         });
 
-        //MenuButton dropdown = new MenuButton("Select", null, menuItem1, menuItem2, menuItem3, menuItem4);
+        MenuButton dropdown = new MenuButton("Select", null, menuItem1, menuItem2, menuItem3, menuItem4);
 
         HBox middleHBox = new HBox(10);
         middleHBox.setPadding(new Insets(5, 5, 5, 5));
         middleHBox.setAlignment(Pos.TOP_CENTER);
-      //  middleHBox.getChildren().addAll(new Label("Sort By: "), dropdown);
+        middleHBox.getChildren().addAll(new Label("Sort By: "), dropdown);
 
         this.setCenter(middleHBox);
     }

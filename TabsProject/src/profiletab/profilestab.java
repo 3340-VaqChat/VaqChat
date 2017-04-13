@@ -1,5 +1,6 @@
 package profiletab;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -29,6 +30,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.FileChooser;
 
 /**
  *
@@ -109,21 +111,49 @@ public class profilestab extends BorderPane {
         Button deleteProfileButton = new Button("Delete");
         deleteProfileButton.setMaxWidth(Double.MAX_VALUE);
         deleteProfileButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                // Delete
-            }
-        });
+			@Override
+			public void handle(ActionEvent event) {
+				for(int i = profiles.size()-1; i<profiles.size(); i++){
+					
+				profiles.remove(i);
+				
+				profilesView.getItems().clear();
+				profilesView.getItems().addAll(profiles);
 
+				}
+
+				
+			}
+		});
+
+		Button imageProfileButton = new Button("Image");
+		imageProfileButton.setMaxWidth(Double.MAX_VALUE);
+		imageProfileButton.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override
+		    public void handle(ActionEvent event) {
+			    FileChooser imageFile = new FileChooser();
+			    imageFile.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+				    new FileChooser.ExtensionFilter("GIF", "*.gif"),
+				    new FileChooser.ExtensionFilter("BMP", "*.bmp"),
+				    new FileChooser.ExtensionFilter("PNG", "*.png"),
+				    new FileChooser.ExtensionFilter("JPEG", "*jpeg"));
+			    File file = imageFile.showOpenDialog(null);
+
+				 
+			}
+		});
+		
         HBox buttonHBox = new HBox();
         buttonHBox.setAlignment(Pos.TOP_CENTER);
         buttonHBox.setPadding(new Insets(50, 50, 50, 50));
-        buttonHBox.getChildren().addAll(addProfileButton, modifyProfileButton, deleteProfileButton);
+        buttonHBox.getChildren().addAll(addProfileButton,imageProfileButton, modifyProfileButton, deleteProfileButton);
         BorderPane.setAlignment(buttonHBox, Pos.TOP_CENTER);
 
         this.setBottom(buttonHBox);
     }
 
+	
+	
     /**
      * This method creates the left panel
      */
@@ -166,6 +196,7 @@ public class profilestab extends BorderPane {
         urlField.setId("url");
         urlField.setMaxWidth(Double.MAX_VALUE);
 
+	
         Separator separator2 = new Separator();
         separator2.setMinSize(20, 20);
         separator2.setOrientation(Orientation.VERTICAL);
@@ -244,12 +275,12 @@ public class profilestab extends BorderPane {
             profilesView.getItems().addAll(profiles);
         });
 
-//       MenuButton dropdown = new MenuButton("Select", null, menuItem1, menuItem2, menuItem3, menuItem4);
+        MenuButton dropdown = new MenuButton("Select", null, menuItem1, menuItem2, menuItem3, menuItem4);
 
         HBox middleHBox = new HBox(10);
         middleHBox.setPadding(new Insets(5, 5, 5, 5));
         middleHBox.setAlignment(Pos.TOP_CENTER);
-  //      middleHBox.getChildren().addAll(new Label("Sort By: "), dropdown);
+        middleHBox.getChildren().addAll(new Label("Sort By: "), dropdown);
 
         this.setCenter(middleHBox);
     }
