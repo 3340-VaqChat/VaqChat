@@ -1,5 +1,6 @@
 package profiletab;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -29,6 +30,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.FileChooser;
 
 /**
  *
@@ -106,19 +108,49 @@ public class profilestab extends BorderPane {
             }
         });
 
-        Button deleteProfileButton = new Button("Delete");
+	Button deleteProfileButton = new Button("Delete");
         deleteProfileButton.setMaxWidth(Double.MAX_VALUE);
         deleteProfileButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                // Delete
-            }
-        });
+			@Override
+			public void handle(ActionEvent event) {
+				for(int i = profiles.size()-1; i<profiles.size(); i++){
+					
+				profiles.remove(i);
+				
+				profilesView.getItems().clear();
+				profilesView.getItems().addAll(profiles);
 
+				}
+
+				
+			}
+		});
+
+
+	
+	Button imageProfileButton = new Button("Image");
+		imageProfileButton.setMaxWidth(Double.MAX_VALUE);
+		imageProfileButton.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override
+		    public void handle(ActionEvent event) {
+			    FileChooser imageFile = new FileChooser();
+			    imageFile.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+				    new FileChooser.ExtensionFilter("GIF", "*.gif"),
+				    new FileChooser.ExtensionFilter("BMP", "*.bmp"),
+				    new FileChooser.ExtensionFilter("PNG", "*.png"),
+				    new FileChooser.ExtensionFilter("JPEG", "*jpeg"));
+			    File file = imageFile.showOpenDialog(null);
+
+				 
+			}
+		});
+		
+		
+		
         HBox buttonHBox = new HBox();
         buttonHBox.setAlignment(Pos.TOP_CENTER);
         buttonHBox.setPadding(new Insets(50, 50, 50, 50));
-        buttonHBox.getChildren().addAll(addProfileButton, modifyProfileButton, deleteProfileButton);
+        buttonHBox.getChildren().addAll(addProfileButton, modifyProfileButton, deleteProfileButton,imageProfileButton);
         BorderPane.setAlignment(buttonHBox, Pos.TOP_CENTER);
 
         this.setBottom(buttonHBox);
