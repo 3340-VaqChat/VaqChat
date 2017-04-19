@@ -94,22 +94,18 @@ public class coursestab extends BorderPane {
             }
         });
 
-       Button deleteProfileButton = new Button("Delete");
+        Button deleteProfileButton = new Button("Delete");
         deleteProfileButton.setMaxWidth(Double.MAX_VALUE);
         deleteProfileButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-           public void handle(ActionEvent event) {
-				for(int i = profiles.size()-1; i<profiles.size(); i++){
-					
-				profiles.remove(i);
-				
-				coursesView.getItems().clear();
-				coursesView.getItems().addAll(profiles);
+            public void handle(ActionEvent event) {
+                for (int i = profiles.size() - 1; i < profiles.size(); i++) {
+                    profiles.remove(i);
 
-				}
-
-				
-			}
+                    coursesView.getItems().clear();
+                    coursesView.getItems().addAll(profiles);
+		}
+            }
         });
 
         HBox buttonHBox = new HBox();
