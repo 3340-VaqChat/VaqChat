@@ -111,7 +111,12 @@ public class profilestab extends BorderPane {
         deleteProfileButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // Delete
+                for(int i = profiles.size() - 1; i < profiles.size(); i++) {
+                    profiles.remove(i);
+
+                    profilesView.getItems().clear();
+                    profilesView.getItems().addAll(profiles);
+                }
             }
         });
 
@@ -222,6 +227,7 @@ public class profilestab extends BorderPane {
             profilesView.getItems().clear();
             profilesView.getItems().addAll(profiles);
         });
+        
         MenuItem menuItem2 = new MenuItem("Last Name");
         menuItem2.setId("mi2");
         menuItem2.setOnAction(e -> {
@@ -229,6 +235,7 @@ public class profilestab extends BorderPane {
             profilesView.getItems().clear();
             profilesView.getItems().addAll(profiles);
         });
+        
         MenuItem menuItem3 = new MenuItem("ID");
         menuItem3.setId("mi3");
         menuItem3.setOnAction(e -> {
@@ -236,6 +243,7 @@ public class profilestab extends BorderPane {
             profilesView.getItems().clear();
             profilesView.getItems().addAll(profiles);
         });
+        
         MenuItem menuItem4 = new MenuItem("Email");
         menuItem4.setId("mi4");
         menuItem4.setOnAction(e -> {
@@ -244,12 +252,12 @@ public class profilestab extends BorderPane {
             profilesView.getItems().addAll(profiles);
         });
 
-//       MenuButton dropdown = new MenuButton("Select", null, menuItem1, menuItem2, menuItem3, menuItem4);
+        MenuButton dropdown = new MenuButton("Select", null, menuItem1, menuItem2, menuItem3, menuItem4);
 
         HBox middleHBox = new HBox(10);
         middleHBox.setPadding(new Insets(5, 5, 5, 5));
         middleHBox.setAlignment(Pos.TOP_CENTER);
-  //      middleHBox.getChildren().addAll(new Label("Sort By: "), dropdown);
+        middleHBox.getChildren().addAll(new Label("Sort By: "), dropdown);
 
         this.setCenter(middleHBox);
     }
