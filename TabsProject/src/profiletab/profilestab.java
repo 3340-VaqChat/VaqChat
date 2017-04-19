@@ -111,42 +111,33 @@ public class profilestab extends BorderPane {
 	Button deleteProfileButton = new Button("Delete");
         deleteProfileButton.setMaxWidth(Double.MAX_VALUE);
         deleteProfileButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				for(int i = profiles.size()-1; i<profiles.size(); i++){
-					
-				profiles.remove(i);
-				
-				profilesView.getItems().clear();
-				profilesView.getItems().addAll(profiles);
+            @Override
+            public void handle(ActionEvent event) {
+                for (int i = profiles.size() - 1; i < profiles.size(); i++) {
+                    profiles.remove(i);
 
-				}
+                    profilesView.getItems().clear();
+                    profilesView.getItems().addAll(profiles);
+                }
+            }
+        });
 
-				
-			}
-		});
-
-
-	
 	Button imageProfileButton = new Button("Image");
-		imageProfileButton.setMaxWidth(Double.MAX_VALUE);
-		imageProfileButton.setOnAction(new EventHandler<ActionEvent>() {
-		    @Override
-		    public void handle(ActionEvent event) {
-			    FileChooser imageFile = new FileChooser();
-			    imageFile.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"),
-				    new FileChooser.ExtensionFilter("GIF", "*.gif"),
-				    new FileChooser.ExtensionFilter("BMP", "*.bmp"),
-				    new FileChooser.ExtensionFilter("PNG", "*.png"),
-				    new FileChooser.ExtensionFilter("JPEG", "*jpeg"));
-			    File file = imageFile.showOpenDialog(null);
+        imageProfileButton.setMaxWidth(Double.MAX_VALUE);
+        imageProfileButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FileChooser imageFile = new FileChooser();
+                imageFile.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                        new FileChooser.ExtensionFilter("GIF", "*.gif"),
+                        new FileChooser.ExtensionFilter("BMP", "*.bmp"),
+                        new FileChooser.ExtensionFilter("PNG", "*.png"),
+                        new FileChooser.ExtensionFilter("JPEG", "*jpeg"));
+                File file = imageFile.showOpenDialog(null);
 
-				 
-			}
-		});
-		
-		
-		
+            }
+        });
+                
         HBox buttonHBox = new HBox();
         buttonHBox.setAlignment(Pos.TOP_CENTER);
         buttonHBox.setPadding(new Insets(50, 50, 50, 50));
@@ -254,6 +245,7 @@ public class profilestab extends BorderPane {
             profilesView.getItems().clear();
             profilesView.getItems().addAll(profiles);
         });
+        
         MenuItem menuItem2 = new MenuItem("Last Name");
         menuItem2.setId("mi2");
         menuItem2.setOnAction(e -> {
@@ -261,6 +253,7 @@ public class profilestab extends BorderPane {
             profilesView.getItems().clear();
             profilesView.getItems().addAll(profiles);
         });
+        
         MenuItem menuItem3 = new MenuItem("ID");
         menuItem3.setId("mi3");
         menuItem3.setOnAction(e -> {
@@ -268,6 +261,7 @@ public class profilestab extends BorderPane {
             profilesView.getItems().clear();
             profilesView.getItems().addAll(profiles);
         });
+        
         MenuItem menuItem4 = new MenuItem("Email");
         menuItem4.setId("mi4");
         menuItem4.setOnAction(e -> {

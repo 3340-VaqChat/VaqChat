@@ -28,12 +28,12 @@ import javafx.scene.shape.Line;
  */
 public class mainChatGUI extends BorderPane{
 	GridPane root = new GridPane();
-	Image img = new Image("utrgv.png");
+/*	Image img = new Image("utrgv.png");
 	Image img2 = new Image("p1.jpeg");
 	Image img3 = new Image("p2.jpg");
 	ImageView iv = new ImageView(img);
 	ImageView iv2 = new ImageView(img2);
-	ImageView iv3 = new ImageView(img3);
+	ImageView iv3 = new ImageView(img3);*/
 	Line line1 = new Line(0, 0, 0, 500);
 	TextArea insert1 = new TextArea();
 	TextArea insert2 = new TextArea();
@@ -56,28 +56,28 @@ public class mainChatGUI extends BorderPane{
         this.setPadding(new Insets(20, 10, 10, 10));
         createUIcenterPanel();
     }
-private void createUIcenterPanel() {
-        iv.setFitHeight(100);//image size
+private void createUIcenterPanel() {	
+	/*iv.setFitHeight(100);//image size
         iv.setFitWidth(150);
         iv2.setFitHeight(100);//image size
         iv2.setFitWidth(70);
         iv3.setFitHeight(100);//image size
-        iv3.setFitWidth(70);
+        iv3.setFitWidth(70);*/
         root.add(new Label("Person 1"), 0, 20);
         root.add(new Label("Person 2"), 50, 20);
         root.setAlignment(Pos.CENTER);
         root.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
-        root.setHgap(5.5); //horizontal distance between cells
-        root.setVgap(5.5); //vertical distance between cells
+        root.setHgap(2); //horizontal distance between cells
+        root.setVgap(2); //vertical distance between cells
         Button btsend1 = new Button("Send Message");
         Button btsend2 = new Button("Send Message");
         Button btexit1 = new Button("Clear Messages");
         Button btexit2 = new Button("Clear Messages");
         insert1.setPromptText("Enter your message...");
         insert2.setPromptText("Enter your message...");
-        root.add(iv, 20, 6, 10, 3);
+     /*   root.add(iv, 20, 6, 10, 3);
         root.add(iv2, 0, 12, 2, 3);
-        root.add(iv3, 50, 12, 2, 3);
+        root.add(iv3, 50, 12, 2, 3);*/
         root.add(btsend1, 5, 100, 2, 2);
         root.add(btexit1, 7, 100, 2, 2);
         root.add(btsend2, 30, 100, 2, 2);       
@@ -101,7 +101,7 @@ private void createUIcenterPanel() {
 
                 String allData = "";
                 for (int i = 0; i < messagedata1.size(); i++) {
-                    allData += "Carlos Mata: " + messagedata1.get(i) + "\n-Sent: " + formattedDate + "\n\n";
+                    allData += "Person 1: " + messagedata1.get(i) + "\n-Sent: " + formattedDate + "\n\n";
                 }
                 displayArea2.setText(allData);
                 insert1.clear();
@@ -120,7 +120,7 @@ private void createUIcenterPanel() {
 
                 String allData = "";
                 for (int i = 0; i < messagedata2.size(); i++) {
-                    allData += "Jessica Doe: " + messagedata2.get(i) + "\n-Sent: " + formattedDate + "\n\n";
+                    allData += "Person 2: " + messagedata2.get(i) + "\n-Sent: " + formattedDate + "\n\n";
                 }
                 displayArea1.setText(allData);
                 insert2.clear();
@@ -146,11 +146,8 @@ private void createUIcenterPanel() {
 
         HBox middleHBox = new HBox(10);
         middleHBox.setPadding(new Insets(5, 5, 5, 5));
-        middleHBox.setAlignment(Pos.TOP_CENTER);
         middleHBox.getChildren().addAll(root);
         this.setCenter(middleHBox);
-    }
-
-
+	}
 }
 
