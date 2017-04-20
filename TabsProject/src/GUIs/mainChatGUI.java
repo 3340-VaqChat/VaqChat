@@ -28,13 +28,13 @@ import javafx.scene.shape.Line;
  */
 public class mainChatGUI extends BorderPane{
 	GridPane root = new GridPane();
-/*	Image img = new Image("utrgv.png");
-	Image img2 = new Image("p1.jpeg");
-	Image img3 = new Image("p2.jpg");
+	Image img = new Image("imgs/utrgv.png");
+	Image img2 = new Image("imgs/p1.jpeg");
+	Image img3 = new Image("imgs/p2.jpg");
 	ImageView iv = new ImageView(img);
 	ImageView iv2 = new ImageView(img2);
-	ImageView iv3 = new ImageView(img3);*/
-	Line line1 = new Line(0, 0, 0, 500);
+	ImageView iv3 = new ImageView(img3);
+	Line line1 = new Line(0, 0, 0, 300);
 	TextArea insert1 = new TextArea();
 	TextArea insert2 = new TextArea();
 	TextArea displayArea1 = new TextArea();
@@ -57,12 +57,12 @@ public class mainChatGUI extends BorderPane{
         createUIcenterPanel();
     }
 private void createUIcenterPanel() {	
-	/*iv.setFitHeight(100);//image size
+	iv.setFitHeight(100);//image size
         iv.setFitWidth(150);
         iv2.setFitHeight(100);//image size
         iv2.setFitWidth(70);
         iv3.setFitHeight(100);//image size
-        iv3.setFitWidth(70);*/
+        iv3.setFitWidth(70);
         root.add(new Label("Person 1"), 0, 20);
         root.add(new Label("Person 2"), 50, 20);
         root.setAlignment(Pos.CENTER);
@@ -75,9 +75,9 @@ private void createUIcenterPanel() {
         Button btexit2 = new Button("Clear Messages");
         insert1.setPromptText("Enter your message...");
         insert2.setPromptText("Enter your message...");
-     /*   root.add(iv, 20, 6, 10, 3);
+        root.add(iv, 20, 6, 10, 3);
         root.add(iv2, 0, 12, 2, 3);
-        root.add(iv3, 50, 12, 2, 3);*/
+        root.add(iv3, 50, 12, 2, 3);
         root.add(btsend1, 5, 100, 2, 2);
         root.add(btexit1, 7, 100, 2, 2);
         root.add(btsend2, 30, 100, 2, 2);       
