@@ -112,14 +112,24 @@ public class profilestab extends BorderPane {
         deleteProfileButton.setMaxWidth(Double.MAX_VALUE);
         deleteProfileButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
-                for (int i = profiles.size() - 1; i < profiles.size(); i++) {
-                    profiles.remove(i);
+			public void handle(ActionEvent event) {
+				final int selectedIdx = profilesView.getSelectionModel().getSelectedIndex();
+				if (selectedIdx != -1) {
+					Profile itemToRemove = profilesView.getSelectionModel().getSelectedItem();
 
-                    profilesView.getItems().clear();
-                    profilesView.getItems().addAll(profiles);
-                }
-            }
+					final int newSelectedIdx
+						= (selectedIdx == profilesView.getItems().size() - 1)
+						? selectedIdx - 1
+						: selectedIdx;
+
+					profilesView.getSelectionModel().select(newSelectedIdx);
+					System.out.println("Index: " + selectedIdx);
+					System.out.println("Removed Item: " + itemToRemove);
+					profiles.remove(selectedIdx);
+
+					profilesView.getItems().remove(itemToRemove);
+				}
+			}
         });
 
 	Button imageProfileButton = new Button("Image");
