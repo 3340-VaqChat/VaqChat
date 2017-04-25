@@ -2,9 +2,16 @@ package tabsproject;
 
 import GUIs.maingui;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
+import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -26,15 +33,46 @@ public class TabsProject extends Application {
 	//Menu Bar
         MenuBar menuBar = new MenuBar();
  
-        //File section: needs an exit option to exit the gui/program
-        Menu menuFile = new Menu("File");
-        //Edit section: ...
-        Menu menuEdit = new Menu("Edit");
-        //View section: alternate way of traversing gui tabs (probably using a checkmenu to toggle the options)
-        Menu menuView = new Menu("View");
-	//add the setions to the menu bar
-        menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
- 
+        // File menu - new, save, exit
+        Menu fileMenu = new Menu("File");
+        MenuItem newMenuItem = new MenuItem("New");
+        MenuItem openMenuItem = new MenuItem("Open");
+        MenuItem saveMenuItem = new MenuItem("Save");
+        MenuItem exitMenuItem = new MenuItem("Exit");
+        exitMenuItem.setAccelerator(KeyCombination.keyCombination("Ctrl+X"));
+        exitMenuItem.setOnAction(actionEvent -> Platform.exit());
+
+        fileMenu.getItems().addAll(newMenuItem, openMenuItem, saveMenuItem,
+        new SeparatorMenuItem(), exitMenuItem);
+        //Edit section...
+        Menu editMenu = new Menu("Edit");
+        CheckMenuItem editMenuItem1 = new CheckMenuItem("Copy");
+        editMenu.getItems().add(editMenuItem1);
+        CheckMenuItem editMenuItem2 = new CheckMenuItem("Paste");
+        editMenu.getItems().add(editMenuItem2);
+        CheckMenuItem editMenuItem3 = new CheckMenuItem("Select");
+        editMenu.getItems().add(editMenuItem3);
+        CheckMenuItem editMenuItem4 = new CheckMenuItem("Select all");
+        editMenu.getItems().add(editMenuItem4);
+        //Settings menu...
+        Menu settingsMenu = new Menu("Settings");
+        RadioMenuItem settingsItem1 = new RadioMenuItem("Chat options");
+        settingsMenu.getItems().add(settingsItem1);
+        RadioMenuItem settingsItem2 = new RadioMenuItem("Tabs options");
+        settingsMenu.getItems().add(settingsItem2);
+        //Help menu...
+        Menu helpMenu = new Menu("Help");
+
+        helpMenu.getItems().addAll(new SeparatorMenuItem());
+        //Tutorial menu inside the help menu
+        Menu tutorialMenu = new Menu("Tutorial");
+        tutorialMenu.getItems().addAll(
+        new CheckMenuItem("JavaFX"),
+        new CheckMenuItem("About..."));
+
+        helpMenu.getItems().add(tutorialMenu);
+
+        menuBar.getMenus().addAll(fileMenu, editMenu, settingsMenu, helpMenu);
  
         ((VBox) scene.getRoot()).getChildren().addAll(menuBar,hitGUI.getRootNode());
         primaryStage.setMaximized(true);
