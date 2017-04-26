@@ -1,9 +1,12 @@
 package tabsproject;
 
+import GUIs.chatstab;
 import GUIs.maingui;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
@@ -11,6 +14,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -54,6 +58,50 @@ public class TabsProject extends Application {
         editMenu.getItems().add(editMenuItem3);
         CheckMenuItem editMenuItem4 = new CheckMenuItem("Select all");
         editMenu.getItems().add(editMenuItem4);
+	
+	//View menu...
+	Menu menuView = new Menu("View");
+	    chatstab pane = new chatstab();
+	    
+	    ToggleGroup tGroup = new ToggleGroup();
+	    RadioMenuItem mode1 = new RadioMenuItem("Login");
+	    mode1.setToggleGroup(tGroup);
+	    mode1.setSelected(true);	 
+	    mode1.setOnAction(new EventHandler<ActionEvent>() {
+	    public void handle(ActionEvent e) {              
+		
+            }
+        });
+	    RadioMenuItem mode2 = new RadioMenuItem("Chat");
+	    mode2.setToggleGroup(tGroup);
+	    mode2.setOnAction(new EventHandler<ActionEvent>() {
+	    public void handle(ActionEvent e) {              
+
+	    }
+        });
+	    RadioMenuItem mode3 = new RadioMenuItem("Profiles");
+	    mode3.setToggleGroup(tGroup);
+	    mode3.setOnAction(new EventHandler<ActionEvent>() {
+	    public void handle(ActionEvent e) {              
+		
+            }
+        });
+	    RadioMenuItem mode4 = new RadioMenuItem("Courses");
+	    mode4.setToggleGroup(tGroup);
+	    mode4.setOnAction(new EventHandler<ActionEvent>() {
+	    public void handle(ActionEvent e) {              
+		//pane.tabPane.getSelectionModel().selectFirst();
+            }
+        });
+	    RadioMenuItem mode5 = new RadioMenuItem("About");
+	    mode5.setToggleGroup(tGroup);
+	    mode5.setOnAction(new EventHandler<ActionEvent>() {
+	    public void handle(ActionEvent e) {              
+		
+            }
+        });	    
+	    menuView.getItems().addAll(mode1, mode2, mode3, mode4, mode5);
+	    
         //Settings menu...
         Menu settingsMenu = new Menu("Settings");
         RadioMenuItem settingsItem1 = new RadioMenuItem("Chat options");
@@ -72,7 +120,7 @@ public class TabsProject extends Application {
 
         helpMenu.getItems().add(tutorialMenu);
 
-        menuBar.getMenus().addAll(fileMenu, editMenu, settingsMenu, helpMenu);
+        menuBar.getMenus().addAll(fileMenu, editMenu, menuView, settingsMenu, helpMenu);
  
         ((VBox) scene.getRoot()).getChildren().addAll(menuBar,hitGUI.getRootNode());
         primaryStage.setMaximized(true);
