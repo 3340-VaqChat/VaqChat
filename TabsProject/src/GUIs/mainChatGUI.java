@@ -5,149 +5,224 @@
  */
 package GUIs;
 
+import coursetab.coursestab;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Separator;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 /**
  *
  * @author Carlos
  */
-public class mainChatGUI extends BorderPane{
+public class mainChatGUI extends BorderPane {
+
 	GridPane root = new GridPane();
+	TabPane tabsPane = new TabPane();
+
 	Image img = new Image("imgs/utrgv.png");
 	Image img2 = new Image("imgs/p1.jpeg");
 	Image img3 = new Image("imgs/p2.jpg");
+
 	ImageView iv = new ImageView(img);
 	ImageView iv2 = new ImageView(img2);
 	ImageView iv3 = new ImageView(img3);
+
 	Line line1 = new Line(0, 0, 0, 300);
-	TextArea insert1 = new TextArea();
-	TextArea insert2 = new TextArea();
-	TextArea displayArea1 = new TextArea();
-	TextArea displayArea2 = new TextArea();
+
+	TextField SendMessages = new TextField();
+	TextArea MessagesData = new TextArea();
+
 	ArrayList<String> messagedata1 = new ArrayList<>();
-	ArrayList<String> messagedata2 = new ArrayList<>();
 	Date date = new Date();
 	SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy h:mm a");
 	String formattedDate = sdf.format(date);
-    
-   /**
-     * Default constructor calling method to create GUI
-     */
-    public mainChatGUI(){
-	getGUI();
-    }
 
- public void getGUI() {
-        this.setPadding(new Insets(20, 10, 10, 10));
-        createUIcenterPanel();
-    }
-private void createUIcenterPanel() {	
-	iv.setFitHeight(100);//image size
-        iv.setFitWidth(150);
-        iv2.setFitHeight(100);//image size
-        iv2.setFitWidth(70);
-        iv3.setFitHeight(100);//image size
-        iv3.setFitWidth(70);
-        root.add(new Label("Person 1"), 0, 20);
-        root.add(new Label("Person 2"), 50, 20);
-        root.setAlignment(Pos.CENTER);
-        root.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
-        root.setHgap(2); //horizontal distance between cells
-        root.setVgap(2); //vertical distance between cells
-        Button btsend1 = new Button("Send Message");
-        Button btsend2 = new Button("Send Message");
-        Button btexit1 = new Button("Clear Messages");
-        Button btexit2 = new Button("Clear Messages");
-        insert1.setPromptText("Enter your message...");
-        insert2.setPromptText("Enter your message...");
-        root.add(iv, 20, 6, 10, 3);
-        root.add(iv2, 0, 12, 2, 3);
-        root.add(iv3, 50, 12, 2, 3);
-        root.add(btsend1, 5, 100, 2, 2);
-        root.add(btexit1, 7, 100, 2, 2);
-        root.add(btsend2, 30, 100, 2, 2);       
-        root.add(btexit2, 32, 100, 2, 2);
-        root.add(line1, 27,55,2,2);
-        root.add(insert1, 5, 90,6,4);
-        root.add(insert2, 30, 90,6,4);
-        root.add(displayArea1, 5, 20,6,60);
-        root.add(displayArea2, 30, 20, 6, 60);
-        
-        /**
-        *the left side send button will control the left side display text area
-        *and it will send the message from the lower text area to the top one
-        **/
-        btsend1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                String fullmessage1 = "";
-                fullmessage1 = insert1.getText();
-                messagedata1.add(fullmessage1);
-
-                String allData = "";
-                for (int i = 0; i < messagedata1.size(); i++) {
-                    allData += "Person 1: " + messagedata1.get(i) + "\n-Sent: " + formattedDate + "\n\n";
-                }
-                displayArea2.setText(allData);
-                insert1.clear();
-            }
-        });
-        /**
-        *the right side send button will control the right side display text area
-        *and it will send the message from the lower text area to the top one
-        **/
-        btsend2.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                String fullmessage2 = "";
-                fullmessage2 = insert2.getText();
-                messagedata2.add(fullmessage2);
-
-                String allData = "";
-                for (int i = 0; i < messagedata2.size(); i++) {
-                    allData += "Person 2: " + messagedata2.get(i) + "\n-Sent: " + formattedDate + "\n\n";
-                }
-                displayArea1.setText(allData);
-                insert2.clear();
-            }
-        });
-        
-        /**
-        *both of the exit buttons will clear their respective display areas of 
-        *already displayed messages
-        **/
-        btexit1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                displayArea1.clear();
-            }
-        });
-        btexit2.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                displayArea2.clear();
-            }
-        });
-
-        HBox middleHBox = new HBox(10);
-        middleHBox.setPadding(new Insets(5, 5, 5, 5));
-        middleHBox.getChildren().addAll(root);
-        this.setCenter(middleHBox);
+	/**
+	 * Default constructor calling method to create GUI
+	 */
+	public mainChatGUI() {
+		getGUI();
 	}
-}
 
+	public void getGUI() {
+		this.setPadding(new Insets(20, 10, 10, 10));
+		createTop();
+		createBottom();
+		createLeft();
+		createRight();
+		createCenter();
+	}
+
+	public void createTop() {
+		Label topLabel = new Label(" VaqChat UTRGV ");
+		topLabel.setFont(Font.font("Times New Roman", FontPosture.REGULAR, 40));
+		topLabel.setTextFill(Color.CORAL);
+		topLabel.setWrapText(true);
+
+		topLabel.setBorder(new Border(new BorderStroke(Color.DARKBLUE, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(2))));
+		topLabel.setTextAlignment(TextAlignment.CENTER);
+
+		Separator separator = new Separator();
+		separator.setMinSize(20, 20);
+		separator.setOrientation(Orientation.HORIZONTAL);
+
+		VBox topVB = new VBox();
+		topVB.setAlignment(Pos.CENTER);
+		topVB.getChildren().addAll(topLabel, separator);
+		BorderPane.setAlignment(topVB, Pos.CENTER);
+
+		this.setTop(topVB);
+	}
+
+	public void createBottom() {
+		Button btsend1 = new Button("Send Message");
+		Button btexit1 = new Button("Clear Messages");
+
+		btsend1.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				String fullmessage1 = "";
+				fullmessage1 = SendMessages.getText();
+				messagedata1.add(fullmessage1);
+
+				String allData = "";
+				for (int i = 0; i < messagedata1.size(); i++) {
+					allData += "Person 1: " + messagedata1.get(i) + "\n-Sent: " + formattedDate + "\n\n";
+				}
+				MessagesData.setText(allData);
+				SendMessages.clear();
+			}
+		});
+
+		HBox buttonHBox = new HBox();
+		buttonHBox.setAlignment(Pos.TOP_CENTER);
+		buttonHBox.setPadding(new Insets(50, 50, 50, 50));
+		buttonHBox.getChildren().addAll(btsend1, btexit1);
+		BorderPane.setAlignment(buttonHBox, Pos.TOP_CENTER);
+
+		this.setBottom(buttonHBox);
+	}
+
+	public void createLeft() {
+		iv2.setFitHeight(90);//image size
+		iv2.setFitWidth(90);
+		GridPane profileEntryGrid = new GridPane();
+		profileEntryGrid.setVgap(5);
+		profileEntryGrid.setHgap(5);
+		profileEntryGrid.setPadding(new Insets(5, 5, 5, 5));
+
+		Separator separator2 = new Separator();
+		separator2.setMinSize(20, 20);
+		separator2.setOrientation(Orientation.VERTICAL);
+
+		Separator separator3 = new Separator();
+		separator3.setMinSize(10, 10);
+		separator3.setOrientation(Orientation.HORIZONTAL);
+
+		Label owneruser = new Label("   User 1   ");
+
+		HBox leftHBox = new HBox();
+		HBox leftHBox0 = new HBox();
+		leftHBox.getChildren().addAll();
+		leftHBox0.getChildren().addAll(iv2, separator2);
+		leftHBox.setAlignment(Pos.TOP_CENTER);
+		leftHBox0.setAlignment(Pos.TOP_CENTER);
+		VBox leftVBox = new VBox(10);
+		leftVBox.getChildren().addAll(leftHBox, leftHBox0, owneruser, separator3);
+		BorderPane.setAlignment(leftVBox, Pos.TOP_CENTER);
+
+		this.setLeft(leftVBox);
+	}
+
+	public void createRight() {
+		iv3.setFitHeight(70);//image size
+		iv3.setFitWidth(70);
+
+		// Group/Single user talking to
+		Label user = new Label("   User 2   ");
+
+		Separator separator3 = new Separator();
+		separator3.setMinSize(20, 20);
+		separator3.setOrientation(Orientation.VERTICAL);
+
+		HBox rightHBox2 = new HBox();
+		rightHBox2.getChildren().addAll(separator3, iv3, user);
+
+		VBox rightVBox = new VBox();
+		rightVBox.setAlignment(Pos.TOP_CENTER);
+		rightVBox.getChildren().addAll(rightHBox2);
+		BorderPane.setAlignment(rightVBox, Pos.TOP_CENTER);
+
+		this.setRight(rightVBox);
+	}
+
+	public void createCenter() {
+		Button btsend1 = new Button("Send Message");
+		Button btexit1 = new Button("Clear Messages");
+
+		btsend1.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				String fullmessage1 = "";
+				fullmessage1 = SendMessages.getText();
+				messagedata1.add(fullmessage1);
+
+				String allData = "";
+				for (int i = 0; i < messagedata1.size(); i++) {
+					allData += "Person 1: " + messagedata1.get(i) + " -Sent: " + formattedDate;
+				}
+				MessagesData.setText(allData);
+				SendMessages.clear();
+			}
+		});
+
+		VBox middleVBox = new VBox(10);
+		middleVBox.setPadding(new Insets(5, 5, 5, 5));
+		middleVBox.setAlignment(Pos.TOP_CENTER);
+		middleVBox.getChildren().addAll(MessagesData, SendMessages);
+
+		HBox buttonHBox = new HBox();
+		buttonHBox.setAlignment(Pos.TOP_CENTER);
+		buttonHBox.setPadding(new Insets(50, 50, 50, 50));
+		buttonHBox.getChildren().addAll(btsend1, btexit1);
+		BorderPane.setAlignment(buttonHBox, Pos.TOP_CENTER);
+
+		this.setCenter(middleVBox);
+	}
+
+}
