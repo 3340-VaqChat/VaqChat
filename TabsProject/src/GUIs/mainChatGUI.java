@@ -156,6 +156,8 @@ public class mainChatGUI extends BorderPane {
 
 		Label owneruser = new Label("   User 1   ");
 
+		// Add classmates/friends here
+		
 		HBox leftHBox = new HBox();
 		HBox leftHBox0 = new HBox();
 		leftHBox.getChildren().addAll();
