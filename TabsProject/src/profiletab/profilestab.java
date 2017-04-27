@@ -272,6 +272,7 @@ public class profilestab extends BorderPane {
         BorderPane.setAlignment(rightHBox, Pos.TOP_CENTER);
         
         this.setRight(rightHBox);
+        
     }
 
     /**
