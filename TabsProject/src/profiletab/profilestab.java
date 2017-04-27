@@ -71,8 +71,6 @@ ImageView avatarView;
         createUItopPanel();
         createUIbottomPanel();
         createUIleftPanel();
-	
-	//upload();
         createUIrightPanel();
         createUIcenterPanel();
     }
@@ -167,10 +165,12 @@ ImageView avatarView;
         this.setBottom(buttonHBox);
     }
 
+    
+    /***
+     * This is a method for the file image upload.
+     */
    private void upload(){
 	    
-	    
-	   avatarView = new ImageView();
 	    FileChooser imageChooser = new FileChooser();
 	    imageChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"),
 		    new FileChooser.ExtensionFilter("GIF", "*.gif"),
@@ -183,14 +183,10 @@ ImageView avatarView;
 		    Image imgChoosen = SwingFXUtils.toFXImage(image, null);
 		    avatarView.setImage(imgChoosen);
 
-		    
-		    
-		    
 	    } catch (IOException ex) {
 		    Logger.getLogger(profilestab.class.getName()).log(Level.SEVERE, null, ex);
 	    }
 
-	    
 	    
     }
     
@@ -271,16 +267,19 @@ ImageView avatarView;
         separator3.setMinSize(20, 20);
         separator3.setOrientation(Orientation.VERTICAL);
 	
+	
        HBox rightHBox2 = new HBox();
 	    avatarView = new ImageView();
 	    avatarView.setFitWidth(100);
 	    avatarView.setFitHeight(100);
-
-        rightHBox2.getChildren().addAll(separator3, getListView(),avatarView);
+	    Image defaultAvatar = new Image("imgs/default.jpg");
+	    
+avatarView.setImage(defaultAvatar);
+        rightHBox2.getChildren().addAll(separator3,getListView());
 
         VBox rightVBox = new VBox();
         rightVBox.setAlignment(Pos.TOP_CENTER);
-        rightVBox.getChildren().addAll(rightHBox2);
+        rightVBox.getChildren().addAll(avatarView,rightHBox2);
         BorderPane.setAlignment(rightVBox, Pos.TOP_CENTER);
 
         this.setRight(rightVBox);
