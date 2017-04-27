@@ -1,9 +1,14 @@
 package profiletab;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -17,6 +22,8 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
@@ -31,6 +38,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
+import javax.imageio.ImageIO;
+
 
 /**
  *
@@ -40,8 +49,12 @@ import javafx.stage.FileChooser;
  * GUI is created along with the necessary classes needed for the GUI to function.
  */
 public class profilestab extends BorderPane {
-    ArrayList<Profile> profiles = new ArrayList<>();
-    ListView<Profile> profilesView = new ListView();
+  ArrayList<Profile> profiles = new ArrayList<>();
+	ListView<Profile> profilesView = new ListView();
+	
+ImageView avatarView;
+
+
 
     /**
      * Default constructor calling method to create GUI
@@ -58,10 +71,14 @@ public class profilestab extends BorderPane {
         createUItopPanel();
         createUIbottomPanel();
         createUIleftPanel();
+	
+	//upload();
         createUIrightPanel();
         createUIcenterPanel();
     }
 
+    
+   
     /**
      * This method creates the topPanel of the BorderPane GUI
      */
@@ -111,42 +128,26 @@ public class profilestab extends BorderPane {
 	Button deleteProfileButton = new Button("Delete");
         deleteProfileButton.setMaxWidth(Double.MAX_VALUE);
         deleteProfileButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				for(int i = profiles.size()-1; i<profiles.size(); i++){
-					
-				profiles.remove(i);
-				
-				profilesView.getItems().clear();
-				profilesView.getItems().addAll(profiles);
+            @Override
+            public void handle(ActionEvent event) {
+                for (int i = profiles.size() - 1; i < profiles.size(); i++) {
+                    profiles.remove(i);
 
-				}
+                    profilesView.getItems().clear();
+                    profilesView.getItems().addAll(profiles);
+                }
+            }
+        });
 
-				
-			}
-		});
-
-
-	
 	Button imageProfileButton = new Button("Image");
-		imageProfileButton.setMaxWidth(Double.MAX_VALUE);
-		imageProfileButton.setOnAction(new EventHandler<ActionEvent>() {
-		    @Override
-		    public void handle(ActionEvent event) {
-			    FileChooser imageFile = new FileChooser();
-			    imageFile.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"),
-				    new FileChooser.ExtensionFilter("GIF", "*.gif"),
-				    new FileChooser.ExtensionFilter("BMP", "*.bmp"),
-				    new FileChooser.ExtensionFilter("PNG", "*.png"),
-				    new FileChooser.ExtensionFilter("JPEG", "*jpeg"));
-			    File file = imageFile.showOpenDialog(null);
-
-				 
-			}
-		});
-		
-		
-		
+        imageProfileButton.setMaxWidth(Double.MAX_VALUE);
+        imageProfileButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {                                                       
+			upload();
+            }
+        });
+                
         HBox buttonHBox = new HBox();
         buttonHBox.setAlignment(Pos.TOP_CENTER);
         buttonHBox.setPadding(new Insets(50, 50, 50, 50));
@@ -156,6 +157,34 @@ public class profilestab extends BorderPane {
         this.setBottom(buttonHBox);
     }
 
+   private void upload(){
+	    
+	    
+	   avatarView = new ImageView();
+	    FileChooser imageChooser = new FileChooser();
+	    imageChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+		    new FileChooser.ExtensionFilter("GIF", "*.gif"),
+		    new FileChooser.ExtensionFilter("BMP", "*.bmp"),
+		    new FileChooser.ExtensionFilter("PNG", "*.png"),
+		    new FileChooser.ExtensionFilter("JPEG", "*jpeg"));
+	    File fileimg = imageChooser.showOpenDialog(null);
+	    try {
+		    BufferedImage image = ImageIO.read(fileimg);
+		    Image imgChoosen = SwingFXUtils.toFXImage(image, null);
+		    avatarView.setImage(imgChoosen);
+
+		    
+		    
+		    
+	    } catch (IOException ex) {
+		    Logger.getLogger(profilestab.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+
+	    
+	    
+    }
+    
+    
     /**
      * This method creates the left panel
      */
@@ -231,9 +260,13 @@ public class profilestab extends BorderPane {
         Separator separator3 = new Separator();
         separator3.setMinSize(20, 20);
         separator3.setOrientation(Orientation.VERTICAL);
+	
+       HBox rightHBox2 = new HBox();
+	    avatarView = new ImageView();
+	    avatarView.setFitWidth(100);
+	    avatarView.setFitHeight(100);
 
-        HBox rightHBox2 = new HBox();
-        rightHBox2.getChildren().addAll(separator3, getListView());
+        rightHBox2.getChildren().addAll(separator3, getListView(),avatarView);
 
         VBox rightVBox = new VBox();
         rightVBox.setAlignment(Pos.TOP_CENTER);
@@ -254,6 +287,7 @@ public class profilestab extends BorderPane {
             profilesView.getItems().clear();
             profilesView.getItems().addAll(profiles);
         });
+        
         MenuItem menuItem2 = new MenuItem("Last Name");
         menuItem2.setId("mi2");
         menuItem2.setOnAction(e -> {
@@ -261,6 +295,7 @@ public class profilestab extends BorderPane {
             profilesView.getItems().clear();
             profilesView.getItems().addAll(profiles);
         });
+        
         MenuItem menuItem3 = new MenuItem("ID");
         menuItem3.setId("mi3");
         menuItem3.setOnAction(e -> {
@@ -268,6 +303,7 @@ public class profilestab extends BorderPane {
             profilesView.getItems().clear();
             profilesView.getItems().addAll(profiles);
         });
+        
         MenuItem menuItem4 = new MenuItem("Email");
         menuItem4.setId("mi4");
         menuItem4.setOnAction(e -> {
@@ -276,12 +312,12 @@ public class profilestab extends BorderPane {
             profilesView.getItems().addAll(profiles);
         });
 
-//       MenuButton dropdown = new MenuButton("Select", null, menuItem1, menuItem2, menuItem3, menuItem4);
+        MenuButton dropdown = new MenuButton("Select", null, menuItem1, menuItem2, menuItem3, menuItem4);
 
         HBox middleHBox = new HBox(10);
         middleHBox.setPadding(new Insets(5, 5, 5, 5));
         middleHBox.setAlignment(Pos.TOP_CENTER);
-  //      middleHBox.getChildren().addAll(new Label("Sort By: "), dropdown);
+        middleHBox.getChildren().addAll(new Label("Sort By: "), dropdown);
 
         this.setCenter(middleHBox);
     }

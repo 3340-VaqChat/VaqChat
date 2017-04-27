@@ -94,22 +94,18 @@ public class coursestab extends BorderPane {
             }
         });
 
-       Button deleteProfileButton = new Button("Delete");
+        Button deleteProfileButton = new Button("Delete");
         deleteProfileButton.setMaxWidth(Double.MAX_VALUE);
         deleteProfileButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-           public void handle(ActionEvent event) {
-				for(int i = profiles.size()-1; i<profiles.size(); i++){
-					
-				profiles.remove(i);
-				
-				coursesView.getItems().clear();
-				coursesView.getItems().addAll(profiles);
+            public void handle(ActionEvent event) {
+                for (int i = profiles.size() - 1; i < profiles.size(); i++) {
+                    profiles.remove(i);
 
-				}
-
-				
-			}
+                    coursesView.getItems().clear();
+                    coursesView.getItems().addAll(profiles);
+		}
+            }
         });
 
         HBox buttonHBox = new HBox();
@@ -127,91 +123,120 @@ public class coursestab extends BorderPane {
         profileEntryGrid.setHgap(5);
         profileEntryGrid.setPadding(new Insets(5, 5, 5, 5));
         
-        Label courseInfoLabel = new Label("Course Info");
-        courseInfoLabel.setStyle("-fx-font-weight: bold;");
+        Label numOfCoursesL = new Label("Enter the number of courses:");
+        TextField numOfCoursesF = new TextField();
+        numOfCoursesF.setMaxWidth(Double.MAX_VALUE);
         
-        Label unameLabel = new Label("Username:");
-        TextField unameField = new TextField();
-        unameField.setId("uname");
-        unameField.setMaxWidth(Double.MAX_VALUE);
+        Button goButton = new Button("Go");
+        goButton.setMaxWidth(Double.MAX_VALUE);
+        goButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event){
+                String inn = numOfCoursesF.getText();
+                int i = 0;
+                try {
+                    i = Integer.parseInt(inn);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+                
+                profileEntryGrid.getChildren().clear();
+                
+                for (int j = 0; j < i; j++){
+                    Label courseInfoLabel = new Label("Course Info");
+                    courseInfoLabel.setStyle("-fx-font-weight: bold;");
+                    
+                    Label unameLabel = new Label("Username:");
+                    TextField unameField = new TextField();
+                    unameField.setId("uname");
+                    unameField.setMaxWidth(Double.MAX_VALUE);
+
+                    Label cidLabel = new Label("Course ID:");
+                    TextField cidField = new TextField();
+                    cidField.setId("cid");
+                    cidField.setMaxWidth(Double.MAX_VALUE);
+
+                    Label prefixLabel = new Label("Prefix:");
+                    TextField prefixField = new TextField();
+                    prefixField.setId("prefix");
+                    prefixField.setMaxWidth(Double.MAX_VALUE);
+
+                    Label cnumLabel = new Label("Course Number:");
+                    TextField cnumField = new TextField();
+                    cnumField.setId("cnum");
+                    cnumField.setMaxWidth(Double.MAX_VALUE);
+
+                    Label sectionLabel = new Label("Section:");
+                    TextField sectionField = new TextField();
+                    sectionField.setId("section");
+                    sectionField.setMaxWidth(Double.MAX_VALUE);
+
+                    Label startLabel = new Label("Start Time:");
+                    TextField startField = new TextField();
+                    startField.setId("start");
+                    startField.setMaxWidth(Double.MAX_VALUE);
+
+                    Label endLabel = new Label("End Time:");
+                    TextField endField = new TextField();
+                    endField.setId("end");
+                    endField.setMaxWidth(Double.MAX_VALUE);
+
+                    Label locationLabel = new Label("Location:");
+                    TextField locationField = new TextField();
+                    locationField.setId("location");
+                    locationField.setMaxWidth(Double.MAX_VALUE);
+
+                    Label instLabel = new Label("Instructor:");
+                    TextField instField = new TextField();
+                    instField.setId("inst");
+                    instField.setMaxWidth(Double.MAX_VALUE);
+
+                    Label prenumLabel = new Label("Prereq. Number:");
+                    TextField prenumField = new TextField();
+                    prenumField.setId("prenum");
+                    prenumField.setMaxWidth(Double.MAX_VALUE);
+                    
+                    profileEntryGrid.add(courseInfoLabel, j * 2, 0);
+                    profileEntryGrid.add(unameLabel, j * 2, 1);
+                    profileEntryGrid.add(unameField, j * 2 + 1, 1);
+                    profileEntryGrid.add(cidLabel, j * 2, 2);
+                    profileEntryGrid.add(cidField, j * 2 + 1, 2);
+                    profileEntryGrid.add(prefixLabel, j * 2, 3);
+                    profileEntryGrid.add(prefixField, j * 2 + 1, 3);
+                    profileEntryGrid.add(cnumLabel, j * 2, 4);
+                    profileEntryGrid.add(cnumField, j * 2 + 1, 4);
+                    profileEntryGrid.add(sectionLabel, j * 2, 5);
+                    profileEntryGrid.add(sectionField, j * 2 + 1, 5);
+                    profileEntryGrid.add(startLabel, j * 2, 6);
+                    profileEntryGrid.add(startField, j * 2 + 1, 6);
+                    profileEntryGrid.add(endLabel, j * 2, 7);
+                    profileEntryGrid.add(endField, j * 2 + 1, 7);
+                    profileEntryGrid.add(locationLabel, j * 2, 8);
+                    profileEntryGrid.add(locationField, j * 2 + 1, 8);
+                    profileEntryGrid.add(instLabel, j * 2, 9);
+                    profileEntryGrid.add(instField, j * 2 + 1, 9);
+                    profileEntryGrid.add(prenumLabel, j * 2, 10);
+                    profileEntryGrid.add(prenumField, j * 2 + 1, 10);
+                }
+                numOfCoursesF.setText("");
+            }
+        });
         
-        Label cidLabel = new Label("Course ID:");
-        TextField cidField = new TextField();
-        cidField.setId("cid");
-        cidField.setMaxWidth(Double.MAX_VALUE);
-
-        Label prefixLabel = new Label("Prefix:");
-        TextField prefixField = new TextField();
-        prefixField.setId("prefix");
-        prefixField.setMaxWidth(Double.MAX_VALUE);
-
-        Label cnumLabel = new Label("Course Number:");
-        TextField cnumField = new TextField();
-        cnumField.setId("cnum");
-        cnumField.setMaxWidth(Double.MAX_VALUE);
-
-        Label sectionLabel = new Label("Section:");
-        TextField sectionField = new TextField();
-        sectionField.setId("section");
-        sectionField.setMaxWidth(Double.MAX_VALUE);
-
-        Label startLabel = new Label("Start Time:");
-        TextField startField = new TextField();
-        startField.setId("start");
-        startField.setMaxWidth(Double.MAX_VALUE);
-
-        Label endLabel = new Label("End Time:");
-        TextField endField = new TextField();
-        endField.setId("end");
-        endField.setMaxWidth(Double.MAX_VALUE);
-
-        Label locationLabel = new Label("Location:");
-        TextField locationField = new TextField();
-        locationField.setId("location");
-        locationField.setMaxWidth(Double.MAX_VALUE);
-
-        Label instLabel = new Label("Instructor:");
-        TextField instField = new TextField();
-        instField.setId("inst");
-        instField.setMaxWidth(Double.MAX_VALUE);
-
-        Label prenumLabel = new Label("Prereq. Number:");
-        TextField prenumField = new TextField();
-        prenumField.setId("prenum");
-        prenumField.setMaxWidth(Double.MAX_VALUE);
-
         Separator separator2 = new Separator();
         separator2.setMinSize(20, 20);
         separator2.setOrientation(Orientation.VERTICAL);
         
-        profileEntryGrid.add(courseInfoLabel, 0, 0);
-        profileEntryGrid.add(unameLabel, 0, 1);
-        profileEntryGrid.add(unameField, 1, 1);
-        profileEntryGrid.add(cidLabel, 0, 2);
-        profileEntryGrid.add(cidField, 1, 2);
-        profileEntryGrid.add(prefixLabel, 0, 3);
-        profileEntryGrid.add(prefixField, 1, 3);
-        profileEntryGrid.add(cnumLabel, 0, 4);
-        profileEntryGrid.add(cnumField, 1, 4);
-        profileEntryGrid.add(sectionLabel, 0, 5);
-        profileEntryGrid.add(sectionField, 1, 5);
-        profileEntryGrid.add(startLabel, 0, 6);
-        profileEntryGrid.add(startField, 1, 6);
-        profileEntryGrid.add(endLabel, 0, 7);
-        profileEntryGrid.add(endField, 1, 7);
-        profileEntryGrid.add(locationLabel, 0, 8);
-        profileEntryGrid.add(locationField, 1, 8);
-        profileEntryGrid.add(instLabel, 0, 9);
-        profileEntryGrid.add(instField, 1, 9);
-        profileEntryGrid.add(prenumLabel, 0, 10);
-        profileEntryGrid.add(prenumField, 1, 10);
-        
         HBox leftHBox = new HBox();
-        leftHBox.getChildren().addAll(profileEntryGrid, separator2);
+        HBox leftHBox0 = new HBox();
+        leftHBox.getChildren().addAll(numOfCoursesL, numOfCoursesF, goButton);
+        leftHBox0.getChildren().addAll(profileEntryGrid, separator2);
         leftHBox.setAlignment(Pos.TOP_CENTER);
-        BorderPane.setAlignment(leftHBox, Pos.TOP_CENTER);
+        leftHBox0.setAlignment(Pos.TOP_CENTER);
+        VBox leftVBox = new VBox();
+        leftVBox.getChildren().addAll(leftHBox, leftHBox0);
+        BorderPane.setAlignment(leftVBox, Pos.TOP_CENTER);
 
-        this.setLeft(leftHBox);
+        this.setLeft(leftVBox);
     }
     
     public void createRight() {
@@ -238,6 +263,7 @@ public class coursestab extends BorderPane {
             coursesView.getItems().clear();
             coursesView.getItems().addAll(profiles);
         });
+        
         MenuItem menuItem2 = new MenuItem("Course Number");
         menuItem2.setId("mi2");
         menuItem2.setOnAction(e -> {
@@ -245,6 +271,7 @@ public class coursestab extends BorderPane {
             coursesView.getItems().clear();
             coursesView.getItems().addAll(profiles);
         });
+        
         MenuItem menuItem3 = new MenuItem("Section");
         menuItem3.setId("mi3");
         menuItem3.setOnAction(e -> {
@@ -252,6 +279,7 @@ public class coursestab extends BorderPane {
             coursesView.getItems().clear();
             coursesView.getItems().addAll(profiles);
         });
+        
         MenuItem menuItem4 = new MenuItem("Instructor");
         menuItem4.setId("mi4");
         menuItem4.setOnAction(e -> {
@@ -260,12 +288,12 @@ public class coursestab extends BorderPane {
             coursesView.getItems().addAll(profiles);
         });
 
-        //MenuButton dropdown = new MenuButton("Select", null, menuItem1, menuItem2, menuItem3, menuItem4);
+        MenuButton dropdown = new MenuButton("Select", null, menuItem1, menuItem2, menuItem3, menuItem4);
 
         HBox middleHBox = new HBox(10);
         middleHBox.setPadding(new Insets(5, 5, 5, 5));
         middleHBox.setAlignment(Pos.TOP_CENTER);
-      //  middleHBox.getChildren().addAll(new Label("Sort By: "), dropdown);
+        middleHBox.getChildren().addAll(new Label("Sort By: "), dropdown);
 
         this.setCenter(middleHBox);
     }
