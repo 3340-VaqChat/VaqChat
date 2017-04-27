@@ -1,9 +1,14 @@
 package profiletab;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -17,6 +22,8 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
@@ -31,6 +38,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
+import javax.imageio.ImageIO;
+
 
 /**
  *
@@ -40,8 +49,12 @@ import javafx.stage.FileChooser;
  * GUI is created along with the necessary classes needed for the GUI to function.
  */
 public class profilestab extends BorderPane {
-    ArrayList<Profile> profiles = new ArrayList<>();
-    ListView<Profile> profilesView = new ListView();
+  ArrayList<Profile> profiles = new ArrayList<>();
+	ListView<Profile> profilesView = new ListView();
+	
+ImageView avatarView;
+
+
 
     /**
      * Default constructor calling method to create GUI
@@ -62,6 +75,8 @@ public class profilestab extends BorderPane {
         createUIcenterPanel();
     }
 
+    
+   
     /**
      * This method creates the topPanel of the BorderPane GUI
      */
@@ -136,15 +151,8 @@ public class profilestab extends BorderPane {
         imageProfileButton.setMaxWidth(Double.MAX_VALUE);
         imageProfileButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
-                FileChooser imageFile = new FileChooser();
-                imageFile.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"),
-                        new FileChooser.ExtensionFilter("GIF", "*.gif"),
-                        new FileChooser.ExtensionFilter("BMP", "*.bmp"),
-                        new FileChooser.ExtensionFilter("PNG", "*.png"),
-                        new FileChooser.ExtensionFilter("JPEG", "*jpeg"));
-                File file = imageFile.showOpenDialog(null);
-
+            public void handle(ActionEvent event) {                                                       
+			upload();
             }
         });
                 
@@ -157,6 +165,32 @@ public class profilestab extends BorderPane {
         this.setBottom(buttonHBox);
     }
 
+    
+    /***
+     * This is a method for the file image upload.
+     */
+   private void upload(){
+	    
+	    FileChooser imageChooser = new FileChooser();
+	    imageChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+		    new FileChooser.ExtensionFilter("GIF", "*.gif"),
+		    new FileChooser.ExtensionFilter("BMP", "*.bmp"),
+		    new FileChooser.ExtensionFilter("PNG", "*.png"),
+		    new FileChooser.ExtensionFilter("JPEG", "*jpeg"));
+	    File fileimg = imageChooser.showOpenDialog(null);
+	    try {
+		    BufferedImage image = ImageIO.read(fileimg);
+		    Image imgChoosen = SwingFXUtils.toFXImage(image, null);
+		    avatarView.setImage(imgChoosen);
+
+	    } catch (IOException ex) {
+		    Logger.getLogger(profilestab.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+
+	    
+    }
+    
+    
     /**
      * This method creates the left panel
      */
@@ -232,13 +266,20 @@ public class profilestab extends BorderPane {
         Separator separator3 = new Separator();
         separator3.setMinSize(20, 20);
         separator3.setOrientation(Orientation.VERTICAL);
-
-        HBox rightHBox2 = new HBox();
-        rightHBox2.getChildren().addAll(separator3, getListView());
+	
+	
+       HBox rightHBox2 = new HBox();
+	    avatarView = new ImageView();
+	    avatarView.setFitWidth(100);
+	    avatarView.setFitHeight(100);
+	    Image defaultAvatar = new Image("imgs/default.jpg");
+	    
+avatarView.setImage(defaultAvatar);
+        rightHBox2.getChildren().addAll(separator3,getListView());
 
         VBox rightVBox = new VBox();
         rightVBox.setAlignment(Pos.TOP_CENTER);
-        rightVBox.getChildren().addAll(rightHBox2);
+        rightVBox.getChildren().addAll(avatarView,rightHBox2);
         BorderPane.setAlignment(rightVBox, Pos.TOP_CENTER);
 
         this.setRight(rightVBox);
