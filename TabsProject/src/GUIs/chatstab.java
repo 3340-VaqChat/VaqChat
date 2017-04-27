@@ -42,7 +42,7 @@ public class chatstab {
         tab0.setClosable(false);
         tab0.setGraphic(new ImageView(img0));
         tab0.setStyle("-fx-border-color: navy; -fx-background-color: bisque;");
-        tab0.setContent(null);
+        tab0.setContent(new mainChatGUI());
         
         Tab tab1 = new Tab("Profiles");
         tab1.idProperty().set("Profiles");
