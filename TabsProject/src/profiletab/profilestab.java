@@ -49,12 +49,9 @@ import javax.imageio.ImageIO;
  * GUI is created along with the necessary classes needed for the GUI to function.
  */
 public class profilestab extends BorderPane {
-  ArrayList<Profile> profiles = new ArrayList<>();
-	ListView<Profile> profilesView = new ListView();
-	
-ImageView avatarView;
-
-
+    ArrayList<Profile> profiles = new ArrayList<>();
+    ListView<Profile> profilesView = new ListView();
+    ImageView avatarView;
 
     /**
      * Default constructor calling method to create GUI
@@ -75,8 +72,6 @@ ImageView avatarView;
         createUIcenterPanel();
     }
 
-    
-   
     /**
      * This method creates the topPanel of the BorderPane GUI
      */
@@ -127,24 +122,24 @@ ImageView avatarView;
         deleteProfileButton.setMaxWidth(Double.MAX_VALUE);
         deleteProfileButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-			public void handle(ActionEvent event) {
-				final int selectedIdx = profilesView.getSelectionModel().getSelectedIndex();
-				if (selectedIdx != -1) {
-					Profile itemToRemove = profilesView.getSelectionModel().getSelectedItem();
+            public void handle(ActionEvent event) {
+		final int selectedIdx = profilesView.getSelectionModel().getSelectedIndex();
+                if (selectedIdx != -1) {
+                    Profile itemToRemove = profilesView.getSelectionModel().getSelectedItem();
 
-					final int newSelectedIdx
-						= (selectedIdx == profilesView.getItems().size() - 1)
-						? selectedIdx - 1
-						: selectedIdx;
+                    final int newSelectedIdx
+                            = (selectedIdx == profilesView.getItems().size() - 1)
+                                    ? selectedIdx - 1
+                                    : selectedIdx;
 
-					profilesView.getSelectionModel().select(newSelectedIdx);
-					System.out.println("Index: " + selectedIdx);
-					System.out.println("Removed Item: " + itemToRemove);
-					profiles.remove(selectedIdx);
+                    profilesView.getSelectionModel().select(newSelectedIdx);
+                    System.out.println("Index: " + selectedIdx);
+                    System.out.println("Removed Item: " + itemToRemove);
+                    profiles.remove(selectedIdx);
 
-					profilesView.getItems().remove(itemToRemove);
-				}
-			}
+                    profilesView.getItems().remove(itemToRemove);
+                }
+            }
         });
 
 	Button imageProfileButton = new Button("Image");
@@ -152,7 +147,7 @@ ImageView avatarView;
         imageProfileButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {                                                       
-			upload();
+		upload();
             }
         });
                 
@@ -164,32 +159,27 @@ ImageView avatarView;
 
         this.setBottom(buttonHBox);
     }
-
     
     /***
      * This is a method for the file image upload.
      */
-   private void upload(){
-	    
-	    FileChooser imageChooser = new FileChooser();
-	    imageChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"),
-		    new FileChooser.ExtensionFilter("GIF", "*.gif"),
-		    new FileChooser.ExtensionFilter("BMP", "*.bmp"),
-		    new FileChooser.ExtensionFilter("PNG", "*.png"),
-		    new FileChooser.ExtensionFilter("JPEG", "*jpeg"));
-	    File fileimg = imageChooser.showOpenDialog(null);
-	    try {
-		    BufferedImage image = ImageIO.read(fileimg);
-		    Image imgChoosen = SwingFXUtils.toFXImage(image, null);
-		    avatarView.setImage(imgChoosen);
+    private void upload(){
+        FileChooser imageChooser = new FileChooser();
+        imageChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("GIF", "*.gif"),
+                new FileChooser.ExtensionFilter("BMP", "*.bmp"),
+                new FileChooser.ExtensionFilter("PNG", "*.png"),
+                new FileChooser.ExtensionFilter("JPEG", "*jpeg"));
+        File fileimg = imageChooser.showOpenDialog(null);
+        try {
+            BufferedImage image = ImageIO.read(fileimg);
+            Image imgChoosen = SwingFXUtils.toFXImage(image, null);
+            avatarView.setImage(imgChoosen);
 
-	    } catch (IOException ex) {
-		    Logger.getLogger(profilestab.class.getName()).log(Level.SEVERE, null, ex);
-	    }
-
-	    
+        } catch (IOException ex) {
+            Logger.getLogger(profilestab.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
     
     /**
      * This method creates the left panel
@@ -267,22 +257,21 @@ ImageView avatarView;
         separator3.setMinSize(20, 20);
         separator3.setOrientation(Orientation.VERTICAL);
 	
-	
-       HBox rightHBox2 = new HBox();
-	    avatarView = new ImageView();
-	    avatarView.setFitWidth(100);
-	    avatarView.setFitHeight(100);
-	    Image defaultAvatar = new Image("imgs/default.jpg");
+	avatarView = new ImageView();
+	avatarView.setFitWidth(100);
+	avatarView.setFitHeight(100);
+	Image defaultAvatar = new Image("imgs/default.jpg");
 	    
-avatarView.setImage(defaultAvatar);
-        rightHBox2.getChildren().addAll(separator3,getListView());
+        avatarView.setImage(defaultAvatar);
 
         VBox rightVBox = new VBox();
+        HBox rightHBox = new HBox();
+        rightVBox.getChildren().addAll(avatarView, getListView());
+        rightHBox.getChildren().addAll(separator3, rightVBox);
         rightVBox.setAlignment(Pos.TOP_CENTER);
-        rightVBox.getChildren().addAll(avatarView,rightHBox2);
-        BorderPane.setAlignment(rightVBox, Pos.TOP_CENTER);
-
-        this.setRight(rightVBox);
+        BorderPane.setAlignment(rightHBox, Pos.TOP_CENTER);
+        
+        this.setRight(rightHBox);
     }
 
     /**
