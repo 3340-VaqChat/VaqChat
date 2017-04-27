@@ -2,6 +2,9 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
+        <group/>
+=======
         <group>
 <<<<<<< HEAD
             <file>file:/C:/Users/Jcomp/Desktop/VaqChat/TabsProject/src/coursetab/coursestab.java</file>
@@ -22,5 +25,6 @@
             <file>file:/C:/Users/Carlos/Desktop/VaqChat%20M.%20Repo/TabsProject/src/GUIs/chatstab.java</file>
 >>>>>>> 909dc546a1fc8b1ba3ae29ee23be9303d3434919
         </group>
+>>>>>>> ef25e9ecfb8d698b28bc0dccb53e82b92ebc33bd
     </open-files>
 </project-private>
