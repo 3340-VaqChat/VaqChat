@@ -1,7 +1,6 @@
 package tabsproject;
 
 import GUIs.chatstab;
-import GUIs.loginTab;
 import GUIs.maingui;
 import java.awt.Desktop;
 import java.io.File;
