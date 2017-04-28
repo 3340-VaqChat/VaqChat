@@ -87,7 +87,7 @@ public class EmailTab extends BorderPane {
     /***
      * This is a method for the file image upload.
      */
-    private void upload(){
+    private void attach(){
         FileChooser fChooser = new FileChooser();
         fChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"),
                 new FileChooser.ExtensionFilter("GIF", "*.gif"),
@@ -137,16 +137,16 @@ public class EmailTab extends BorderPane {
 		AttachButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				upload();
+				attach();
             }
         });
 		Button SendButton = new Button("Send");
-		AttachButton.setMaxWidth(Double.MAX_VALUE);
-		AttachButton.setOnAction(new EventHandler<ActionEvent>() {
+		SendButton.setMaxWidth(Double.MAX_VALUE);
+		SendButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				Application.launch(JavaMail.class); //not sure if this is correct
-				//new JavaMail();
+				JavaMail mail=new JavaMail();
+				mail.start(null);
             }
         });
 
