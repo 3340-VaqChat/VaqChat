@@ -1,12 +1,6 @@
 package Email;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.application.Application;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -16,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
@@ -30,9 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.FileChooser;
-import javax.imageio.ImageIO;
-import profiletab.profilestab;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -43,14 +34,17 @@ import profiletab.profilestab;
  * -click send and the emails with the files as attachments will be sent to selected users
  */
 public class EmailTab extends BorderPane {
-
-    ImageView avatarView;
+	JavaMail mail=new JavaMail();
+	ImageView avatarView;
+	public String myfile;
+	public String finalmyfile;
 
     /**
      * Default constructor calling method to create GUI
      */
     public EmailTab() {
         getGUI();
+	
     }
 
     /**
@@ -86,23 +80,27 @@ public class EmailTab extends BorderPane {
 
     /***
      * This is a method for the file image upload.
+	 *
      */
-    private void attach(){
-        FileChooser fChooser = new FileChooser();
-        fChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"),
-                new FileChooser.ExtensionFilter("GIF", "*.gif"),
-                new FileChooser.ExtensionFilter("BMP", "*.bmp"),
-                new FileChooser.ExtensionFilter("PNG", "*.png"),
-                new FileChooser.ExtensionFilter("JPEG", "*jpeg"));
-        File fileimg = fChooser.showOpenDialog(null);
-        try {
-            BufferedImage image = ImageIO.read(fileimg);
-            Image imgChoosen = SwingFXUtils.toFXImage(image, null);
-            avatarView.setImage(imgChoosen);
-
-        } catch (IOException ex) {
-            Logger.getLogger(profilestab.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void attach(){
+	    //set the starting directory
+	String userDir = System.getProperty("user.home");
+	JFileChooser chooser= new JFileChooser(userDir +"/Desktop");
+	//set the title
+	chooser.setDialogTitle("Set Attachments");
+	chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+	if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+	System.out.println("getSelectedFile():" + chooser.getSelectedFile().getAbsolutePath());
+	myfile = chooser.getSelectedFile().getAbsolutePath();
+	finalmyfile = myfile.replace("\\", "\\\\");  //replace the \ with \\
+		System.out.println(finalmyfile); //checking the string that will be going in the attachFiles array
+	} 
+	else {
+		System.out.println("No Selection ");
+	}
+	
+	
+	
     }
     
    
@@ -145,8 +143,7 @@ public class EmailTab extends BorderPane {
 		SendButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				JavaMail mail=new JavaMail();
-				mail.start(null);
+				mail.email();
             }
         });
 

@@ -169,7 +169,7 @@ public class profilestab extends BorderPane {
                 new FileChooser.ExtensionFilter("GIF", "*.gif"),
                 new FileChooser.ExtensionFilter("BMP", "*.bmp"),
                 new FileChooser.ExtensionFilter("PNG", "*.png"),
-                new FileChooser.ExtensionFilter("JPEG", "*jpeg"));
+                new FileChooser.ExtensionFilter("JPEG","*.jpeg"));
         File fileimg = imageChooser.showOpenDialog(null);
         try {
             BufferedImage image = ImageIO.read(fileimg);
