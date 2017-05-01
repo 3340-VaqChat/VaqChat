@@ -21,10 +21,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TextField;
@@ -197,7 +199,7 @@ class MyLoginDialog extends Stage {
 		initOwner(owner);
 		setTitle("Login Window");
 		Group root = new Group();
-		Scene scene = new Scene(root, 250, 220);
+		Scene scene = new Scene(root, 350, 235);
 		setScene(scene);
 
 		Label topLabel = new Label(" Login ");
@@ -218,8 +220,10 @@ class MyLoginDialog extends Stage {
 		uname.setPromptText("Enter username here...");
 
 		Label password = new Label("Password:");
-		TextField pass = new TextField();
+		PasswordField pass = new PasswordField();
 		pass.setPromptText("Enter password here...");
+
+		CheckBox checkBox = new CheckBox("Show/Hide Password");
 
 		BooleanBinding LoginCheck = new BooleanBinding() {
 			{
@@ -293,6 +297,8 @@ class MyLoginDialog extends Stage {
 
 		profileEntryGrid.add(pass, 1, 3);
 
+		profileEntryGrid.add(checkBox, 0, 4);
+
 		profileEntryGrid.add(LoginButton, 0, 5);
 
 		profileEntryGrid.add(CancelButton, 1, 5);
@@ -347,8 +353,10 @@ class NewAccountDialog extends Stage {
 		uname.setPromptText("Enter username here...");
 
 		Label password = new Label("Password:");
-		TextField pass = new TextField();
+		PasswordField pass = new PasswordField();
 		pass.setPromptText("Enter password here...");
+
+		CheckBox checkBox = new CheckBox("Show/Hide Password");
 
 		BooleanBinding AccountCheck = new BooleanBinding() {
 			{
@@ -426,10 +434,12 @@ class NewAccountDialog extends Stage {
 
 		profileEntryGrid.add(password, 0, 7);
 		profileEntryGrid.add(pass, 1, 7);
+		
+		profileEntryGrid.add(checkBox, 1, 8);
 
-		profileEntryGrid.add(CreateButton, 0, 8);
+		profileEntryGrid.add(CreateButton, 0, 9);
 
-		profileEntryGrid.add(CancelButton, 1, 8);
+		profileEntryGrid.add(CancelButton, 1, 9);
 
 		root.getChildren().add(profileEntryGrid);
 	}
