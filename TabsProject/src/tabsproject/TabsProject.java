@@ -11,6 +11,7 @@ import java.util.Optional;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.application.Platform;
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -220,14 +221,27 @@ class MyLoginDialog extends Stage {
 		TextField pass = new TextField();
 		pass.setPromptText("Enter password here...");
 
+		BooleanBinding LoginCheck = new BooleanBinding() {
+			{
+				super.bind(uname.textProperty(),
+					pass.textProperty());
+			}
+
+			@Override
+			protected boolean computeValue() {
+				return (uname.getText().isEmpty()
+					|| pass.getText().isEmpty());
+			}
+		};
+
 		Button LoginButton = new Button("Log-in");
+		LoginButton.disableProperty().bind(LoginCheck);
 		LoginButton.setMaxWidth(Double.MAX_VALUE);
 		LoginButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 
 				// Alert if Success then close window
-				
 				// Alert if Error then stay on the window
 			}
 		});
@@ -336,14 +350,35 @@ class NewAccountDialog extends Stage {
 		TextField pass = new TextField();
 		pass.setPromptText("Enter password here...");
 
+		BooleanBinding AccountCheck = new BooleanBinding() {
+			{
+				super.bind(fname.textProperty(),
+					lname.textProperty(),
+					schoolemail.textProperty(),
+					idnum.textProperty(),
+					uname.textProperty(),
+					pass.textProperty());
+			}
+
+			@Override
+			protected boolean computeValue() {
+				return (fname.getText().isEmpty()
+					|| lname.getText().isEmpty()
+					|| schoolemail.getText().isEmpty()
+					|| idnum.getText().isEmpty()
+					|| uname.getText().isEmpty()
+					|| pass.getText().isEmpty());
+			}
+		};
+
 		Button CreateButton = new Button("Create Account");
+		CreateButton.disableProperty().bind(AccountCheck);
 		CreateButton.setMaxWidth(Double.MAX_VALUE);
 		CreateButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 
 				// Alert if Success then close window
-				
 				// Alert if Error then stay on the window
 			}
 		});
