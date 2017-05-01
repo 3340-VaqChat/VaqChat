@@ -37,8 +37,7 @@ public class EmailTab extends BorderPane {
 	JavaMail mail=new JavaMail();
 	ImageView avatarView;
 	public String myfile;
-	public String finalmyfile;
-
+   	public static String finalmyfile;
     /**
      * Default constructor calling method to create GUI
      */
@@ -83,6 +82,7 @@ public class EmailTab extends BorderPane {
 	 *
      */
     public void attach(){
+	    
 	    //set the starting directory
 	String userDir = System.getProperty("user.home");
 	JFileChooser chooser= new JFileChooser(userDir +"/Desktop");
@@ -99,11 +99,9 @@ public class EmailTab extends BorderPane {
 		System.out.println("No Selection ");
 	}
 	
-	
-	
     }
     
-   
+
 	private void createUIcenterPanel() {
 
 		CheckBox cb1 = new CheckBox("email1");
@@ -155,6 +153,4 @@ public class EmailTab extends BorderPane {
 
         this.setBottom(buttonHBox);
     }
-
-
 }

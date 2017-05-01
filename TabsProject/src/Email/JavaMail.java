@@ -30,8 +30,8 @@ public class JavaMail {
 		
 		EmailTab em = new EmailTab();		
 		// attachments
-		String[] attachFiles = new String[1];
-		attachFiles[0] = ""+em.finalmyfile+"";                        //this does not work
+		String[] attachFiles = new String[1];	
+		attachFiles[0] = em.finalmyfile;                        //this does not work
 		//attachFiles[0] = "C:\\Users\\Carlos\\Desktop\\test.png";    //this works 
 
 		try {
