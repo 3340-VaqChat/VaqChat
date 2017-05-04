@@ -19,7 +19,7 @@ public class Database {
 	private Connection myconnection = null;
 	private String url = "jdbc:mysql://localhost:3306/vaqchat";
 	private String username = "root";
-	private String password = "";
+	private String password = "jw123";
 
 	public Database() {
 	}
@@ -52,6 +52,7 @@ public class Database {
 		if (myconnection == null) {
 			try {
 				myconnection = DriverManager.getConnection(url, username, password);
+				System.out.println("Connected to database");
 			} catch (Exception e) {
 				System.out.println("Database Connection Error: stack-> " + e.getMessage());
 				Platform.exit();
@@ -60,16 +61,16 @@ public class Database {
 	}
 
 	/***
-	 * Method to register users to database with input from profileTab
+	 * Method for register new users to the database
 	 * @param user
-	 * @param password
+	 * @param passwordUser
 	 * @param firstName
 	 * @param lastName
 	 * @param email
-	 * @param webUrl
 	 * @param ID 
 	 */
-	public void registerUser(String user, String password, String firstName, String lastName, String email, String webUrl, String ID) {
+	public void registerUser(String user,String passwordUser, String firstName, String lastName, String email,String ID) {
+		establishConnection(url, username, password);
 
 		String SQLString = "";
 
@@ -78,15 +79,16 @@ public class Database {
 
 		try {
 			mystatment = myconnection.createStatement();
-			SQLString = "INSERT INTO vaqchat.profiles (username,passwords,firstName,lastName,email,weburl,id) VALUES"
-				+ "(\'" + user + "\'," + "\'" + password + "\'," + "\'" + firstName + "\',"
+			SQLString = "INSERT INTO vaqchat.profiles (username,passwords,firstName,lastName,email,id) VALUES"
+				+ "(\'" + user + "\'," + "\'" + passwordUser + "\'," +  "\'" + firstName + "\',"
 				+ "\'" + lastName + "\',"
 				+ "\'" + email + "\',"
-				+ "\'" + webUrl + "\',"
+				/*+ "\'" + webUrl + "\'"*/
 				+ "\'" + ID + "\'"
 				+ ");";
 
 			mystatment.executeLargeUpdate(SQLString);
+			System.out.println("NEW USER " + myRS.getString("user") + " CREATED");
 
 			if (myRS.isBeforeFirst()) {
 				//currentUser = new User();
@@ -99,6 +101,7 @@ public class Database {
 				System.out.println("last name is:         " + myRS.getString("lastName"));
 			}
 		} catch (Exception e) {
+			
 			System.out.println("stack:" + e.getMessage());
 		}
 

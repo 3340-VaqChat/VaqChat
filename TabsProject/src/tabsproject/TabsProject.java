@@ -46,7 +46,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
+import database.Database;
 /**
  *
  * @author Michelle Marie Garcia
@@ -61,7 +61,6 @@ public class TabsProject extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
 	@Override
 	public void start(Stage primaryStage) {
 		maingui hitGUI = new maingui();
@@ -311,6 +310,8 @@ class MyLoginDialog extends Stage {
 
 class NewAccountDialog extends Stage {
 
+	Database database = new Database();
+
 	public NewAccountDialog(Stage owneraccount) {
 		super();
 		initOwner(owneraccount);
@@ -386,8 +387,9 @@ class NewAccountDialog extends Stage {
 			@Override
 			public void handle(ActionEvent event) {
 
-				// Alert if Success then close window
-				// Alert if Error then stay on the window
+				database.registerUser(uname.getText(), pass.getText(), fname.getText(),
+					lname.getText(), schoolemail.getText(), idnum.getText());
+
 			}
 		});
 
