@@ -19,7 +19,7 @@ public class Database {
 	private Connection myconnection = null;
 	private String url = "jdbc:mysql://localhost:3306/vaqchat";
 	private String username = "root";
-	private String password = "jw123";
+	private String password = "";
 
 	public Database() {
 	}
