@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import profiletab.profilestab;
+import Email.EmailTab;
 
 /**
  *
@@ -30,13 +31,6 @@ public class chatstab {
     public chatstab(){
         tabPane.setStyle("-fx-background-color: cornsilk;");
         
-	Tab tab = new Tab("Log-in");
-        tab.idProperty().set("Log-in");
-        tab.setClosable(false);
-        tab.setGraphic(new ImageView(img3));
-        tab.setStyle("-fx-border-color: navy; -fx-background-color: bisque;");
-        tab.setContent(new loginTab());
-        
 	Tab tab0 = new Tab("Chat");
         tab0.idProperty().set("Chat");
         tab0.setClosable(false);
@@ -57,6 +51,13 @@ public class chatstab {
         tab2.setGraphic(new ImageView(img2));
         tab2.setStyle("-fx-border-color: navy; -fx-background-color: bisque;");
         tab2.setContent(new coursestab());
+ 
+	Tab tab4 = new Tab("File Exchange");
+        tab4.idProperty().set("File");
+        tab4.setClosable(false);
+       // tab4.setGraphic(new ImageView(img2));
+        tab4.setStyle("-fx-border-color: navy; -fx-background-color: bisque;");
+        tab4.setContent(new EmailTab());
         
         Tab tab3 = new Tab("About");
         tab3.setClosable(false);
@@ -67,7 +68,7 @@ public class chatstab {
         webEngine.load(getClass().getResource("/aboutHTML/aboutstab.html").toString());
         tab3.setContent(browser);
         
-        tabPane.getTabs().addAll(tab, tab0, tab1, tab2, tab3);
+        tabPane.getTabs().addAll(tab1, tab2, tab0, tab4, tab3);
     }
 
     /**
