@@ -59,7 +59,7 @@ public class TCPEchoServer
 		 {
 			System.out.println("Message received.");
 			numMessages++;
-			out.println("Message " + numMessages + ": " + message.toUpperCase());   			 
+			out.println("Message " + numMessages + ": " + message);   			 
 		 }
             message = in.readLine();
          }

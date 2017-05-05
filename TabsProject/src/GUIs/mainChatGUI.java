@@ -5,6 +5,13 @@
  */
 package GUIs;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,15 +42,22 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.TextAlignment;
+import network.TCPEchoServer;
 
 /**
  *
  * @author Carlos
  */
 public class mainChatGUI extends BorderPane {
-
     GridPane root = new GridPane();
     TabPane tabsPane = new TabPane();
+    Socket link = null;
+	BufferedReader in;
+	PrintWriter out;
+	String message, response;
+	private static InetAddress host;
+		private static final int PORT = 1234;
+
 
     Image img = new Image("imgs/utrgv.png");
     Image img2 = new Image("imgs/p1.jpeg");
@@ -103,20 +117,12 @@ public class mainChatGUI extends BorderPane {
     public void createBottom() {
         Button btsend1 = new Button("Send Message");
         Button btexit1 = new Button("Clear Messages");
+	Button btstart = new Button("Start Client");
 
         btsend1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String fullmessage1 = "";
-                fullmessage1 = SendMessages.getText();
-                messagedata1.add(fullmessage1);
-
-                String allData = "";
-                for (int i = 0; i < messagedata1.size(); i++) {
-                    allData += "Person 1: " + messagedata1.get(i) + "\n-Sent: " + formattedDate + "\n\n";
-                }
-                MessagesData.setText(allData);
-                SendMessages.clear();
+                run2();
             }
         });
         
@@ -128,11 +134,29 @@ public class mainChatGUI extends BorderPane {
                 SendMessages.clear();
             }
         });
+        
+        btstart.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                run();
+            }
+        });
+	try
+		{
+			host = InetAddress.getLocalHost();
+		}
+		catch(UnknownHostException e)
+		{
+			System.out.println("Host ID not found!");
+			System.exit(1);
+		}
+
+
 
         HBox buttonHBox = new HBox();
         buttonHBox.setAlignment(Pos.TOP_CENTER);
         buttonHBox.setPadding(new Insets(50, 50, 50, 50));
-        buttonHBox.getChildren().addAll(btsend1, btexit1);
+        buttonHBox.getChildren().addAll(btsend1, btexit1,btstart);
         BorderPane.setAlignment(buttonHBox, Pos.TOP_CENTER);
 
         this.setBottom(buttonHBox);
@@ -222,4 +246,42 @@ public class mainChatGUI extends BorderPane {
 
         this.setCenter(middleVBox);
     }
+    private void run()
+	{					//Step 1.
+		try
+		{
+			link = new Socket(host,PORT);		//Step 1.
+			in = 
+				new BufferedReader
+					(new InputStreamReader
+					   	(link.getInputStream()));
+
+			out = new PrintWriter(
+					link.getOutputStream(),true);
+		
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+
+	}	
+	
+	private void run2()
+	{					//Step 1.
+		try
+		{
+
+				message =  SendMessages.getText();
+				out.println(message); 		//Step 3.
+				response = in.readLine();		//Step 3
+				MessagesData.setText(response);			
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+
+	}	
+	
 }
