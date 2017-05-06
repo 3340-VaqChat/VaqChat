@@ -51,9 +51,9 @@ import database.Database;
  * GUI is created along with the necessary classes needed for the GUI to function.
  */
 public class profilestab extends BorderPane {
-    ArrayList<Profile> profiles = new ArrayList<>();
-    ListView<Profile> profilesView = new ListView();
-    ImageView avatarView;
+	ArrayList<Profile> profiles = new ArrayList<>();
+	ListView<Profile> profilesView = new ListView();
+	ImageView avatarView;
 	Database database = new Database();
 
     /**
@@ -361,7 +361,7 @@ public class profilestab extends BorderPane {
 //--------------------------------------------------------------------------------
         profilesView.getItems().clear();
 	//database.registerUser(Txuname.getText(), Txfname.getText(), Txlname.getText(), Txmail.getText(), Txurl.getText());
-
+	database.displayEmails();
 		
 	
 	

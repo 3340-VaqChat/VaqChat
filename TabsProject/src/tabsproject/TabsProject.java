@@ -47,6 +47,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import database.Database;
+import static javafx.application.Application.launch;
 /**
  *
  * @author Michelle Marie Garcia
