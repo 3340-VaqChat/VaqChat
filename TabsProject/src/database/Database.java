@@ -1,10 +1,10 @@
 package database;
 
-import javafx.application.Platform;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -55,7 +55,7 @@ public class Database {
 				System.out.println("Connected to database");
 			} catch (Exception e) {
 				System.out.println("Database Connection Error: stack-> " + e.getMessage());
-				Platform.exit();
+				//Platform.exit();
 			}
 		}
 	}
@@ -107,4 +107,45 @@ public class Database {
 
 	}
 
+	
+	
+	/***
+	 * Method to return the list of all emails registered in the database
+	 * @return emailList
+	 */
+	public ArrayList<String> displayEmails() {
+
+		ArrayList emailList = new ArrayList<String>();
+		establishConnection(url, username, password);
+
+		String SQLString = "";
+
+		Statement mystatment = null;
+		ResultSet myRS = null;
+
+		try {
+			mystatment = myconnection.createStatement();
+			SQLString = "SELECT firstName,lastName,email FROM vaqchat.profiles";
+			myRS = mystatment.executeQuery(SQLString);
+
+			if (myRS.isBeforeFirst()) {
+				//currentUser = new User();
+			}
+			while (myRS.next()) {
+				String addEmail = myRS.getString("email");
+				emailList.add(addEmail);
+
+				//System.out.println("id is:       " + myRS.getInt("iduser"));
+				System.out.println(myRS.getString("firstName") + " " + myRS.getString("lastName") + "'s email: " + myRS.getString("email"));
+			}
+		} catch (Exception e) {
+
+			System.out.println("stack:" + e.getMessage());
+		}
+
+		System.out.println("\nARRAY OF EMAIL: " + emailList);
+
+		return emailList;
+
+	}
 }

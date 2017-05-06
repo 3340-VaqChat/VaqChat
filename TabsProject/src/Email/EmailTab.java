@@ -24,7 +24,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.TextAlignment;
 import javax.swing.JFileChooser;
-
+import database.Database;
 /**
  *
  * @author Carlos
@@ -38,6 +38,7 @@ public class EmailTab extends BorderPane {
 	ImageView avatarView;
 	public String myfile;
    	public static String finalmyfile;
+	Database database = new Database();
     /**
      * Default constructor calling method to create GUI
      */
@@ -113,6 +114,11 @@ public class EmailTab extends BorderPane {
 		CheckBox cb6 = new CheckBox("email6");
 		CheckBox cb7 = new CheckBox("email7");
 		CheckBox cb8 = new CheckBox("email8");
+		
+		//Test to retrieve the arrayList of emails
+		cb1.setOnAction(e -> database.displayEmails());
+		
+		
 		
 		
 		VBox middleHBox = new VBox(10);
