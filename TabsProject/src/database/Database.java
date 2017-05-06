@@ -7,7 +7,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- *
+ * This class is in charge of the database portion of the project and connects to 
+ * the database to retrieve or input information.
+ * 
  * @author Jody Whitis
  */
 public class Database {
@@ -134,7 +136,6 @@ public class Database {
 			while (myRS.next()) {
 				String addEmail = myRS.getString("email");
 				emailList.add(addEmail);
-
 				//System.out.println("id is:       " + myRS.getInt("iduser"));
 				System.out.println(myRS.getString("firstName") + " " + myRS.getString("lastName") + "'s email: " + myRS.getString("email"));
 			}
@@ -144,7 +145,9 @@ public class Database {
 		}
 
 		System.out.println("\nARRAY OF EMAIL: " + emailList);
-
+				String res = String.join(", ", emailList);
+				System.out.println(res);
+				
 		return emailList;
 
 	}

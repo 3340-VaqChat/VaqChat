@@ -18,7 +18,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
- *
+ * This is the class in charge of the Client side portion of the chat.
  * @author Noe
  */
 public class ClientSocket extends Application{

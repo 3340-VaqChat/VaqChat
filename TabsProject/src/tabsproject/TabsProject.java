@@ -49,10 +49,10 @@ import javafx.stage.Stage;
 import database.Database;
 import static javafx.application.Application.launch;
 /**
- *
+ *This is the main class.
  * @author Michelle Marie Garcia
  *
- * This is the main class.
+ * 
  */
 public class TabsProject extends Application {
 

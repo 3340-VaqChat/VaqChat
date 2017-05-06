@@ -1,7 +1,10 @@
 package network;
 import java.io.*;
 import java.net.*;
-
+/**
+ * This is the class in charge of the TCP server for the chat.
+ * @author 
+ */
 public class TCPEchoServer
 {
    private static ServerSocket servSock;

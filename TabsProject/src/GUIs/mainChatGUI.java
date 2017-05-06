@@ -45,8 +45,10 @@ import javafx.scene.text.TextAlignment;
 import network.TCPEchoServer;
 
 /**
- *
+ *This class is the GUI for the "Chat tab" and also contains some parts of the
+ * networking.
  * @author Carlos
+ * 
  */
 public class mainChatGUI extends BorderPane {
     GridPane root = new GridPane();
