@@ -244,7 +244,8 @@ class MyLoginDialog extends Stage {
 		LoginButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-
+				Database login = new Database();
+				login.loginUser(uname.getText(), pass.getText());
 				// Alert if Success then close window
 				// Alert if Error then stay on the window
 			}

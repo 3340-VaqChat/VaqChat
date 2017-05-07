@@ -21,7 +21,7 @@ public class Database {
 	private Connection myconnection = null;
 	private String url = "jdbc:mysql://localhost:3306/vaqchat";
 	private String username = "root";
-	private String password = "";
+	private String password = "jw123";
 
 	public Database() {
 	}
@@ -249,8 +249,57 @@ public ArrayList<String> displayEmails() {
 	}
 	
 	
-	
-	
+	/***
+	 * Method to match login and password, then return profile information in arrayList
+	 * @param usernameProfile
+	 * @param passwordProfile
+	 * @return profileList
+	 */
+	public ArrayList<String> loginUser(String usernameProfile, String passwordProfile) {
+
+		ArrayList profileList = new ArrayList<String>();
+		establishConnection(url, username, password);
+
+		String SQLString = "";
+
+		Statement mystatment = null;
+		ResultSet myRS = null;
+
+		try {
+			mystatment = myconnection.createStatement();
+			SQLString = "SELECT * FROM vaqchat.profiles WHERE username LIKE "+ "\'"+usernameProfile+"\' AND passwords LIKE "+ "\'"+passwordProfile+"\'" ;
+			myRS = mystatment.executeQuery(SQLString);
+
+			if (myRS.isBeforeFirst()) {
+				//currentUser = new User();
+			}
+			while (myRS.next()) {
+				String addProfileinfo = myRS.getString("username");
+				String addProfilename= myRS.getString("firstName");
+				String addProfilelastname = myRS.getString("lastName");
+				String addProfileemail= myRS.getString("email");
+				
+				profileList.add(addProfileinfo);
+				profileList.add(addProfilename);
+				profileList.add(addProfilelastname);
+				profileList.add(addProfileemail);
+			
+				//System.out.println("id is:       " + myRS.getInt("iduser"));
+				System.out.println("Welcome");
+				System.out.println(myRS.getString("firstName") + " " + myRS.getString("lastName") + "'s username: " + myRS.getString("username") );
+			}
+		} catch (Exception e) {
+
+			System.out.println("stack:" + e.getMessage());
+		}
+
+		System.out.println("\nARRAY OF Profile infomation" +  profileList);
+				String res = String.join(", ", profileList);
+				System.out.println(res);
+				
+		return profileList;
+
+	}
 	
 	
 }
