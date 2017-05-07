@@ -31,12 +31,12 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.TextAlignment;
 import database.Database;
 /**
- *
- * @author Michelle Marie Garcia
- *
- * This class creates the content within the Courses tab. Within this class, a
+ *This class creates the content within the Courses tab. Within this class, a
  * GUI is created along with the necessary classes needed for the GUI to
  * function.
+ * @author Michelle Marie Garcia
+ *
+ * 
  */
 public class coursestab extends BorderPane {
     ArrayList<Profile> profiles = new ArrayList<>();

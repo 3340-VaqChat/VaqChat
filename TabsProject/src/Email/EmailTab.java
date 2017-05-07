@@ -26,18 +26,28 @@ import javafx.scene.text.TextAlignment;
 import javax.swing.JFileChooser;
 import database.Database;
 /**
- *
- * @author Carlos
+ *  This is the GUI for the email tab "File exchange"
+ * 
  * -this class will take care of the sending of attachments through email 
  * -emails will be gotten dynamically from registered users and displayed in checkboxes
  * -choose a file or multiple files and select which users will receive the files
  * -click send and the emails with the files as attachments will be sent to selected users
+ * @author Carlos
+ *
  */
 public class EmailTab extends BorderPane {
 	JavaMail mail=new JavaMail();
 	ImageView avatarView;
+
+	/**
+	 *
+	 */
 	public String myfile;
-   	public static String finalmyfile;
+
+	/**
+	 *
+	 */
+	public static String finalmyfile;
 	Database database = new Database();
     /**
      * Default constructor calling method to create GUI
@@ -106,18 +116,13 @@ public class EmailTab extends BorderPane {
 	private void createUIcenterPanel() {
 
 		CheckBox cb1 = new CheckBox("email1");
-		cb1.setSelected(true);
 		CheckBox cb2 = new CheckBox("email2");
 		CheckBox cb3 = new CheckBox("email3");
 		CheckBox cb4 = new CheckBox("email4");
 		CheckBox cb5 = new CheckBox("email5");
 		CheckBox cb6 = new CheckBox("email6");
 		CheckBox cb7 = new CheckBox("email7");
-		CheckBox cb8 = new CheckBox("email8");
-		
-		//Test to retrieve the arrayList of emails
-		cb1.setOnAction(e -> database.displayEmails());
-		
+		CheckBox cb8 = new CheckBox("email8");		
 		
 		
 		
@@ -150,11 +155,14 @@ public class EmailTab extends BorderPane {
 				mail.email();
             }
         });
+		Button getEm = new Button("Test Emails");		
+		getEm.setMaxWidth(Double.MAX_VALUE);
+		getEm.setOnAction(e -> database.displayEmails());
 
 	HBox buttonHBox = new HBox();
         buttonHBox.setAlignment(Pos.TOP_CENTER);
         buttonHBox.setPadding(new Insets(50, 50, 50, 50));
-        buttonHBox.getChildren().addAll(AttachButton, SendButton);
+        buttonHBox.getChildren().addAll(AttachButton, SendButton, getEm);
         BorderPane.setAlignment(buttonHBox, Pos.TOP_CENTER);
 
         this.setBottom(buttonHBox);

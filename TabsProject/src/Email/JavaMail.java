@@ -10,7 +10,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 /**
- *
+ * This class will give the values to the email attachment sender like host,
+ * port, who the email is coming from and to who it is sent and with what
+ * message or attachments
  * @author Carlos
  */
 public class JavaMail {
@@ -24,7 +26,8 @@ public class JavaMail {
 		String password = "SoftwareEng";
 
 		// message info
-		String mailTo = "carlos.a.mata01@utrgv.edu"; 		
+		String mailTo = "carlos.a.mata01@utrgv.edu";
+		
 		String subject = "New email with attachments";
 		String message = "These are the attachments: ";
 		

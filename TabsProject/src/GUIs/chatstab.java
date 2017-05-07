@@ -11,15 +11,15 @@ import profiletab.profilestab;
 import Email.EmailTab;
 
 /**
- *
- * @author Michelle Marie Garcia
- * 
  * This class creates a tab pane with four tabs in total. The first tab holds the 
  * previous chat project which will be usable by all connected users. The second 
  * tab holds the previous project on sorting profiles. The third tab holds classes 
  * entered and sorts them as well. The fourth and final tab holds a simple about 
  * page about the application. Each tab has an icon beside its title with the
  * exception of the about tab.
+ * @author Michelle Marie Garcia
+ * 
+ * 
  */
 public class chatstab {
     private TabPane tabPane = new TabPane();
