@@ -52,11 +52,11 @@ public class mainChatGUI extends BorderPane {
     GridPane root = new GridPane();
     TabPane tabsPane = new TabPane();
     Socket link = null;
-	BufferedReader in;
-	PrintWriter out;
-	String message, response;
-	private static InetAddress host;
-		private static final int PORT = 1234;
+    BufferedReader in;
+    PrintWriter out;
+    String message, response;
+    private static InetAddress host;
+    private static final int PORT = 1234;
 
 
     Image img = new Image("imgs/utrgv.png");
@@ -69,18 +69,22 @@ public class mainChatGUI extends BorderPane {
 
     Line line1 = new Line(0, 0, 0, 300);
 
-    TextField SendMessages = new TextField();
-    TextArea MessagesData = new TextArea();
+    TextField sendMessageField = new TextField();
+    TextArea MessagesArea = new TextArea();
 
     ArrayList<String> messagedata1 = new ArrayList<>();
-    Date date = new Date();
-    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy h:mm a");
-    String formattedDate = sdf.format(date);
 
     /**
      * Default constructor calling method to create GUI
      */
     public mainChatGUI() {
+        try {
+            host = InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+            System.out.println("Host ID not found!");
+            System.exit(1);
+        }
+        
         getGUI();
     }
 
@@ -115,48 +119,41 @@ public class mainChatGUI extends BorderPane {
     }
 
     public void createBottom() {
-        Button btsend1 = new Button("Send Message");
-        Button btexit1 = new Button("Clear Messages");
 	Button btstart = new Button("Start Client");
+        Button btsend1 = new Button("Send Message");
+        Button btclear1 = new Button("Clear Messages");
 
-        btsend1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                run2();
-            }
-        });
-        
-        btexit1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                messagedata1.clear();
-                MessagesData.clear();
-                SendMessages.clear();
-            }
-        });
-        
         btstart.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                run();
+                runStart();
             }
         });
-	try
-		{
-			host = InetAddress.getLocalHost();
-		}
-		catch(UnknownHostException e)
-		{
-			System.out.println("Host ID not found!");
-			System.exit(1);
-		}
-
-
+        
+        btsend1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                runSend();
+            }
+        });
+        
+        btclear1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                runClose();
+                
+                messagedata1.clear();
+                MessagesArea.clear();
+                sendMessageField.clear();
+            }
+        });
+	
+        
 
         HBox buttonHBox = new HBox();
         buttonHBox.setAlignment(Pos.TOP_CENTER);
         buttonHBox.setPadding(new Insets(50, 50, 50, 50));
-        buttonHBox.getChildren().addAll(btsend1, btexit1,btstart);
+        buttonHBox.getChildren().addAll(btsend1, btclear1, btstart);
         BorderPane.setAlignment(buttonHBox, Pos.TOP_CENTER);
 
         this.setBottom(buttonHBox);
@@ -192,7 +189,7 @@ public class mainChatGUI extends BorderPane {
     }
 
     public void createRight() {
-        iv3.setFitHeight(100);//image size
+        iv3.setFitHeight(100);
         iv3.setFitWidth(100);
 
         // Group/Single user talking to
@@ -215,73 +212,115 @@ public class mainChatGUI extends BorderPane {
 
     public void createCenter() {
 //        Button btsend1 = new Button("Send Message");
-//        Button btexit1 = new Button("Clear Messages");
+//        Button btclear1 = new Button("Clear Messages");
 //
 //        btsend1.setOnAction(new EventHandler<ActionEvent>() {
 //            @Override
 //            public void handle(ActionEvent event) {
 //                String fullmessage1 = "";
-//                fullmessage1 = SendMessages.getText();
+//                fullmessage1 = sendMessageField.getText();
 //                messagedata1.add(fullmessage1);
 //
 //                String allData = "";
 //                for (int i = 0; i < messagedata1.size(); i++) {
 //                    allData += "Person 1: " + messagedata1.get(i) + " -Sent: " + formattedDate;
 //                }
-//                MessagesData.setText(allData);
-//                SendMessages.clear();
+//                MessagesArea.setText(allData);
+//                sendMessageField.clear();
 //            }
 //        });
 
         VBox middleVBox = new VBox(10);
         middleVBox.setPadding(new Insets(5, 5, 5, 5));
         middleVBox.setAlignment(Pos.TOP_CENTER);
-        middleVBox.getChildren().addAll(MessagesData, SendMessages);
-
-//        HBox buttonHBox = new HBox();
-//        buttonHBox.setAlignment(Pos.TOP_CENTER);
-//        buttonHBox.setPadding(new Insets(50, 50, 50, 50));
-//        buttonHBox.getChildren().addAll(btsend1, btexit1);
-//        BorderPane.setAlignment(buttonHBox, Pos.TOP_CENTER);
+        middleVBox.getChildren().addAll(MessagesArea, sendMessageField);
 
         this.setCenter(middleVBox);
     }
-    private void run()
-	{					//Step 1.
-		try
-		{
-			link = new Socket(host,PORT);		//Step 1.
-			in = 
-				new BufferedReader
-					(new InputStreamReader
-					   	(link.getInputStream()));
+    
+    private void runStart() {					//Step 1.
+        try {
+            link = new Socket(host, PORT);		//Step 1.
+            in = new BufferedReader(new InputStreamReader(link.getInputStream()));
+            out = new PrintWriter(link.getOutputStream(), true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-			out = new PrintWriter(
-					link.getOutputStream(),true);
-		
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-
-	}	
-	
-	private void run2()
-	{					//Step 1.
-		try
-		{
-
-				message =  SendMessages.getText();
-				out.println(message); 		//Step 3.
-				response = in.readLine();		//Step 3
-				MessagesData.setText(response);			
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-
-	}	
-	
+    private void runSend() {
+        try {
+            Date date = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy h:mm a");
+            
+            message = sendMessageField.getText();
+            messagedata1.add(message + " -Sent: " + sdf.format(date));
+            out.println(message);
+            response = in.readLine();
+            messagedata1.add(response);
+            
+            String allData = "";
+            for (int i = 0; i < messagedata1.size(); i++) {
+                allData += "Person 1: " + messagedata1.get(i) + "\n";
+            }
+            
+            MessagesArea.clear();
+            MessagesArea.setText(allData);
+            sendMessageField.clear();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void runClose() {
+        try {
+            message = "***CLOSE***";
+            out.println(message); 		//Step 3.
+            response = in.readLine();		//Step 3
+            messagedata1.add(response);
+            link.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+//    private void sendToServer() {					//Step 1.
+//	try {
+//            String fullmessage1 = "";
+//            fullmessage1 = sendMessageField.getText();
+//
+//            if (!(sendMessageField.getText().equalsIgnoreCase("CLOSE"))) {
+//                messagedata1.add(fullmessage1);
+//                out.println(fullmessage1);
+//                response = in.readLine();
+//                messagedata1.add(response);
+//
+//                String allData = "";
+//                for (int i = 0; i < messagedata1.size(); i++) {
+//                    allData += "Person 1: " + messagedata1.get(i) + " -Sent: " + formattedDate + "\n";
+//                }
+//
+//                MessagesArea.clear();
+//                MessagesArea.setText(allData);
+//                
+//                sendMessageField.clear();
+//            } else {
+//                out.println("CLOSE");
+//            }
+//		
+//	} catch(IOException e)
+//            {
+//		e.printStackTrace();
+//            }
+//    }
+//
+//    private String receiveFromServer() {					//Step 1.
+//        try {
+//            response = in.readLine();		//Step 3
+//            messagedata1.add(response);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return response;
+//    }
 }
