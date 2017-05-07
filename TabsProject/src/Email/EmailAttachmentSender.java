@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Email package contains all the utilities and methods to 
+ * make the email portion of the application function.
  */
 package Email;
 
@@ -23,7 +22,28 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+/**
+ * This class will be in charge of sending the email by using the information 
+ * from the JavaMail.java class.
+ * @author Carlos
+ * 
+ */
+
 public class EmailAttachmentSender {
+
+	/**
+	 *
+	 * @param host
+	 * @param port
+	 * @param userName
+	 * @param password
+	 * @param toAddress
+	 * @param subject
+	 * @param message
+	 * @param attachFiles
+	 * @throws AddressException
+	 * @throws MessagingException
+	 */
 	public static void sendEmailWithAttachments(String host, String port,
 		final String userName, final String password, String toAddress,
 		String subject, String message, String[] attachFiles)

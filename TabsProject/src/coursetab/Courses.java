@@ -1,10 +1,10 @@
 package coursetab;
 
 /**
- *
+ *This class creates a Courses object to hold courses input by the user.
  * @author Michelle Marie Garcia
  * 
- * This class creates a Courses object to hold courses input by the user.
+ * 
  */
 public class Courses {
     private String courseId;

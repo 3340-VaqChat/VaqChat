@@ -3,8 +3,11 @@ package network;
 import java.io.*;
 import java.net.*;
 
+/**
+ * This is the class in charge of the TCP server for the chat.
+ * @author Michelle Marie Garcia
+ */
 public class TCPEchoServer {
-
     private static ServerSocket servSock;
     private static final int PORT = 1234;
 

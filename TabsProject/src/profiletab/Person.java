@@ -1,10 +1,10 @@
 package profiletab;
 
 /**
- *
+ *This class creates a Person object to hold a student's info input by the user.
  * @author Michelle Marie Garcia
  * 
- * This class creates a Person object to hold a student's info input by the user.
+ * 
  */
 public class Person {
     private String lastName;

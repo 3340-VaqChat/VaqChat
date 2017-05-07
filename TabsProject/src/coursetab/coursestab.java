@@ -29,19 +29,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.TextAlignment;
-
+import database.Database;
 /**
- *
- * @author Michelle Marie Garcia
- *
- * This class creates the content within the Courses tab. Within this class, a
+ *This class creates the content within the Courses tab. Within this class, a
  * GUI is created along with the necessary classes needed for the GUI to
  * function.
+ * @author Michelle Marie Garcia
+ *
+ * 
  */
 public class coursestab extends BorderPane {
     ArrayList<Profile> profiles = new ArrayList<>();
     ListView<Profile> coursesView = new ListView<>();
-
+    Database database = new Database();
     public coursestab() {
         getGui();
     }
@@ -82,7 +82,7 @@ public class coursestab extends BorderPane {
         addProfileButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                getProfile();
+                getCourses();
             }
         });
 
@@ -91,7 +91,7 @@ public class coursestab extends BorderPane {
         modifyProfileButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // Modify
+             displayCourses();
             }
         });
 
@@ -158,7 +158,7 @@ public class coursestab extends BorderPane {
                     Label courseInfoLabel = new Label("Course Info");
                     courseInfoLabel.setStyle("-fx-font-weight: bold;");
 
-                    Label unameLabel = new Label("Username:");
+                    Label unameLabel = new Label("Student ID:");
                     TextField unameField = new TextField();
                     unameField.setId("uname");   // Add + j to the end of all setId's.
                     unameField.setMaxWidth(Double.MAX_VALUE);
@@ -314,7 +314,7 @@ public class coursestab extends BorderPane {
         return coursesView;
     }
 
-    public void getProfile() {
+    public void getCourses() {
         Profile profile1 = new Profile();
         Scene scene = this.getScene();
 
@@ -338,8 +338,12 @@ public class coursestab extends BorderPane {
 
         profiles.add(profile1);
 //--------------------------------------------------------------------------------
-        coursesView.getItems().clear();
-        coursesView.getItems().addAll(profiles);
+
+	    database.addCourses(Txcid.getText(), Txprefix.getText(), Txcnum.getText(), Txsection.getText(), Txstart.getText(), Txend.getText(), Txlocation.getText(),
+		    Txinst.getText(), Txprenum.getText(), Txuname.getText());
+
+	    coursesView.getItems().clear();
+	    coursesView.getItems().addAll(profiles);
 
         Txuname.setText("");
         Txcid.setText("");
@@ -351,6 +355,35 @@ public class coursestab extends BorderPane {
         Txlocation.setText("");
         Txinst.setText("");
         Txprenum.setText("");
+    }
+
+    
+   /***
+    * Method to display course once studentID is entered, so far only shows on console
+    */
+        public void displayCourses() {
+        Profile profile1 = new Profile();
+        Scene scene = this.getScene();
+
+        TextField Txuname = (TextField) scene.lookup("#uname");
+        TextField Txcid = (TextField) scene.lookup("#cid");
+        TextField Txprefix = (TextField) scene.lookup("#prefix");
+        TextField Txcnum = (TextField) scene.lookup("#cnum");
+        TextField Txsection = (TextField) scene.lookup("#section");
+        TextField Txstart = (TextField) scene.lookup("#start");
+        TextField Txend = (TextField) scene.lookup("#end");
+        TextField Txlocation = (TextField) scene.lookup("#location");
+        TextField Txinst = (TextField) scene.lookup("#inst");
+        TextField Txprenum = (TextField) scene.lookup("#prenum");
+
+      
+//--------------------------------------------------------------------------------
+
+		database.displayCourses(Txuname.getText());
+	    /*coursesView.getItems().clear();
+	    coursesView.getItems().addAll(profiles);
+*/
+        
     }
 
     class CourseIDComparator implements Comparator<Profile> {
