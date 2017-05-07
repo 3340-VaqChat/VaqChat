@@ -211,7 +211,7 @@ public class Database {
 	 * Method to return the list of all emails registered in the database
 	 * @return emailList
 	 */
-	public ArrayList<String> displayEmails() {
+public ArrayList<String> displayEmails() {
 
 		ArrayList emailList = new ArrayList<String>();
 		establishConnection(url, username, password);
@@ -233,16 +233,16 @@ public class Database {
 				String addEmail = myRS.getString("email");
 				emailList.add(addEmail);
 				//System.out.println("id is:       " + myRS.getInt("iduser"));
-				System.out.println(myRS.getString("firstName") + " " + myRS.getString("lastName") + "'s email: " + myRS.getString("email"));
+			//	System.out.println(myRS.getString("firstName") + " " + myRS.getString("lastName") + "'s email: " + myRS.getString("email"));
 			}
 		} catch (Exception e) {
 
-			System.out.println("stack:" + e.getMessage());
+			//System.out.println("stack:" + e.getMessage());
 		}
 
-		System.out.println("\nARRAY OF EMAIL: " + emailList);
-				String res = String.join(", ", emailList);
-				System.out.println(res);
+		//System.out.println("\nARRAY OF EMAIL: " + emailList);
+				//String res = String.join(", ", emailList);
+				//System.out.println(res);
 				
 		return emailList;
 

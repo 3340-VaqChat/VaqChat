@@ -24,18 +24,18 @@ public class JavaMail {
 		String port = "465";
 		String mailFrom = "vaqchathost@gmail.com"; //host email
 		String password = "SoftwareEng";
-
+		EmailTab em = new EmailTab();	
 		// message info
-		String mailTo = "carlos.a.mata01@utrgv.edu";
+		String mailTo = em.recipient;
 		
 		String subject = "New email with attachments";
 		String message = "These are the attachments: ";
 		
-		EmailTab em = new EmailTab();		
+			
 		// attachments
 		String[] attachFiles = new String[1];	
-		attachFiles[0] = em.finalmyfile;                        //this does not work
-		//attachFiles[0] = "C:\\Users\\Carlos\\Desktop\\test.png";    //this works 
+		attachFiles[0] = em.finalmyfile;                  
+
 
 		try {
 			EmailAttachmentSender.sendEmailWithAttachments(host, port, mailFrom, password, mailTo, subject, message,attachFiles);
