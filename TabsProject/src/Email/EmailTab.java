@@ -48,6 +48,8 @@ public class EmailTab extends BorderPane {
 	public static String finalmyfile;
 	Database database = new Database();
 	ArrayList<String> emailList = database.displayEmails();
+	ObservableList<String> items =FXCollections.observableArrayList (database.displayEmails());	
+
     /**
      * Default constructor calling method to create GUI
      */
@@ -114,7 +116,6 @@ public class EmailTab extends BorderPane {
 
 	private void createUIcenterPanel() {
 		Label label = new Label();
-		ObservableList<String> items =FXCollections.observableArrayList (database.displayEmails());	
 		list = new ListView<>(items);
 		list.getSelectionModel().selectedItemProperty()
 				.addListener(new ChangeListener<String>() {
@@ -159,12 +160,13 @@ public class EmailTab extends BorderPane {
 				mail.email();
             }
         });
-		Button getEm = new Button("Refresh Emails");		
+		Button getEm = new Button("Refresh List");		
 		getEm.setMaxWidth(Double.MAX_VALUE);
 		getEm.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				
+				list.setItems(FXCollections.observableArrayList(database.displayEmails()));
+				 
             }
         });
 
