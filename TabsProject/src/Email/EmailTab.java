@@ -1,13 +1,11 @@
 package Email;
 
-import java.io.File;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
@@ -25,6 +23,12 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.TextAlignment;
 import javax.swing.JFileChooser;
 import database.Database;
+import java.util.ArrayList;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 /**
  *  This is the GUI for the email tab "File exchange"
  * 
@@ -38,17 +42,14 @@ import database.Database;
 public class EmailTab extends BorderPane {
 	JavaMail mail=new JavaMail();
 	ImageView avatarView;
-
-	/**
-	 *
-	 */
+	ListView<String> list = new ListView<String>();
+	public static String recipient;
 	public String myfile;
-
-	/**
-	 *
-	 */
 	public static String finalmyfile;
 	Database database = new Database();
+	ArrayList<String> emailList = database.displayEmails();
+	ObservableList<String> items =FXCollections.observableArrayList (database.displayEmails());	
+
     /**
      * Default constructor calling method to create GUI
      */
@@ -114,22 +115,26 @@ public class EmailTab extends BorderPane {
     
 
 	private void createUIcenterPanel() {
+		Label label = new Label();
+		list = new ListView<>(items);
+		list.getSelectionModel().selectedItemProperty()
+				.addListener(new ChangeListener<String>() {
 
-		CheckBox cb1 = new CheckBox("email1");
-		CheckBox cb2 = new CheckBox("email2");
-		CheckBox cb3 = new CheckBox("email3");
-		CheckBox cb4 = new CheckBox("email4");
-		CheckBox cb5 = new CheckBox("email5");
-		CheckBox cb6 = new CheckBox("email6");
-		CheckBox cb7 = new CheckBox("email7");
-		CheckBox cb8 = new CheckBox("email8");		
-		
-		
+					public void changed(
+							ObservableValue<? extends String> observable,
+							String oldValue, String newValue) {
+						// change the label text value to the newly selected
+						// item.
+						label.setText("You Selected: " + newValue);
+						recipient = newValue;
+					}
+				});
 		
 		VBox middleHBox = new VBox(10);
 		middleHBox.setPadding(new Insets(5, 5, 5, 5));
 		middleHBox.setAlignment(Pos.TOP_CENTER);
-		middleHBox.getChildren().addAll(cb1, cb2, cb3, cb4, cb5, cb6, cb7, cb8);
+		middleHBox.getChildren().addAll(list, label);
+		
 
 		this.setCenter(middleHBox);
 	}
@@ -155,9 +160,15 @@ public class EmailTab extends BorderPane {
 				mail.email();
             }
         });
-		Button getEm = new Button("Test Emails");		
+		Button getEm = new Button("Refresh List");		
 		getEm.setMaxWidth(Double.MAX_VALUE);
-		getEm.setOnAction(e -> database.displayEmails());
+		getEm.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				list.setItems(FXCollections.observableArrayList(database.displayEmails()));
+				 
+            }
+        });
 
 	HBox buttonHBox = new HBox();
         buttonHBox.setAlignment(Pos.TOP_CENTER);
