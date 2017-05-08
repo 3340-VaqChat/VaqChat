@@ -47,7 +47,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import database.Database;
+import java.util.ArrayList;
 import static javafx.application.Application.launch;
+import profiletab.profilestab;
 /**
  *This is the main class.
  * @author Michelle Marie Garcia
@@ -199,7 +201,7 @@ class MyLoginDialog extends Stage {
 		initOwner(owner);
 		setTitle("Login Window");
 		Group root = new Group();
-		Scene scene = new Scene(root, 350, 235);
+		Scene scene = new Scene(root, 400, 350);
 		setScene(scene);
 
 		Label topLabel = new Label(" Login ");
@@ -245,9 +247,22 @@ class MyLoginDialog extends Stage {
 			@Override
 			public void handle(ActionEvent event) {
 				Database login = new Database();
-				login.loginUser(uname.getText(), pass.getText());
-				// Alert if Success then close window
-				// Alert if Error then stay on the window
+				ArrayList<String> loginConfirmation= login.loginUser(uname.getText(), pass.getText());
+				
+			
+				
+				if(!loginConfirmation.isEmpty()){
+					close();
+				}
+				else{
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Incorrect Username/Password");
+				alert.setHeaderText(null);
+				alert.setContentText("Invalid Creditials");
+				Optional<ButtonType> result = alert.showAndWait();
+			 
+				}
+				
 			}
 		});
 
@@ -319,7 +334,7 @@ class NewAccountDialog extends Stage {
 		initOwner(owneraccount);
 		setTitle("New Account Window");
 		Group root = new Group();
-		Scene scene = new Scene(root, 410, 320);
+		Scene scene = new Scene(root, 500, 500);
 		setScene(scene);
 
 		Label topLabel = new Label(" Create Account ");
