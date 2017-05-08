@@ -370,12 +370,55 @@ public class coursestab extends BorderPane {
         coursesView.getItems().addAll(profiles);
     }
 
+<<<<<<< HEAD
     /**
      * *
      * Method to display course once studentID is entered, so far only shows on
      * console
      */
     public void displayCourses() {
+=======
+    
+    
+        public void deleteCourse() {
+        Profile profile1 = new Profile();
+        Scene scene = this.getScene();
+
+        /* Need an if statement to add numbers after lookup string to pull data for each 
+        course set. It works when hard-coded, but needs to be dynamically implemented.*/
+        TextField Txuname = (TextField) scene.lookup("#uname");
+        TextField Txcid = (TextField) scene.lookup("#cid");
+        TextField Txprefix = (TextField) scene.lookup("#prefix");
+        TextField Txcnum = (TextField) scene.lookup("#cnum");
+        TextField Txsection = (TextField) scene.lookup("#section");
+        TextField Txstart = (TextField) scene.lookup("#start");
+        TextField Txend = (TextField) scene.lookup("#end");
+        TextField Txlocation = (TextField) scene.lookup("#location");
+        TextField Txinst = (TextField) scene.lookup("#inst");
+        TextField Txprenum = (TextField) scene.lookup("#prenum");
+
+  
+
+        Txuname.setText("");
+        Txcid.setText("");
+        Txprefix.setText("");
+        Txcnum.setText("");
+        Txsection.setText("");
+        Txstart.setText("");
+        Txend.setText("");
+        Txlocation.setText("");
+        Txinst.setText("");
+        Txprenum.setText("");
+    }
+
+    
+    
+    
+   /***
+    * Method to display course once studentID is entered, so far only shows on console
+    */
+        public void displayCourses() {
+>>>>>>> 8aac681c9e4bc343b8ccf4d913145db2b8c9706f
         Profile profile1 = new Profile();
         Scene scene = this.getScene();
 

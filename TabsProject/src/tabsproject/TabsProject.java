@@ -47,12 +47,16 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import database.Database;
+import java.util.ArrayList;
 import static javafx.application.Application.launch;
+import profiletab.profilestab;
+
 /**
- *This is the main class.
+ * This is the main class.
+ *
  * @author Michelle Marie Garcia
  *
- * 
+ *
  */
 public class TabsProject extends Application {
 
@@ -62,6 +66,7 @@ public class TabsProject extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 	@Override
 	public void start(Stage primaryStage) {
 		maingui hitGUI = new maingui();
@@ -199,7 +204,7 @@ class MyLoginDialog extends Stage {
 		initOwner(owner);
 		setTitle("Login Window");
 		Group root = new Group();
-		Scene scene = new Scene(root, 350, 235);
+		Scene scene = new Scene(root, 400, 350);
 		setScene(scene);
 
 		Label topLabel = new Label(" Login ");
@@ -245,9 +250,19 @@ class MyLoginDialog extends Stage {
 			@Override
 			public void handle(ActionEvent event) {
 				Database login = new Database();
-				login.loginUser(uname.getText(), pass.getText());
-				// Alert if Success then close window
-				// Alert if Error then stay on the window
+				ArrayList<String> loginConfirmation = login.loginUser(uname.getText(), pass.getText());
+
+				if (!loginConfirmation.isEmpty()) {
+					close();
+				} else {
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setTitle("Incorrect Username/Password");
+					alert.setHeaderText(null);
+					alert.setContentText("Invalid Creditials");
+					Optional<ButtonType> result = alert.showAndWait();
+
+				}
+
 			}
 		});
 
@@ -319,7 +334,7 @@ class NewAccountDialog extends Stage {
 		initOwner(owneraccount);
 		setTitle("New Account Window");
 		Group root = new Group();
-		Scene scene = new Scene(root, 410, 320);
+		Scene scene = new Scene(root, 500, 500);
 		setScene(scene);
 
 		Label topLabel = new Label(" Create Account ");
@@ -392,6 +407,14 @@ class NewAccountDialog extends Stage {
 				database.registerUser(uname.getText(), pass.getText(), fname.getText(),
 					lname.getText(), schoolemail.getText(), idnum.getText());
 
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Account Dialog");
+				alert.setHeaderText("Successful");
+				alert.setContentText("Your New Account has been created! You can log in with the account information!");
+				alert.showAndWait();
+				
+				close();
+
 			}
 		});
 
@@ -438,7 +461,7 @@ class NewAccountDialog extends Stage {
 
 		profileEntryGrid.add(password, 0, 7);
 		profileEntryGrid.add(pass, 1, 7);
-		
+
 		profileEntryGrid.add(checkBox, 1, 8);
 
 		profileEntryGrid.add(CreateButton, 0, 9);

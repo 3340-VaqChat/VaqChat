@@ -19,10 +19,15 @@ public class Database {
 	table "profiles" is created, make the connection
 	 */
 	private Connection myconnection = null;
-	private String url = "jdbc:mysql://localhost:3306/vaqchat";
+	private String url = "jdbc:mysql://localhost:3306/vaqchat?autoReconnect=true&useSSL=false";
 	private String username = "root";
-	private String password = "jw123";
 
+	private String password = "password";
+	
+	ArrayList Userinfo = new ArrayList<String>();
+
+	//private String password = "password";
+	
 	public Database() {
 	}
 
@@ -284,6 +289,8 @@ public ArrayList<String> displayEmails() {
 				profileList.add(addProfilelastname);
 				profileList.add(addProfileemail);
 			
+			
+				
 				//System.out.println("id is:       " + myRS.getInt("iduser"));
 				System.out.println("Welcome");
 				System.out.println(myRS.getString("firstName") + " " + myRS.getString("lastName") + "'s username: " + myRS.getString("username") );
@@ -300,6 +307,90 @@ public ArrayList<String> displayEmails() {
 		return profileList;
 
 	}
+
+	
+/***
+ * Method with course number as parameter and delete it from database
+ * @param courseNumber 
+ */
+	public void deleteCourses(String courseNumber) {
+
+		ArrayList profileList = new ArrayList<String>();
+		establishConnection(url, username, password);
+
+		String SQLString = "";
+
+		Statement mystatment = null;
+		ResultSet myRS = null;
+
+		try {
+			mystatment = myconnection.createStatement();
+			SQLString = "DELETE FROM vaqchat.courses WHERE number LIKE "
+				+"\'"+ courseNumber+"\'";
+			myRS = mystatment.executeQuery(SQLString);
+
+			if (myRS.isBeforeFirst()) {
+				//currentUser = new User();
+			}
+			while (myRS.next()) {
+				
+				//System.out.println("id is:       " + myRS.getInt("iduser"));
+				System.out.println("COURSE DELETE");
+			}
+		} catch (Exception e) {
+
+			System.out.println("stack:" + e.getMessage());
+		}
+
+	
+				String res = String.join(", ", profileList);
+				System.out.println(res);
+				
+
+	}
+	
+	
+	
+	
+	
+	public void deleteProfile(String id) {
+
+		ArrayList profileList = new ArrayList<String>();
+		establishConnection(url, username, password);
+
+		String SQLString = "";
+
+		Statement mystatment = null;
+		ResultSet myRS = null;
+
+		try {
+			mystatment = myconnection.createStatement();
+			SQLString = "DELETE FROM vaqchat.profiles WHERE profileid LIKE "+ "\'"+id+"\'";
+			myRS = mystatment.executeQuery(SQLString);
+
+			if (myRS.isBeforeFirst()) {
+				//currentUser = new User();
+			}
+			while (myRS.next()) {
+				
+				//System.out.println("id is:       " + myRS.getInt("iduser"));
+				System.out.println("PROFILE DELETE");
+			}
+		} catch (Exception e) {
+
+			System.out.println("stack:" + e.getMessage());
+		}
+
+	
+				String res = String.join(", ", profileList);
+				System.out.println(res);
+				
+
+	}
+	
+	
+	
+	
 	
 	
 }

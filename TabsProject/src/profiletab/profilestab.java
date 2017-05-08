@@ -129,6 +129,10 @@ public class profilestab extends BorderPane {
         deleteProfileButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+		    
+		    
+		    
+		    delete();
 		final int selectedIdx = profilesView.getSelectionModel().getSelectedIndex();
                 if (selectedIdx != -1) {
                     Profile itemToRemove = profilesView.getSelectionModel().getSelectedItem();
@@ -145,7 +149,11 @@ public class profilestab extends BorderPane {
 
                     profilesView.getItems().remove(itemToRemove);
                 }
-            }
+          
+	    
+	    
+	    
+	    }
         });
 
 	Button imageProfileButton = new Button("Image");
@@ -203,7 +211,6 @@ public class profilestab extends BorderPane {
         TextField unameField = new TextField();
         unameField.setId("uname0");
         unameField.setMaxWidth(Double.MAX_VALUE);
-
         Label fnameLabel = new Label("First Name:");
         TextField fnameField = new TextField();
         fnameField.setId("fname");
@@ -356,13 +363,10 @@ public class profilestab extends BorderPane {
 	
         profiles.add(profile1);
 
-
-
 //--------------------------------------------------------------------------------
         profilesView.getItems().clear();
 	//database.registerUser(Txuname.getText(), Txfname.getText(), Txlname.getText(),Txid.getText(), Txmail.getText(), Txurl.getText());
 	database.displayEmails();
-		
 	
 	
         profilesView.getItems().addAll(profiles);
@@ -377,6 +381,28 @@ public class profilestab extends BorderPane {
         Txurl.setText("");
     }
 
+    
+    
+    public void delete() {
+        Scene scene = this.getScene();
+
+        TextField Txuname = (TextField) scene.lookup("#uname0");
+        TextField Txfname = (TextField) scene.lookup("#fname");
+        TextField Txlname = (TextField) scene.lookup("#lname");
+        TextField Txid = (TextField) scene.lookup("#id");
+        TextField Txmail = (TextField) scene.lookup("#mail");
+        TextField Txurl = (TextField) scene.lookup("#url");
+
+      database.deleteProfile(Txid.getText());
+	
+	
+        Txuname.setText("");
+        Txfname.setText("");
+        Txlname.setText("");
+        Txid.setText("");
+        Txmail.setText("");
+        Txurl.setText("");
+    }
     /**
      * This class sorts by first name
      */
