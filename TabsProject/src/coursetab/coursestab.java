@@ -91,7 +91,7 @@ public class coursestab extends BorderPane {
         modifyProfileButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-             displayCourses();
+                displayCourses();
             }
         });
 
@@ -138,6 +138,7 @@ public class coursestab extends BorderPane {
 
         Label numOfCoursesL = new Label("Enter the number of courses to add: ");
         TextField numOfCoursesF = new TextField();
+        numOfCoursesF.setId("noc");
         numOfCoursesF.setMaxWidth(Double.MAX_VALUE);
 
         Button goButton = new Button("Go");
@@ -160,52 +161,52 @@ public class coursestab extends BorderPane {
 
                     Label unameLabel = new Label("Student ID:");
                     TextField unameField = new TextField();
-                    unameField.setId("uname");   // Add + j to the end of all setId's.
+                    unameField.setId("uname" + j);   // Add + j to the end of all setId's.
                     unameField.setMaxWidth(Double.MAX_VALUE);
 
                     Label cidLabel = new Label("Course ID:");
                     TextField cidField = new TextField();
-                    cidField.setId("cid");
+                    cidField.setId("cid" + j);
                     cidField.setMaxWidth(Double.MAX_VALUE);
 
                     Label prefixLabel = new Label("Prefix:");
                     TextField prefixField = new TextField();
-                    prefixField.setId("prefix");
+                    prefixField.setId("prefix" + j);
                     prefixField.setMaxWidth(Double.MAX_VALUE);
 
                     Label cnumLabel = new Label("Course Number:");
                     TextField cnumField = new TextField();
-                    cnumField.setId("cnum");
+                    cnumField.setId("cnum" + j);
                     cnumField.setMaxWidth(Double.MAX_VALUE);
 
                     Label sectionLabel = new Label("Section:");
                     TextField sectionField = new TextField();
-                    sectionField.setId("section");
+                    sectionField.setId("section" + j);
                     sectionField.setMaxWidth(Double.MAX_VALUE);
 
                     Label startLabel = new Label("Start Time:");
                     TextField startField = new TextField();
-                    startField.setId("start");
+                    startField.setId("start" + j);
                     startField.setMaxWidth(Double.MAX_VALUE);
 
                     Label endLabel = new Label("End Time:");
                     TextField endField = new TextField();
-                    endField.setId("end");
+                    endField.setId("end" + j);
                     endField.setMaxWidth(Double.MAX_VALUE);
 
                     Label locationLabel = new Label("Location:");
                     TextField locationField = new TextField();
-                    locationField.setId("location");
+                    locationField.setId("location" + j);
                     locationField.setMaxWidth(Double.MAX_VALUE);
 
                     Label instLabel = new Label("Instructor:");
                     TextField instField = new TextField();
-                    instField.setId("inst");
+                    instField.setId("inst" + j);
                     instField.setMaxWidth(Double.MAX_VALUE);
 
                     Label prenumLabel = new Label("Prereq. Number:");
                     TextField prenumField = new TextField();
-                    prenumField.setId("prenum");
+                    prenumField.setId("prenum" + j);
                     prenumField.setMaxWidth(Double.MAX_VALUE);
                     
                     profileEntryGrid.add(courseInfoLabel, j * 2, 0);
@@ -230,7 +231,6 @@ public class coursestab extends BorderPane {
                     profileEntryGrid.add(prenumLabel, j * 2, 10);
                     profileEntryGrid.add(prenumField, j * 2 + 1, 10);
                 }
-                numOfCoursesF.setText("");
             }
         });
         
@@ -315,53 +315,67 @@ public class coursestab extends BorderPane {
     }
 
     public void getCourses() {
-        Profile profile1 = new Profile();
         Scene scene = this.getScene();
 
         /* Need an if statement to add numbers after lookup string to pull data for each 
         course set. It works when hard-coded, but needs to be dynamically implemented.*/
-        TextField Txuname = (TextField) scene.lookup("#uname");
-        TextField Txcid = (TextField) scene.lookup("#cid");
-        TextField Txprefix = (TextField) scene.lookup("#prefix");
-        TextField Txcnum = (TextField) scene.lookup("#cnum");
-        TextField Txsection = (TextField) scene.lookup("#section");
-        TextField Txstart = (TextField) scene.lookup("#start");
-        TextField Txend = (TextField) scene.lookup("#end");
-        TextField Txlocation = (TextField) scene.lookup("#location");
-        TextField Txinst = (TextField) scene.lookup("#inst");
-        TextField Txprenum = (TextField) scene.lookup("#prenum");
+        TextField Txnoc = (TextField) scene.lookup("#noc");
+        String inn = Txnoc.getText();
 
-        profile1.setScreenName(Txuname.getText());
-        profile1.setCurrentCourses(new Courses(Txcid.getText(), Txprefix.getText(),
-                Txcnum.getText(), Txsection.getText(), Txstart.getText(), Txend.getText(),
-                Txlocation.getText(), Txinst.getText(), Txprenum.getText()));
+        int i = 0;
+        try {
+            i = Integer.parseInt(inn);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
 
-        profiles.add(profile1);
-//--------------------------------------------------------------------------------
+        for (int j = 0; j < i; j++) {
+            Profile profile = new Profile();
+            
+            TextField Txuname = (TextField) scene.lookup("#uname" + j);
+            TextField Txcid = (TextField) scene.lookup("#cid" + j);
+            TextField Txprefix = (TextField) scene.lookup("#prefix" + j);
+            TextField Txcnum = (TextField) scene.lookup("#cnum" + j);
+            TextField Txsection = (TextField) scene.lookup("#section" + j);
+            TextField Txstart = (TextField) scene.lookup("#start" + j);
+            TextField Txend = (TextField) scene.lookup("#end" + j);
+            TextField Txlocation = (TextField) scene.lookup("#location" + j);
+            TextField Txinst = (TextField) scene.lookup("#inst" + j);
+            TextField Txprenum = (TextField) scene.lookup("#prenum" + j);
 
-	    database.addCourses(Txcid.getText(), Txprefix.getText(), Txcnum.getText(), Txsection.getText(), Txstart.getText(), Txend.getText(), Txlocation.getText(),
-		    Txinst.getText(), Txprenum.getText(), Txuname.getText());
+            profile.setScreenName(Txuname.getText());
+            profile.setCurrentCourses(new Courses(Txcid.getText(), Txprefix.getText(),
+                    Txcnum.getText(), Txsection.getText(), Txstart.getText(), Txend.getText(),
+                    Txlocation.getText(), Txinst.getText(), Txprenum.getText()));
 
-	    coursesView.getItems().clear();
-	    coursesView.getItems().addAll(profiles);
+            profiles.add(profile);
+            //--------------------------------------------------------------------------------
+            /*database.addCourses(Txcid.getText(), Txprefix.getText(), Txcnum.getText(), 
+                        Txsection.getText(), Txstart.getText(), Txend.getText(), Txlocation.getText(),
+                        Txinst.getText(), Txprenum.getText(), Txuname.getText());*/
 
-        Txuname.setText("");
-        Txcid.setText("");
-        Txprefix.setText("");
-        Txcnum.setText("");
-        Txsection.setText("");
-        Txstart.setText("");
-        Txend.setText("");
-        Txlocation.setText("");
-        Txinst.setText("");
-        Txprenum.setText("");
+            Txuname.setText("");
+            Txcid.setText("");
+            Txprefix.setText("");
+            Txcnum.setText("");
+            Txsection.setText("");
+            Txstart.setText("");
+            Txend.setText("");
+            Txlocation.setText("");
+            Txinst.setText("");
+            Txprenum.setText("");
+        }
+        
+        coursesView.getItems().clear();
+        coursesView.getItems().addAll(profiles);
     }
 
-    
-   /***
-    * Method to display course once studentID is entered, so far only shows on console
-    */
-        public void displayCourses() {
+    /**
+     * *
+     * Method to display course once studentID is entered, so far only shows on
+     * console
+     */
+    public void displayCourses() {
         Profile profile1 = new Profile();
         Scene scene = this.getScene();
 
@@ -376,14 +390,9 @@ public class coursestab extends BorderPane {
         TextField Txinst = (TextField) scene.lookup("#inst");
         TextField Txprenum = (TextField) scene.lookup("#prenum");
 
-      
-//--------------------------------------------------------------------------------
-
-		database.displayCourses(Txuname.getText());
-	    /*coursesView.getItems().clear();
-	    coursesView.getItems().addAll(profiles);
-*/
-        
+        database.displayCourses(Txuname.getText());
+//        coursesView.getItems().clear();
+//	  coursesView.getItems().addAll(profiles);
     }
 
     class CourseIDComparator implements Comparator<Profile> {

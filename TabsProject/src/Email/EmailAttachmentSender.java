@@ -1,5 +1,5 @@
 /**
- * Email package contains all the utilities and methods to 
+ * Email package contains all the utilities and methods to
  * make the email portion of the application function.
  */
 package Email;
@@ -23,106 +23,105 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 /**
- * This class will be in charge of sending the email by using the information 
+ * This class will be in charge of sending the email by using the information
  * from the JavaMail.java class.
+ *
  * @author Carlos
- * 
+ *
  */
-
 public class EmailAttachmentSender {
 
-	/**
-	 *
-	 * @param host
-	 * @param port
-	 * @param userName
-	 * @param password
-	 * @param toAddress
-	 * @param subject
-	 * @param message
-	 * @param attachFiles
-	 * @throws AddressException
-	 * @throws MessagingException
-	 */
-	public static void sendEmailWithAttachments(String host, String port,
-		final String userName, final String password, String toAddress,
-		String subject, String message, String[] attachFiles)
-		throws AddressException, MessagingException {
-		String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
-		
-		// sets SMTP server properties
-		Properties properties = System.getProperties();
-		Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
-		properties.put("mail.smtp.host", host);
-		properties.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
-		
-		properties.put("mail.smtp.port", port);
-		properties.setProperty("mail.smtp.socketFactory.port", port);
-		
-		properties.put("mail.smtps.quitwait", "false");
+    /**
+     *
+     * @param host
+     * @param port
+     * @param userName
+     * @param password
+     * @param toAddress
+     * @param subject
+     * @param message
+     * @param attachFiles
+     * @throws AddressException
+     * @throws MessagingException
+     */
+    public static void sendEmailWithAttachments(String host, String port,
+            final String userName, final String password, String toAddress,
+            String subject, String message, String[] attachFiles)
+            throws AddressException, MessagingException {
+        String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 
-		properties.put("mail.smtp.auth", "true");
-		properties.put("mail.smtp.starttls.enable", "true");
+        // sets SMTP server properties
+        Properties properties = System.getProperties();
+        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+        properties.put("mail.smtp.host", host);
+        properties.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
 
-		properties.put("mail.user", userName);
-		properties.put("mail.password", password);
+        properties.put("mail.smtp.port", port);
+        properties.setProperty("mail.smtp.socketFactory.port", port);
 
-		// creates a new session with an authenticator
-		Authenticator auth = new Authenticator() {
-			@Override
-			public PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(userName, password);
-			}
-		};
-		Session session = Session.getInstance(properties, auth);
+        properties.put("mail.smtps.quitwait", "false");
 
-		// creates a new e-mail message
-		Message msg = new MimeMessage(session);
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
 
-		msg.setFrom(new InternetAddress(userName));
-		InternetAddress[] toAddresses = {new InternetAddress(toAddress)};
-		msg.setRecipients(Message.RecipientType.TO, toAddresses);
-		
-		// for multiple users, toAddress should string of emails separated by commas
-		//msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse("abc@abc.com,abc@def.com,ghi@abc.com"));
-		//
-		
-		// for cc
-		String[] ccEmails ={"",""};
-		int ccLength=0;
-		if (ccEmails != null) {
-			ccLength = ccEmails.length;
-		}
-		for (int i = 0; i < ccLength; i++) {
-			msg.addRecipients(Message.RecipientType.CC, InternetAddress.parse(ccEmails[i], false));
-		  }
-		// for cc end //
-		msg.setSubject(subject);
-		msg.setSentDate(new Date());
+        properties.put("mail.user", userName);
+        properties.put("mail.password", password);
 
-		// creates message part
-		MimeBodyPart messageBodyPart = new MimeBodyPart();
-		messageBodyPart.setContent(message, "text/html");
+        // creates a new session with an authenticator
+        Authenticator auth = new Authenticator() {
+            @Override
+            public PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(userName, password);
+            }
+        };
+        Session session = Session.getInstance(properties, auth);
 
-		// creates multi-part
-		Multipart multipart = new MimeMultipart();
-		multipart.addBodyPart(messageBodyPart);
+        // creates a new e-mail message
+        Message msg = new MimeMessage(session);
 
-		// adds attachments
-		if (attachFiles != null && attachFiles.length > 0) {
-			for (String filePath : attachFiles) {
-				MimeBodyPart attachPart = new MimeBodyPart();
-				try {
-					attachPart.attachFile(filePath);
-				} catch (IOException ex) {
-				}
-				multipart.addBodyPart(attachPart);
-			}
-		}
-		// sets the multi-part as e-mail's content
-		msg.setContent(multipart);
+        msg.setFrom(new InternetAddress(userName));
+        InternetAddress[] toAddresses = {new InternetAddress(toAddress)};
+        msg.setRecipients(Message.RecipientType.TO, toAddresses);
 
-		// sends the e-mail
-		Transport.send(msg);
-	}
+        // for multiple users, toAddress should string of emails separated by commas
+        //msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse("abc@abc.com,abc@def.com,ghi@abc.com"));
+        //
+        // for cc
+        String[] ccEmails = {"", ""};
+        int ccLength = 0;
+        if (ccEmails != null) {
+            ccLength = ccEmails.length;
+        }
+        for (int i = 0; i < ccLength; i++) {
+            msg.addRecipients(Message.RecipientType.CC, InternetAddress.parse(ccEmails[i], false));
+        }
+        // for cc end //
+        msg.setSubject(subject);
+        msg.setSentDate(new Date());
+
+        // creates message part
+        MimeBodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setContent(message, "text/html");
+
+        // creates multi-part
+        Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart(messageBodyPart);
+
+        // adds attachments
+        if (attachFiles != null && attachFiles.length > 0) {
+            for (String filePath : attachFiles) {
+                MimeBodyPart attachPart = new MimeBodyPart();
+                try {
+                    attachPart.attachFile(filePath);
+                } catch (IOException ex) {
+                }
+                multipart.addBodyPart(attachPart);
+            }
+        }
+        // sets the multi-part as e-mail's content
+        msg.setContent(multipart);
+
+        // sends the e-mail
+        Transport.send(msg);
+    }
 }
