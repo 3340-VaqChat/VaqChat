@@ -136,18 +136,18 @@ public class coursestabTest {
 		fail("The test case is a prototype.");
 	}
 
-	/**
-	 * Test of deleteCourse method, of class coursestab.
+        /**
+	 * Test of getCourses method, of class coursestab.
 	 */
 	@Test
-	public void testDeleteCourse() {
-		System.out.println("deleteCourse");
+	public void testDeleteCourses() {
+		System.out.println("getCourses");
 		coursestab instance = new coursestab();
 		instance.deleteCourse();
 		// TODO review the generated test code and remove the default call to fail.
 		fail("The test case is a prototype.");
-	}
-
+        }
+                
 	/**
 	 * Test of displayCourses method, of class coursestab.
 	 */

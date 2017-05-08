@@ -30,18 +30,18 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.TextAlignment;
 import database.Database;
+
 /**
- *This class creates the content within the Courses tab. Within this class, a
+ * This class creates the content within the Courses tab. Within this class, a
  * GUI is created along with the necessary classes needed for the GUI to
  * function.
  * @author Michelle Marie Garcia
- *
- * 
  */
 public class coursestab extends BorderPane {
     ArrayList<Profile> profiles = new ArrayList<>();
     ListView<Profile> coursesView = new ListView<>();
     Database database = new Database();
+    
     public coursestab() {
         getGui();
     }
@@ -161,7 +161,7 @@ public class coursestab extends BorderPane {
 
                     Label unameLabel = new Label("Student ID:");
                     TextField unameField = new TextField();
-                    unameField.setId("uname" + j);   // Add + j to the end of all setId's.
+                    unameField.setId("uname" + j);
                     unameField.setMaxWidth(Double.MAX_VALUE);
 
                     Label cidLabel = new Label("Course ID:");
@@ -317,8 +317,6 @@ public class coursestab extends BorderPane {
     public void getCourses() {
         Scene scene = this.getScene();
 
-        /* Need an if statement to add numbers after lookup string to pull data for each 
-        course set. It works when hard-coded, but needs to be dynamically implemented.*/
         TextField Txnoc = (TextField) scene.lookup("#noc");
         String inn = Txnoc.getText();
 
@@ -350,9 +348,9 @@ public class coursestab extends BorderPane {
 
             profiles.add(profile);
             //--------------------------------------------------------------------------------
-            /*database.addCourses(Txcid.getText(), Txprefix.getText(), Txcnum.getText(), 
+            database.addCourses(Txcid.getText(), Txprefix.getText(), Txcnum.getText(), 
                         Txsection.getText(), Txstart.getText(), Txend.getText(), Txlocation.getText(),
-                        Txinst.getText(), Txprenum.getText(), Txuname.getText());*/
+                        Txinst.getText(), Txprenum.getText(), Txuname.getText());
 
             Txuname.setText("");
             Txcid.setText("");
@@ -366,21 +364,11 @@ public class coursestab extends BorderPane {
             Txprenum.setText("");
         }
         
-        coursesView.getItems().clear();
-        coursesView.getItems().addAll(profiles);
+//        coursesView.getItems().clear();
+//        coursesView.getItems().addAll(profiles);
     }
 
-<<<<<<< HEAD
-    /**
-     * *
-     * Method to display course once studentID is entered, so far only shows on
-     * console
-     */
-    public void displayCourses() {
-=======
-    
-    
-        public void deleteCourse() {
+    public void deleteCourse() {
         Profile profile1 = new Profile();
         Scene scene = this.getScene();
 
@@ -397,8 +385,6 @@ public class coursestab extends BorderPane {
         TextField Txinst = (TextField) scene.lookup("#inst");
         TextField Txprenum = (TextField) scene.lookup("#prenum");
 
-  
-
         Txuname.setText("");
         Txcid.setText("");
         Txprefix.setText("");
@@ -410,15 +396,13 @@ public class coursestab extends BorderPane {
         Txinst.setText("");
         Txprenum.setText("");
     }
-
     
-    
-    
-   /***
-    * Method to display course once studentID is entered, so far only shows on console
-    */
-        public void displayCourses() {
->>>>>>> 8aac681c9e4bc343b8ccf4d913145db2b8c9706f
+    /**
+     * *
+     * Method to display course once studentID is entered, so far only shows on
+     * console
+     */
+    public void displayCourses() {
         Profile profile1 = new Profile();
         Scene scene = this.getScene();
 
