@@ -22,7 +22,7 @@ public class Database {
 	private String url = "jdbc:mysql://localhost:3306/vaqchat?autoReconnect=true&useSSL=false";
 	private String username = "root";
 
-	private String password = "";
+	private String password = "password";
 	
 	ArrayList Userinfo = new ArrayList<String>();
 
