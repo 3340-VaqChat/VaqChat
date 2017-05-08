@@ -14,7 +14,7 @@ public class TCPEchoServer {
     private static final int PORT = 1234;
 
     public static void main(String[] args) {
-        System.out.println("Opening port...\n");
+        System.out.println("* Opening port... *\n");
         try {
             servSock = new ServerSocket(PORT);
         } catch (IOException e) {
@@ -46,7 +46,7 @@ public class TCPEchoServer {
                 message = in.readLine();
             }
             
-            out.println("All messages have been received.");
+            System.out.println("All messages have been received.");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

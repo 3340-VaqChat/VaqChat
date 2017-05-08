@@ -23,7 +23,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -38,21 +37,17 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.TextAlignment;
-import network.TCPEchoServer;
 
 /**
- *This class is the GUI for the "Chat tab" and also contains some parts of the
+ * This class is the GUI for the "Chat tab" and also contains some parts of the
  * networking.
  * @author Carlos
  * 
  */
 public class mainChatGUI extends BorderPane {
-    GridPane root = new GridPane();
-    TabPane tabsPane = new TabPane();
     Socket link = null;
     BufferedReader in;
     PrintWriter out;
@@ -60,16 +55,9 @@ public class mainChatGUI extends BorderPane {
     private static InetAddress host;
     private static final int PORT = 1234;
 
-
-    Image img = new Image("imgs/utrgv.png");
-    Image img2 = new Image("imgs/p1.jpeg");
-    Image img3 = new Image("imgs/p2.jpg");
-
-    ImageView iv = new ImageView(img);
-    ImageView iv2 = new ImageView(img2);
-    ImageView iv3 = new ImageView(img3);
-
-    Line line1 = new Line(0, 0, 0, 300);
+    // This image/imageview is not being used for anything.
+//    Image img = new Image("imgs/utrgv.png");
+//    ImageView iv = new ImageView(img);
 
     TextField sendMessageField = new TextField();
     TextArea MessagesArea = new TextArea();
@@ -77,7 +65,7 @@ public class mainChatGUI extends BorderPane {
     ArrayList<String> messagedata1 = new ArrayList<>();
 
     /**
-     * Default constructor calling method to create GUI
+     * Default constructor calling method to create GUI and setting up host.
      */
     public mainChatGUI() {
         try {
@@ -90,6 +78,9 @@ public class mainChatGUI extends BorderPane {
         getGUI();
     }
 
+    /**
+     * This method calls for the creation of each part of the BorderPane.
+    */
     public void getGUI() {
         this.setPadding(new Insets(20, 10, 10, 10));
         createTop();
@@ -153,19 +144,23 @@ public class mainChatGUI extends BorderPane {
         HBox buttonHBox = new HBox();
         buttonHBox.setAlignment(Pos.TOP_CENTER);
         buttonHBox.setPadding(new Insets(50, 50, 50, 50));
-        buttonHBox.getChildren().addAll(btsend1, btclear1, btstart);
+        buttonHBox.getChildren().addAll(btstart, btsend1, btclear1);
         BorderPane.setAlignment(buttonHBox, Pos.TOP_CENTER);
 
         this.setBottom(buttonHBox);
     }
 
     public void createLeft() {
-        iv2.setFitHeight(100);//image size
+        Image img2 = new Image("imgs/p1.jpeg");
+        ImageView iv2 = new ImageView(img2);
+        iv2.setFitHeight(100);
         iv2.setFitWidth(100);
-        GridPane profileEntryGrid = new GridPane();
-        profileEntryGrid.setVgap(5);
-        profileEntryGrid.setHgap(5);
-        profileEntryGrid.setPadding(new Insets(5, 5, 5, 5));
+        
+        // Not sure why we're making entry fields here??
+//        GridPane profileEntryGrid = new GridPane();
+//        profileEntryGrid.setVgap(5);
+//        profileEntryGrid.setHgap(5);
+//        profileEntryGrid.setPadding(new Insets(5, 5, 5, 5));
 
         Separator separator2 = new Separator();
         separator2.setMinSize(20, 20);
@@ -189,16 +184,16 @@ public class mainChatGUI extends BorderPane {
     }
 
     public void createRight() {
+        Image img3 = new Image("imgs/p2.jpg");
+        ImageView iv3 = new ImageView(img3);
         iv3.setFitHeight(100);
         iv3.setFitWidth(100);
 
-        // Group/Single user talking to
         Label user = new Label("   User 2   ");
 
         Separator separator3 = new Separator();
         separator3.setMinSize(20, 20);
         separator3.setOrientation(Orientation.VERTICAL);
-
 
         VBox rightVBox = new VBox();
         HBox rightHBox2 = new HBox();
@@ -211,25 +206,6 @@ public class mainChatGUI extends BorderPane {
     }
 
     public void createCenter() {
-//        Button btsend1 = new Button("Send Message");
-//        Button btclear1 = new Button("Clear Messages");
-//
-//        btsend1.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                String fullmessage1 = "";
-//                fullmessage1 = sendMessageField.getText();
-//                messagedata1.add(fullmessage1);
-//
-//                String allData = "";
-//                for (int i = 0; i < messagedata1.size(); i++) {
-//                    allData += "Person 1: " + messagedata1.get(i) + " -Sent: " + formattedDate;
-//                }
-//                MessagesArea.setText(allData);
-//                sendMessageField.clear();
-//            }
-//        });
-
         VBox middleVBox = new VBox(10);
         middleVBox.setPadding(new Insets(5, 5, 5, 5));
         middleVBox.setAlignment(Pos.TOP_CENTER);
@@ -238,9 +214,9 @@ public class mainChatGUI extends BorderPane {
         this.setCenter(middleVBox);
     }
     
-    private void runStart() {					//Step 1.
+    private void runStart() {
         try {
-            link = new Socket(host, PORT);		//Step 1.
+            link = new Socket(host, PORT);
             in = new BufferedReader(new InputStreamReader(link.getInputStream()));
             out = new PrintWriter(link.getOutputStream(), true);
         } catch (IOException e) {
@@ -275,52 +251,10 @@ public class mainChatGUI extends BorderPane {
     private void runClose() {
         try {
             message = "***CLOSE***";
-            out.println(message); 		//Step 3.
-            response = in.readLine();		//Step 3
-            messagedata1.add(response);
+            out.println(message);
             link.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
-//    private void sendToServer() {					//Step 1.
-//	try {
-//            String fullmessage1 = "";
-//            fullmessage1 = sendMessageField.getText();
-//
-//            if (!(sendMessageField.getText().equalsIgnoreCase("CLOSE"))) {
-//                messagedata1.add(fullmessage1);
-//                out.println(fullmessage1);
-//                response = in.readLine();
-//                messagedata1.add(response);
-//
-//                String allData = "";
-//                for (int i = 0; i < messagedata1.size(); i++) {
-//                    allData += "Person 1: " + messagedata1.get(i) + " -Sent: " + formattedDate + "\n";
-//                }
-//
-//                MessagesArea.clear();
-//                MessagesArea.setText(allData);
-//                
-//                sendMessageField.clear();
-//            } else {
-//                out.println("CLOSE");
-//            }
-//		
-//	} catch(IOException e)
-//            {
-//		e.printStackTrace();
-//            }
-//    }
-//
-//    private String receiveFromServer() {					//Step 1.
-//        try {
-//            response = in.readLine();		//Step 3
-//            messagedata1.add(response);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return response;
-//    }
 }
