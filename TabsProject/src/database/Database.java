@@ -19,9 +19,9 @@ public class Database {
 	table "profiles" is created, make the connection
 	 */
 	private Connection myconnection = null;
-	private String url = "jdbc:mysql://localhost:3306/vaqchat";
+	private String url = "jdbc:mysql://localhost:3306/vaqchat?autoReconnect=true&useSSL=false";
 	private String username = "root";
-	private String password = "jw123";
+	private String password = "password";
 
 	public Database() {
 	}
