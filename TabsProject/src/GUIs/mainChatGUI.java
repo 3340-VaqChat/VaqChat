@@ -121,9 +121,9 @@ public class mainChatGUI extends BorderPane {
     }
 
     public void createBottom() {
-	Button btstart = new Button("Start Client");
+	Button btstart = new Button("Start Connection");
         Button btsend1 = new Button("Send Message");
-        Button btclear1 = new Button("Clear Messages");
+        Button btclear1 = new Button("Close Connection");
 
         btstart.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -149,8 +149,6 @@ public class mainChatGUI extends BorderPane {
                 sendMessageField.clear();
             }
         });
-	
-        
 
         HBox buttonHBox = new HBox();
         buttonHBox.setAlignment(Pos.TOP_CENTER);
@@ -256,14 +254,14 @@ public class mainChatGUI extends BorderPane {
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy h:mm a");
             
             message = sendMessageField.getText();
-            messagedata1.add(message + " -Sent: " + sdf.format(date));
+            messagedata1.add("Person 1: " + message + " -Sent: " + sdf.format(date));
             out.println(message);
             response = in.readLine();
             messagedata1.add(response);
             
             String allData = "";
             for (int i = 0; i < messagedata1.size(); i++) {
-                allData += "Person 1: " + messagedata1.get(i) + "\n";
+                allData += messagedata1.get(i) + "\n";
             }
             
             MessagesArea.clear();
