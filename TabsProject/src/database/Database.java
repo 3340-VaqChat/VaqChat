@@ -22,7 +22,7 @@ public class Database {
 	private String url = "jdbc:mysql://localhost:3306/vaqchat?autoReconnect=true&useSSL=false";
 	private String username = "root";
 
-	private String password = "jw123";
+	private String password = "password";
 	
 	ArrayList Userinfo = new ArrayList<String>();
 
@@ -327,7 +327,7 @@ public ArrayList<String> displayEmails() {
 			mystatment = myconnection.createStatement();
 			SQLString = "DELETE FROM vaqchat.courses WHERE number LIKE "
 				+"\'"+ courseNumber+"\'";
-			myRS = mystatment.executeQuery(SQLString);
+			mystatment.executeLargeUpdate(SQLString);
 
 			if (myRS.isBeforeFirst()) {
 				//currentUser = new User();
@@ -366,7 +366,7 @@ public ArrayList<String> displayEmails() {
 		try {
 			mystatment = myconnection.createStatement();
 			SQLString = "DELETE FROM vaqchat.profiles WHERE profileid LIKE "+ "\'"+id+"\'";
-			myRS = mystatment.executeQuery(SQLString);
+			mystatment.executeLargeUpdate(SQLString);
 
 			if (myRS.isBeforeFirst()) {
 				//currentUser = new User();
