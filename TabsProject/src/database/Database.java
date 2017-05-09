@@ -259,15 +259,13 @@ public class Database {
             mystatment = myconnection.createStatement();
             SQLString = "DELETE FROM vaqchat.courses WHERE number LIKE "
                     + "\'" + courseNumber + "\'";
-            myRS = mystatment.executeQuery(SQLString);
+            mystatment.executeUpdate(SQLString);
 
             while (myRS.next()) {
-
-                //System.out.println("id is:       " + myRS.getInt("iduser"));
-                System.out.println("COURSE DELETE");
+                System.out.println("COURSE DELETED");
             }
         } catch (Exception e) {
-            System.out.println("stack:" + e.getMessage());
+            System.out.println("Course deletion error: " + e.getMessage());
         }
 
         String res = String.join(", ", profileList);
@@ -287,7 +285,7 @@ public class Database {
             myRS = mystatment.executeQuery(SQLString);
 
             while (myRS.next()) {
-                System.out.println("PROFILE DELETE");
+                System.out.println("PROFILE DELETED");
             }
         } catch (Exception e) {
             System.out.println("stack:" + e.getMessage());
