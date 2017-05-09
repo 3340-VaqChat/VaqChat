@@ -364,8 +364,8 @@ public class coursestab extends BorderPane {
             Txprenum.setText("");
         }
         
-//        coursesView.getItems().clear();
-//        coursesView.getItems().addAll(profiles);
+        coursesView.getItems().clear();
+        coursesView.getItems().addAll(profiles);
     }
 
     public void deleteCourse() {

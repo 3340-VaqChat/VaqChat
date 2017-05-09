@@ -116,9 +116,6 @@ public class Database {
             mystatment.executeLargeUpdate(SQLString);
             System.out.println("NEW Courses for studentID: " + myRS.getString("profileid") + " ADDED");
 
-            if (myRS.isBeforeFirst()) {
-                //currentUser = new User();
-            }
             while (myRS.next()) {
                 System.out.println("Your Course: " + myRS.getString("prefix") + " " + myRS.getString("number"));
             }
@@ -136,12 +133,9 @@ public class Database {
      * @return courseList
      */
     public ArrayList<String> displayCourses(String studentID) {
-
         ArrayList courseList = new ArrayList<String>();
         establishConnection(url, username, password);
-
         String SQLString = "";
-
         Statement mystatment = null;
         ResultSet myRS = null;
 
@@ -150,9 +144,6 @@ public class Database {
             SQLString = "SELECT profiles.id,profiles.firstName,profiles.lastName,courses.prefix,courses.id FROM vaqchat.courses INNER JOIN vaqchat.profiles ON profiles.id=courses.profileid WHERE profiles.id LIKE" + "\'" + studentID + "\';";
             myRS = mystatment.executeQuery(SQLString);
 
-            if (myRS.isBeforeFirst()) {
-                //currentUser = new User();
-            }
             while (myRS.next()) {
                 String addCourses = myRS.getString("prefix");
                 courseList.add(addCourses);
@@ -162,14 +153,12 @@ public class Database {
                         + myRS.getString("courses.prefix") + " - " + myRS.getString("courses.id"));
             }
         } catch (Exception e) {
-
             System.out.println("stack:" + e.getMessage());
         }
 
         System.out.println("\nARRAY OF COURSES: " + courseList);
 
         return courseList;
-
     }
 
     /**
@@ -178,12 +167,9 @@ public class Database {
      * @return emailList
      */
     public ArrayList<String> displayEmails() {
-
         ArrayList emailList = new ArrayList<String>();
         establishConnection(url, username, password);
-
         String SQLString = "";
-
         Statement mystatment = null;
         ResultSet myRS = null;
 
@@ -210,7 +196,6 @@ public class Database {
         //String res = String.join(", ", emailList);
         //System.out.println(res);
         return emailList;
-
     }
 
     /**
@@ -222,12 +207,9 @@ public class Database {
      * @return profileList
      */
     public ArrayList<String> loginUser(String usernameProfile, String passwordProfile) {
-
         ArrayList profileList = new ArrayList<String>();
         establishConnection(url, username, password);
-
         String SQLString = "";
-
         Statement mystatment = null;
         ResultSet myRS = null;
 
@@ -236,9 +218,6 @@ public class Database {
             SQLString = "SELECT * FROM vaqchat.profiles WHERE username LIKE " + "\'" + usernameProfile + "\' AND passwords LIKE " + "\'" + passwordProfile + "\'";
             myRS = mystatment.executeQuery(SQLString);
 
-            if (myRS.isBeforeFirst()) {
-                //currentUser = new User();
-            }
             while (myRS.next()) {
                 String addProfileinfo = myRS.getString("username");
                 String addProfilename = myRS.getString("firstName");
@@ -250,12 +229,10 @@ public class Database {
                 profileList.add(addProfilelastname);
                 profileList.add(addProfileemail);
 
-                //System.out.println("id is:       " + myRS.getInt("iduser"));
                 System.out.println("Welcome");
                 System.out.println(myRS.getString("firstName") + " " + myRS.getString("lastName") + "'s username: " + myRS.getString("username"));
             }
         } catch (Exception e) {
-
             System.out.println("stack:" + e.getMessage());
         }
 
@@ -272,12 +249,9 @@ public class Database {
      * @param courseNumber
      */
     public void deleteCourses(String courseNumber) {
-
         ArrayList profileList = new ArrayList<String>();
         establishConnection(url, username, password);
-
         String SQLString = "";
-
         Statement mystatment = null;
         ResultSet myRS = null;
 
@@ -287,31 +261,23 @@ public class Database {
                     + "\'" + courseNumber + "\'";
             myRS = mystatment.executeQuery(SQLString);
 
-            if (myRS.isBeforeFirst()) {
-                //currentUser = new User();
-            }
             while (myRS.next()) {
 
                 //System.out.println("id is:       " + myRS.getInt("iduser"));
                 System.out.println("COURSE DELETE");
             }
         } catch (Exception e) {
-
             System.out.println("stack:" + e.getMessage());
         }
 
         String res = String.join(", ", profileList);
         System.out.println(res);
-
     }
 
     public void deleteProfile(String id) {
-
         ArrayList profileList = new ArrayList<String>();
         establishConnection(url, username, password);
-
         String SQLString = "";
-
         Statement mystatment = null;
         ResultSet myRS = null;
 
@@ -320,16 +286,10 @@ public class Database {
             SQLString = "DELETE FROM vaqchat.profiles WHERE profileid LIKE " + "\'" + id + "\'";
             myRS = mystatment.executeQuery(SQLString);
 
-            if (myRS.isBeforeFirst()) {
-                //currentUser = new User();
-            }
             while (myRS.next()) {
-
-                //System.out.println("id is:       " + myRS.getInt("iduser"));
                 System.out.println("PROFILE DELETE");
             }
         } catch (Exception e) {
-
             System.out.println("stack:" + e.getMessage());
         }
 
