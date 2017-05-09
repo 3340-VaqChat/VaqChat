@@ -114,8 +114,8 @@ public class coursestab extends BorderPane {
                     System.out.println("Removed Item: " + itemToRemove);
                     profiles.remove(selectedIdx);
 
-                    String cnum = itemToRemove.getCurrentCourses().getCourseId();
-                    database.deleteCourses(cnum);
+                    String bycnum = itemToRemove.getCurrentCourses().getCourseId();
+                    database.deleteCourses(bycnum);
                     coursesView.getItems().remove(itemToRemove);
                 }
             }

@@ -281,14 +281,14 @@ public class Database {
 
         try {
             mystatment = myconnection.createStatement();
-            SQLString = "DELETE FROM vaqchat.profiles WHERE profileid LIKE " + "\'" + id + "\'";
-            myRS = mystatment.executeQuery(SQLString);
+            SQLString = "DELETE FROM vaqchat.profiles WHERE id LIKE " + "\'" + id + "\'";
+            mystatment.executeUpdate(SQLString);
 
             while (myRS.next()) {
                 System.out.println("PROFILE DELETED");
             }
         } catch (Exception e) {
-            System.out.println("stack:" + e.getMessage());
+            System.out.println("Profile deletion error: " + e.getMessage());
         }
 
         String res = String.join(", ", profileList);
