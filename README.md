@@ -1,2 +1,2 @@
 # VaqChat
-Qweider's Software Engineering Final
+Quweider's Software Engineering Final

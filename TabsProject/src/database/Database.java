@@ -7,9 +7,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- * This class is in charge of the database portion of the project and connects to 
- * the database to retrieve or input information.
- * 
+ * This class is in charge of the database portion of the project and connects
+ * to the database to retrieve or input information.
+ *
  * @author Jody Whitis
  */
 public class Database {
@@ -428,3 +428,5 @@ public ArrayList<String> displayEmails() {
 	
 	
 }
+
+  

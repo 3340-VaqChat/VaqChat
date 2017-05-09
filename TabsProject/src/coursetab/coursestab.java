@@ -114,6 +114,8 @@ public class coursestab extends BorderPane {
                     System.out.println("Removed Item: " + itemToRemove);
                     profiles.remove(selectedIdx);
 
+                    String bycnum = itemToRemove.getCurrentCourses().getCourseId();
+                    database.deleteCourses(bycnum);
                     coursesView.getItems().remove(itemToRemove);
                 }
             }
@@ -364,8 +366,8 @@ public class coursestab extends BorderPane {
             Txprenum.setText("");
         }
         
-//        coursesView.getItems().clear();
-//        coursesView.getItems().addAll(profiles);
+        coursesView.getItems().clear();
+        coursesView.getItems().addAll(profiles);
     }
 
     public void deleteCourse() {

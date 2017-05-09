@@ -43,21 +43,21 @@ import database.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
-
 /**
- *This class creates the content within the Profile tab. Within this class, a
+ * This class creates the content within the Profile tab. Within this class, a
  * GUI is created along with the necessary classes needed for the GUI to function.
+ * 
  * @author Michelle Marie Garcia
- * 
- * 
  */
 public class profilestab extends BorderPane {
-	ArrayList<Profile> profiles = new ArrayList<>();
-	ListView<Profile> profilesView = new ListView();
-	ImageView avatarView;
-	Database database = new Database();
+
 	
+
+    ArrayList<Profile> profiles = new ArrayList<>();
+    ListView<Profile> profilesView = new ListView();
+    ImageView avatarView;
+    Database database = new Database();
+
     /**
      * Default constructor calling method to create GUI
      */
@@ -111,9 +111,9 @@ public class profilestab extends BorderPane {
             @Override
             public void handle(ActionEvent event) {
                 getProfile();
+
 		database.viewProfiles();
-		
-		
+
             }
         });
 
@@ -131,10 +131,6 @@ public class profilestab extends BorderPane {
         deleteProfileButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-		    
-		    
-		    
-		    delete();
 		final int selectedIdx = profilesView.getSelectionModel().getSelectedIndex();
                 if (selectedIdx != -1) {
                     Profile itemToRemove = profilesView.getSelectionModel().getSelectedItem();
@@ -149,12 +145,10 @@ public class profilestab extends BorderPane {
                     System.out.println("Removed Item: " + itemToRemove);
                     profiles.remove(selectedIdx);
 
+                    String byid = itemToRemove.getPerson().getId();
+                    database.deleteProfile(byid);
                     profilesView.getItems().remove(itemToRemove);
-                }
-          
-	    
-	    
-	    
+                }	    
 	    }
         });
 
@@ -187,11 +181,11 @@ public class profilestab extends BorderPane {
                 new FileChooser.ExtensionFilter("PNG", "*.png"),
                 new FileChooser.ExtensionFilter("JPEG","*.jpeg"));
         File fileimg = imageChooser.showOpenDialog(null);
+       
         try {
             BufferedImage image = ImageIO.read(fileimg);
             Image imgChoosen = SwingFXUtils.toFXImage(image, null);
             avatarView.setImage(imgChoosen);
-
         } catch (IOException ex) {
             Logger.getLogger(profilestab.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -287,7 +281,6 @@ public class profilestab extends BorderPane {
         BorderPane.setAlignment(rightHBox, Pos.TOP_CENTER);
         
         this.setRight(rightHBox);
-        
     }
 
     /**
@@ -365,16 +358,15 @@ public class profilestab extends BorderPane {
 
 	
         profiles.add(profile1);
-
-//--------------------------------------------------------------------------------
         profilesView.getItems().clear();
+
 	//database.registerUser(Txuname.getText(), Txfname.getText(), Txlname.getText(),Txid.getText(), Txmail.getText(), Txurl.getText());
 	database.displayEmails();
-	
-        profilesView.getItems().addAll(profiles);
 
-	
-	
+        profilesView.getItems().addAll(profiles);
+	database.registerUser(Txuname.getText(), Txfname.getText(), Txlname.getText(),Txid.getText(), Txmail.getText(), Txurl.getText());
+	//database.displayEmails();
+        
         Txuname.setText("");
         Txfname.setText("");
         Txlname.setText("");
@@ -382,8 +374,6 @@ public class profilestab extends BorderPane {
         Txmail.setText("");
         Txurl.setText("");
     }
-
-    
     
     public void delete() {
         Scene scene = this.getScene();
@@ -395,8 +385,7 @@ public class profilestab extends BorderPane {
         TextField Txmail = (TextField) scene.lookup("#mail");
         TextField Txurl = (TextField) scene.lookup("#url");
 
-      database.deleteProfile(Txid.getText());
-	
+        //database.deleteProfile(Txid.getText());
 	
         Txuname.setText("");
         Txfname.setText("");
