@@ -40,6 +40,8 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
 import database.Database;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 
 
@@ -55,7 +57,7 @@ public class profilestab extends BorderPane {
 	ListView<Profile> profilesView = new ListView();
 	ImageView avatarView;
 	Database database = new Database();
-
+	
     /**
      * Default constructor calling method to create GUI
      */
@@ -109,7 +111,7 @@ public class profilestab extends BorderPane {
             @Override
             public void handle(ActionEvent event) {
                 getProfile();
-		
+		database.viewProfiles();
 		
 		
             }
@@ -348,7 +350,8 @@ public class profilestab extends BorderPane {
     public void getProfile() {
         Profile profile1 = new Profile();
         Scene scene = this.getScene();
-
+	ArrayList<String> emailList = database.viewProfiles();
+	ObservableList<String> items =FXCollections.observableArrayList (database.viewProfiles());	
         TextField Txuname = (TextField) scene.lookup("#uname0");
         TextField Txfname = (TextField) scene.lookup("#fname");
         TextField Txlname = (TextField) scene.lookup("#lname");
@@ -367,7 +370,6 @@ public class profilestab extends BorderPane {
         profilesView.getItems().clear();
 	//database.registerUser(Txuname.getText(), Txfname.getText(), Txlname.getText(),Txid.getText(), Txmail.getText(), Txurl.getText());
 	database.displayEmails();
-	
 	
         profilesView.getItems().addAll(profiles);
 

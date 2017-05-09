@@ -49,6 +49,7 @@ import javafx.stage.Stage;
 import database.Database;
 import java.util.ArrayList;
 import static javafx.application.Application.launch;
+import javafx.scene.image.Image;
 import profiletab.profilestab;
 
 /**
@@ -82,7 +83,7 @@ public class TabsProject extends Application {
 		outMenuItem.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent args) {
-				
+			System.exit(0);
 			}
 		});
 		
@@ -134,9 +135,11 @@ public class TabsProject extends Application {
 		helpMenu.getItems().addAll(javaMenu, utMenu);
 
 		menuBar.getMenus().addAll(fileMenu, editMenu,helpMenu);
+     
 
 		((VBox) scene.getRoot()).getChildren().addAll(menuBar, hitGUI.getRootNode());
 		primaryStage.setMaximized(true);
+		primaryStage.getIcons().add(new Image("imgs/vaqchat.png"));
 		primaryStage.setTitle("VaqChat");
 		primaryStage.setScene(scene);
 		primaryStage.show();

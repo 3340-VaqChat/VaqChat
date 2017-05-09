@@ -24,9 +24,11 @@ import Email.EmailTab;
 public class chatstab {
     private TabPane tabPane = new TabPane();
     private Image img0 = new Image("imgs/note.png");
-    private Image img1 = new Image("imgs/open.gif");
-    private Image img2 = new Image("imgs/save.gif");
+    private Image img1 = new Image("imgs/defaultTab.gif");
+    private Image img2 = new Image("imgs/class.png");
     private Image img3 = new Image("imgs/login.jpg");
+    private Image img4 = new Image("imgs/save.gif");
+    private Image img5 = new Image("imgs/note.png");
     
     public chatstab(){
         tabPane.setStyle("-fx-background-color: cornsilk;");
@@ -55,11 +57,13 @@ public class chatstab {
 	Tab tab4 = new Tab("File Exchange");
         tab4.idProperty().set("File");
         tab4.setClosable(false);
-       // tab4.setGraphic(new ImageView(img2));
+       tab4.setGraphic(new ImageView(img4));
         tab4.setStyle("-fx-border-color: navy; -fx-background-color: bisque;");
         tab4.setContent(new EmailTab());
         
         Tab tab3 = new Tab("About");
+	       tab4.setGraphic(new ImageView(img4));
+
         tab3.setClosable(false);
         tab3.setStyle("-fx-border-color: navy; -fx-background-color: bisque;");
         

@@ -22,7 +22,7 @@ public class Database {
 	private String url = "jdbc:mysql://localhost:3306/vaqchat?autoReconnect=true&useSSL=false";
 	private String username = "root";
 
-	private String password = "password";
+	private String password = "jw123";
 	
 	ArrayList Userinfo = new ArrayList<String>();
 
@@ -388,8 +388,42 @@ public ArrayList<String> displayEmails() {
 
 	}
 	
-	
-	
+	/***
+	 * Method to return list of all registered profiles
+	 * @return profileList
+	 */
+	public ArrayList<String> viewProfiles(){
+		
+		ArrayList profileList = new ArrayList<String>();
+		establishConnection(url, username, password);
+
+		String SQLString = "";
+
+		Statement mystatment = null;
+		ResultSet myRS = null;
+
+		try {
+			mystatment = myconnection.createStatement();
+			SQLString = "SELECT firstName,lastName,email,username FROM vaqchat.profiles";
+			myRS = mystatment.executeQuery(SQLString);
+
+			if (myRS.isBeforeFirst()) {
+				//currentUser = new User();
+			}
+			while (myRS.next()) {
+				String addEmail = myRS.getString("firstName")+" "+ myRS.getString("lastName")+" "+myRS.getString("username")+" "+myRS.getString("email")+"\n";
+				profileList.add(addEmail);
+				System.out.println("\n"+ myRS.getString("firstName") + " " + myRS.getString("lastName") + "'s username: " + myRS.getString("username") );
+
+			}
+		} catch (Exception e) {
+
+		}
+
+		System.out.println(profileList);
+		return profileList;
+		
+	}
 	
 	
 	
